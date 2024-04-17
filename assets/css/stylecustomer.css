@@ -1,0 +1,699 @@
+* {
+    padding: 0;
+    margin: 0;
+  }
+
+html, body {
+    height: 100%;
+    font-family: 'Montserrat', sans-serif;
+}
+
+
+/* Custom CSS for Navbar */
+.navbar-custom {
+    background: linear-gradient(180deg, rgba(0, 0, 0, 1) 0%,  rgba(0, 0, 0, 0) 90%), #313131;
+}
+
+
+.navbar-custom .nav-link {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 1vw 1.125vw;
+    text-decoration: none;
+    transition: border-radius 0.5s, background-color 0.5s, text-shadow 0.5s, font-size 0.5s;
+    font-weight: 500;
+    font-size: 1.3vw;
+}
+
+.navbar-custom .nav-link:hover {
+    border-radius: 0.5vw;
+    background-color: #ffffff; 
+    text-shadow: 0px 0px 0.5vw rgba(255, 255, 255, 0.5);
+    transition-delay: 0s;
+    color: #313131;
+}
+
+.navbar-custom .nav-link:active {
+    background-color: #ffffff;
+    color: #313131;
+}
+
+.navbar-custom .nav-link:hover,
+.navbar-custom .nav-link:active {
+    font-size: 1.5vw;
+    padding: calc(1vw + 0.125vw) calc(1.125vw + 0.125vw); /* Adjust padding to compensate for font size change */
+}
+
+.navbar-custom .navbar-brand {
+    color: white; 
+    font-weight: 500;
+    font-size: 1.5vw;
+}
+
+.navbar-brand img {
+  filter: brightness(0) invert(1);
+}
+
+
+/* Reset padding and margins for navbar */
+.navbar-custom .navbar-nav .nav-item {
+    padding: 0; 
+}
+
+.navbar-custom .navbar-nav .nav-link {
+    padding: 1.4vw 1.6vw; 
+    margin: 0;
+}
+
+.navbar-custom .logo-browlesque-client {
+    width: 200px;
+    height: auto;
+}
+
+#browlesque {
+    padding: 4vw;
+    font-size: 3vw;
+    text-align: center;
+}
+
+.navbar-toggler{
+  background-color: #ffffff;
+}
+/* firstimage */
+
+#microblading2 {
+    padding: 0;
+    display: block;
+    margin: auto;
+    max-width: 60vw;
+    max-height: 60vh;
+    position: relative;
+    border-radius: 1.0vw; /* Using vw for border-radius */
+    box-shadow: -0.3vw 0.3vw 0.8vw #707070; /* Using vw for box-shadow */
+}
+
+/* button to order */
+.button-appoint {
+  display: block; 
+  margin: auto;
+  margin-top: 3vh;
+  text-align: center;
+  padding-top: 6vh; 
+  padding-bottom: 6vh;
+}
+
+.btn.btn-primary-custom {
+  font-weight: 400;
+  background-color: #313131;
+  font-size: 1.8vw; 
+  transition: transform 0.3s ease;
+  border: 1px solid #313131;
+  padding: 1.5vh 3vw; /* Adjust padding to control button size */
+}
+
+.btn.btn-primary-custom:hover {
+  transform: scale(1.1);
+}
+
+.btn.btn-primary-custom:active {
+  background-color: #adadad;
+  color: #111;
+  border-color: #ffffff;
+  transform: scale(1.1);
+}
+
+
+
+
+/* three images below */
+.grid-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(30vw, 1fr)); 
+    gap: 1vw;
+}
+
+.grid-item {
+    position: relative;
+    display: inline-block;
+}
+
+.grid-image {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 90%;
+    height: auto;
+    max-width: 100%;
+    border-radius: 1.5vw; 
+    margin-top: 6vh;
+    box-shadow: -0.3vw 0.3vw 0.8vw #707070;
+}
+
+.grid-text {
+    position: absolute;
+    bottom: 5%; 
+    left: 50%; 
+    transform: translateX(-50%);
+    background-color: rgba(49, 49, 49, 0.41);
+    border-radius: 0.5vw;
+    color: rgb(255, 255, 255);
+    padding: 5px 10px; 
+    font-size: 2vw; 
+    transition: background-color 0.3s ease;
+    margin-bottom: 30vh;
+}
+
+/* Optional: Hover effect */
+.grid-item:hover .grid-text {
+    background-color: rgba(49, 49, 49, 1);
+}
+
+.description-text {
+    margin-top: 30px;
+    color: rgb(49, 49, 49); 
+    font-size: 1.5vw;
+    text-align: justify;
+    text-justify: inter-word;
+    padding-right: 6vh;
+    padding-left: 4vh;
+}
+
+/* Recommendations css */
+.custom-margin-left {
+  margin-left: 30px; 
+}
+
+.custom-margin-right {
+  margin-right: 420px; 
+}
+
+.image-container {
+  text-align: center;
+}
+
+#text-seemore {
+  font-size: 1.5vw;
+  margin-top: 10px;
+  padding-left: 400px;
+}
+
+#text-recommend {
+  font-size: 2vw;
+}
+
+#text-sub-recommend{
+  font-size: 1.5vw;
+}
+
+
+
+/* footer css */
+.footer-black {
+  background-color: #313131;
+  color: white;
+}
+
+.footer-text-white {
+  font-weight: 600;
+  color: white;
+  text-decoration: none;
+  padding-right: 1.5vw;
+}
+
+/* checkboxform */
+.container-md-custom {
+  background-color: #f9f9f9;
+  width: 60%;
+  margin: auto;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: -5px 5px 10px rgba(0, 0, 0, 0.251);
+  margin-bottom: 50px;
+}
+
+.label-checkbox {
+  display: inline-block;
+  margin-left: 100px;
+  margin-top: 30px;
+  margin-bottom: 10px;
+  margin-right: 20px;
+  font-weight: bold;
+  font-size: 24px;
+}
+
+.form-check {
+  margin-left: 100px;
+}
+
+.form-check-input {
+  margin-right: 5px;
+  margin-top: 15px;
+  border: 2px solid black;
+}
+
+.form-check-label {
+  margin-left: 5px;
+  margin-top: 10px;
+  margin-right: 20px;
+}
+
+
+.asterisk {
+  color: red;
+}
+
+.form-check-input {
+  margin-right: 5px;
+}
+
+.fixed-buttons {
+  margin-top: auto;
+  display: flex;
+  justify-content: flex-end; 
+}
+
+.custom-next {
+  background-color: #111;
+  color: #ffffff;
+  font-size: 20px;
+  font-weight: 550;
+  padding: 10px 20px;
+  border-radius: 5px;
+  transition: background-color 0.3s ease, font-weight 0.3s ease;
+  border: none;
+  margin-top: 20px;
+}
+
+.custom-next:hover {
+font-weight: 700;
+border: 1px solid black;
+}
+
+.custom-next:active {
+background-color: #111;
+color: #ffffff;
+border: 1px solid black;
+}
+
+@media (max-width: 768px) {
+  .fixed-buttons {
+    justify-content: center;
+  }
+}
+
+
+/* calendar css */
+.calendar {
+    margin: 0 auto;
+    max-width: 100%;
+    height: auto;
+    background-color: #f9f9f9;
+    border-radius: 25px;
+    overflow: hidden;
+    padding: 5% 10%;
+    box-shadow: rgba(116, 116, 116, 0.2) -10px 7px 29px 0px;
+}
+
+.calendar-header {
+    background: #ebebeb;
+    display: flex;
+    justify-content: space-between;
+    border-radius: 7px;
+    align-items: center;
+    font-weight: 700;
+    color: #111;
+    padding: 2% 5%; /* Use percentages for padding */
+}
+
+.calendar-body,
+.calendar-week-days,
+.calendar-days {
+    padding: 2% 5%; /* Use percentages for padding */
+}
+
+.calendar-week-days {
+    display: flex;
+    flex-wrap: wrap;
+    font-weight: 600;
+    cursor: pointer;
+    color: #111;
+}
+
+.calendar-week-days div {
+    flex: 1 0 calc(100% / 7); /* Distribute equally among 7 days */
+    text-align: center;
+    padding: 10px; /* Add padding to each day element */
+}
+
+.calendar-week-days div:hover {
+    color: black;
+    transform: scale(1.2);
+    transition: all .2s ease-in-out;
+}
+
+@media (max-width: 768px) {
+    .calendar-header,
+    .calendar-body,
+    .calendar-week-days,
+    .calendar-days {
+        padding: 2% 2%; /* Adjusted padding for smaller screens */
+    }
+
+    .calendar-week-days div {
+        flex-basis: calc(100% / 7); /* Adjust basis for smaller screens */
+    }
+
+    .month-list {
+        top: -150px; /* Adjust top position */
+    }
+
+    .month-list>div {
+        margin: 5px 5px; /* Adjust margin */
+    }
+}
+
+@media (max-width: 480px) {
+    .calendar-header {
+        padding: 2% 2%; /* Further adjustment for smaller screens */
+    }
+
+    .month-list {
+        top: -170px; /* Further adjustment for smaller screens */
+    }
+}
+
+.calendar-days {
+    display: grid;
+    grid-template-columns: repeat(7, minmax(0, 1fr));
+    text-align: center;
+    gap: 2px;
+    color: #0A0921;
+}
+
+.calendar-days div {
+    width: 33px;
+    height: 33px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2%;
+    position: relative;
+    cursor: pointer;
+    animation: to-top 1s forwards;
+    margin: 0 auto;
+}
+
+
+.calendar-days div span {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.month-picker {
+  padding: 5px 10px;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.month-picker:hover {
+    background-color: #ffffff;
+    color: #111;
+    transition: all .2s ease-in-out;
+    transform: scale(1.12);
+  }
+
+.year-picker {
+  display: flex;
+  align-items: center;
+}
+
+.year-change {
+    height: 30px;
+    width: 30px;
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+    margin-top: 15px;
+    cursor: pointer;
+}
+
+.year-change:hover {
+  background-color: #ffffff;
+  transition: all .2s ease-in-out;
+  transform: scale(1.12);
+}
+
+.calendar-footer {
+    padding: 10px;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+#year:hover {
+  cursor: pointer;
+  transform: scale(1.2);
+  transition: all 0.2 ease-in-out;
+}
+
+.calendar-days div span {
+  position: absolute;
+}
+
+.calendar-days div:hover {
+  transition: width 0.2s ease-in-out, height 0.2s ease-in-out, font-weight 0.2s ease-in-out, font-size 0.2s ease-in-out;
+  background-color: #111;
+  font-weight: 500;
+  font-size: 24px;
+  border-radius: 20%;
+  color: #f8fbff;
+}
+
+.calendar-days div.current-date {
+  color: #f8fbff;
+  background-color: #9796f0;
+  border-radius: 20%;
+}
+
+.month-list {
+    position: relative;
+    left: 0;
+    top: -130px;
+    background-color: #ebebeb;
+    color: #151426;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr)); /* Responsive grid */
+    gap: 5px;
+    border-radius: 20px;
+}
+
+@media (max-width: 768px) {
+    .month-list {
+        grid-template-columns: repeat(auto-fit, minmax(80px, 1fr)); /* Adjust for smaller screens */
+    }
+}
+
+.month-list>div {
+  display: grid;
+  place-content: center;
+  margin: 5px 10px;
+  transition: all 0.2s ease-in-out;
+}
+
+.month-list>div>div {
+  border-radius: 15px;
+  padding: 10px;
+  cursor: pointer;
+}
+
+.month-list>div>div:hover {
+  background-color: #111;
+  color: #f8fbff;
+  transform: scale(0.9);
+  transition: all 0.2s ease-in-out;
+}
+
+.month-list.show {
+  visibility: visible;
+  pointer-events: visible;
+  transition: 0.6s ease-in-out;
+  animation: to-left .71s forwards;
+}
+
+.month-list.hideonce {
+  visibility: hidden;
+}
+
+.month-list.hide {
+  animation: to-right 1s forwards;
+  visibility: none;
+  pointer-events: none;
+}
+
+.date-time-formate {
+    height: auto;
+    width: 100%;
+    font-family: Dubai Light, Century Gothic;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    padding-top: 10%;
+    justify-content: center;
+    align-items: center;
+}
+
+.day-text-formate {
+    font-family: Microsoft JhengHei UI;
+    font-size: 1.4rem;
+    padding-right: 8%;
+    border-right: 3px solid #9796f0;
+    margin-bottom: 10px; /* Add margin bottom for spacing */
+}
+
+.date-time-value {
+    display: block;
+    position: relative;
+    text-align: center;
+    padding-left: 6%;
+    margin-right: 30px;
+}
+
+.time-formate {
+  font-size: 1.5rem;
+}
+
+.time-formate.hideTime {
+  animation: hidetime 1.5s forwards;
+}
+
+.day-text-formate.hidetime {
+  animation: hidetime 1.5s forwards;
+}
+
+.date-formate.hideTime {
+  animation: hidetime 1.5s forwards;
+}
+
+.day-text-formate.showtime {
+  animation: showtime 1.5s forwards;
+}
+
+.time-formate.showtime {
+  animation: showtime 1s forwards;
+}
+
+.date-formate.showtime {
+  animation: showtime 1s forwards;
+}
+
+@keyframes to-top {
+  0% {
+    transform: translateY(0);
+    opacity: 0;
+  }
+
+  100% {
+    transform: translateY(100%);
+    opacity: 1;
+  }
+}
+
+@keyframes to-left {
+  0% {
+    transform: translatex(230%);
+    opacity: 1;
+  }
+
+  100% {
+    transform: translatex(0);
+    opacity: 1;
+  }
+}
+
+@keyframes to-right {
+  10% {
+    transform: translatex(0);
+    opacity: 1;
+  }
+
+  100% {
+    transform: translatex(-150%);
+    opacity: 1;
+  }
+}
+
+@keyframes showtime {
+  0% {
+    transform: translatex(250%);
+    opacity: 1;
+  }
+
+  100% {
+    transform: translatex(0%);
+    opacity: 1;
+  }
+}
+
+@keyframes hidetime {
+  0% {
+    transform: translatex(0%);
+    opacity: 1;
+  }
+
+  100% {
+    transform: translatex(-400%);
+    opacity: 1;
+  }
+}
+
+.disabled,
+.wednesday {
+  pointer-events: none;
+  opacity: 0.5 !important;
+  cursor: default;
+}
+
+.clicked-date {
+  background-color: #f6ff54;
+  border-radius: 8px;
+  font-weight: 700;
+  border: 1px solid #737815;
+}
+
+.btn-grid-container {
+  display: flex;
+  justify-content: center;
+}
+
+.btn-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.btn.time-buttons {
+  min-width: 150px; /* Adjust as needed */
+  background-color: #111;
+  color: #ffffff;
+  font-size: 20px;
+  font-weight: 550;
+  border-radius: 5px;
+  transition: background-color 0.3s ease-in-out, font-size 0.3s ease-in-out;
+  border: 1px solid black;
+  margin-top: 20px;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.btn.time-buttons:hover {
+  font-size: 25px;
+  background-color: #404040;
+}
+
+.btn.time-buttons:active {
+  background-color: #ffffff; 
+  font-size: 25px; 
+}
