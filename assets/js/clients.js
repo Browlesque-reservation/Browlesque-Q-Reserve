@@ -31,10 +31,24 @@ document.addEventListener("DOMContentLoaded", function () {
     method: "GET",
     dataType: "json",
     success: function (data) {
-      gridApi.setGridOption('rowData', data); // Update to setGridOption
+      // Modify the data before setting it to the grid
+      var modifiedData = transformData(data);
+      gridApi.setRowData(modifiedData);
     },
     error: function (error) {
       console.error("Error fetching data:", error);
     },
   });
+
+  function transformData(data) {
+    return data.map(function(row) {
+        // Concatenate start_time and end_time to get the client_time
+        var clientTime = row.start_time + " - " + row.end_time;
+
+        // Add the concatenated client_time to the row object
+        row.client_time = clientTime;
+
+        return row;
+    });
+  }
 });
