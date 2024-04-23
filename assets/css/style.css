@@ -1,0 +1,1404 @@
+container-fluid* {
+  padding: 0;
+  margin: 0;
+}
+
+html, body {
+  height: 100%;
+  font-family: 'Montserrat', sans-serif;
+}
+
+.container-fluid-black {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh; 
+  background: linear-gradient(to bottom, black 0%, #313131 120%);
+}
+
+/* Sidebar styles */
+.sidebar-container, .sidebar {
+  position: fixed;
+  height: 100%;
+  background: #ffffff;
+}
+
+.sidebar-container {
+  width: 250px;
+  z-index: 2;
+}
+
+.sidebar {
+  width: 250px;
+  z-index: 1;
+  box-shadow: 3px 0px 10px rgba(0, 0, 0, 0.25);
+}
+
+.content-container {
+  position: relative; /* Set position to relative */
+  z-index: 1;
+  margin-left: 250px;
+  width: calc(100% - 250px);
+  height: 100%;
+  overflow-y: auto;
+}
+
+@media (max-width: 768px) {
+  .sidebar-container {
+    width: 70px;
+  }
+  
+  .sidebar {
+    width: 70px;
+  }
+
+  .content-container {
+    margin-left: 70px;
+    width: calc(100% - 70px);
+  }
+}
+
+#browlesque {
+    padding: 4vw;
+    font-size: 3vw;
+    text-align: center;
+}
+
+.container-fluid {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.logo-browlesque-client {
+  margin: auto;
+  margin-bottom: 2rem;
+  width: 35rem;
+  height: auto;
+}
+
+.logo-browlesque-client-2 {
+  margin: auto;
+  width: 200px;
+  height: auto;
+}
+
+.logo-browlesque-client-3 {
+  margin: auto;
+  width: 120px;
+  height: auto;
+}
+
+#login-text{
+  padding-top: 35px;
+  padding-bottom: 10px;
+}
+
+.form-label{
+  color: #313131;
+  padding-left: 38px;
+  margin: auto;
+}
+
+.form-label a{
+  color: #313131;
+  text-decoration: none;
+}
+.form-label a:hover{
+  color: #111111;
+  text-decoration: underline;
+}
+
+#admin_email, #admin_password{
+  width: 80%;
+  margin: auto;
+}
+
+/* sidebar css */
+.sidebar {
+  position: relative;
+  z-index: 2;
+  width: 250px; /* Set a fixed width for the sidebar */
+  height: 100%;
+  background: #ffffff;
+  box-shadow: 3px 0px 10px rgba(0, 0, 0, 0.25);
+}
+
+.sidebar header {
+  font-size: 28px;
+  color: white;
+  line-height: 70px;
+  text-align: center;
+  background: #1b1b1b;
+  user-select: none;
+}
+
+.sidebar a {
+  display: block;
+  height: 65px;
+  width: 100%;
+  color: #313131;
+  line-height: 65px;
+  padding-left: 35px;
+  box-sizing: border-box;
+  text-decoration: none;
+  transition: all .5s ease;
+}
+
+.sidebar a:hover {
+  background-color: #313131;
+  color: #ffffff;
+  border-radius: 10px;
+}
+
+.sidebar a.active-link {
+  background-color: #313131;
+  color: #ffffff;
+  border-radius: 10px;
+}
+
+.sidebar a img {
+  height: 28px;
+  width: 28px; 
+}
+
+.sidebar a.active-link img {
+  filter: brightness(0) invert(1); /* Example styling for the active image */
+}
+
+.sidebar a:hover img {
+  filter: brightness(0) invert(1);
+}
+
+.sidebar a:hover span {
+  color: white;
+}
+
+.sidebar a i {
+  font-size: 23px;
+  margin-right: 16px;
+}
+
+.sidebar a span {
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+@media(max-width: 768px) {
+  .logo-browlesque-client {
+    margin-top: 0.125rem;
+    width: 28rem;
+    height: auto;
+  }
+
+  .content {
+    flex-grow: 1; 
+    overflow: auto;
+  }
+
+  .sidebar {
+    z-index: 1;
+    height: auto;
+    width: 5rem;
+    left: 0;
+    min-width: 6rem;
+    max-width: 40%;
+    margin: 10rem 0;
+  }
+  
+  header, #btn, #cancel {
+    display: none;
+  }
+  #content-desk, #management {
+    position: absolute;
+    margin-left: 1rem;
+    opacity: 0;
+    visibility: hidden;
+  }
+
+  .sb-label{
+    visibility: hidden;
+  }
+
+  .sidebar a {
+    height: 4rem;
+  }
+  .sidebar a i {
+    margin-left: -10px;
+  }
+  a:hover {
+    width: 13rem;
+    background: inherit;
+  }
+  .sidebar a:hover span {
+    opacity: 1;
+    visibility: visible;
+  }
+  .sidebar h4 {
+    display: none;
+  }
+}
+
+.sidebar .logout-link {
+  margin-top: auto;
+}
+
+/* Define styles for screens with a minimum width of a normal size laptop or desktop */
+@media screen and (min-width: 1024px) {
+  .sidebar {
+      position: relative;
+  }
+  .sidebar a.logout-link {
+    position: absolute;
+    bottom: 1rem;
+    left: 3.8rem;
+    width: calc(100% - 20px);
+    color: #313131;
+    padding: 10px 1rem;
+    border-radius: 5px;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: color 0.3s, left 0.3s ease-in-out; /* Added 'left' property for animation */
+}
+
+.sidebar a.logout-link span {
+  color: inherit; /* Set text color to inherit from parent */
+}
+
+.sidebar a.logout-link img {
+  filter: none; /* Disable any CSS filters applied to the image */
+}
+
+.sidebar a.logout-link:hover {
+    left: 3.3rem; /* Adjust the left position for the hover state */
+}
+
+.sidebar a.logout-link:active {
+  left: 3.3rem;
+  font-weight: 700;
+}
+
+.sidebar a.logout-link.logout-button {
+  background-color: transparent; /* Resetting background color */
+}
+}
+
+
+
+/* firstimage */
+
+#microblading2 {
+    padding: 0;
+    display: block;
+    margin: auto;
+    max-width: 60vw; 
+    max-height: 60vh;
+    position: relative;
+    border-radius: 1.0vw; 
+    box-shadow: -1vw 1vw 1.5vw #707070;
+}
+
+.right-side {
+    margin-left: auto;
+}
+
+.form-container {
+    max-width: 400px;
+    margin: 0 auto; 
+}
+
+/* button to order */
+.button-appoint {
+    display: block; 
+    margin: auto;
+    margin-top: 3vh;
+    text-align: center;
+    padding-top: 6vh;
+    padding-bottom: 6vh; 
+}
+
+.btn.btn-primary-custom {
+  width: auto; /* Set width to auto to fit content */
+  max-width: 100%;
+  height: auto;
+  font-weight: 400;
+  background-color: #313131;
+  font-size: 18px;
+  transition: background-color 0.4s ease, color 0.5s ease, font-weight 0.5s ease; 
+  margin: 0 auto;
+  margin-top: 2.5rem;
+  padding-left: 2rem;
+  padding-right: 2rem;
+  display: block;
+  border: 1px solid #313131;
+  white-space: nowrap;
+}
+
+.btn.cancel-btn{
+  background-color: #6e6e6e;
+  margin-left: 2rem;
+  color: #ffffff;
+}
+
+.btn.btn-primary-custom:hover {
+  background-color: #111; 
+  color: #ffffff;
+}
+
+.btn.btn-primary-custom:active {
+  background-color: #ffffff;
+  color: #111;
+  border: 1px solid black;
+  font-weight: 550;
+}
+
+
+
+/* three images below */
+.grid-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(30vw, 1fr));
+    gap: 1vw;
+}
+
+.grid-item {
+    position: relative;
+    display: inline-block;
+}
+
+.grid-image {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 90%;
+    height: auto;
+    max-width: 100%;
+    border-radius: 1.5vw; 
+    margin-top: 6vh;
+    box-shadow: -1vw 1vw 1.5vw #707070;
+}
+
+.grid-text {
+    position: absolute;
+    bottom: 5%; 
+    left: 50%; 
+    transform: translateX(-50%);
+    background-color: rgba(0, 0, 0, 0.41);
+    border-radius: 0.5vw;
+    color: rgb(255, 255, 255);
+    padding: 5px 10px; 
+    font-size: 2vw; 
+    transition: background-color 0.3s ease;
+    margin-bottom: 30vh;
+}
+
+/* Optional: Hover effect */
+.grid-item:hover .grid-text {
+    background-color: rgba(0, 0, 0, 0.9);
+}
+
+.description-text {
+    margin-top: 30px;
+    color: rgb(0, 0, 0); 
+    font-size: 1.5vw;
+    text-align: justify;
+    text-justify: inter-word;
+    padding-right: 6vh;
+    padding-left: 4vh;
+}
+
+
+/* checkboxform */
+.container-md-custom {
+  background-color: #f9f9f9;
+  padding: 20px;
+  height: 400px;
+  border-radius: 10px;
+  box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;
+  margin-bottom: 100px;
+}
+
+.container-md-custom-s {
+  background-color: #f9f9f9;
+  width: 90%;
+  margin: auto;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;
+  margin-bottom: 50px;
+  position: relative;
+}
+
+@media (max-width: 768px) {
+  .form-container {
+    max-width: 23rem;
+    margin-top: 0;
+    margin-bottom: 1rem; 
+  }
+  
+  .container-md-custom {
+    width: 90%;
+    margin-top: 1rem;
+    padding: 10px;
+    border-radius: 5px;
+    box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;
+  }
+}
+
+.label-checkbox {
+  display: inline-block;
+  margin-left: 10%;
+  margin-top: 3%;
+  font-size: 2rem;
+  white-space: nowrap;
+  width: auto;
+  margin-right: 0;
+  margin-bottom: 0.3125rem;
+  text-align: right;
+  padding-right: 10px;
+}
+
+@media (max-width: 768px) {
+  .label-checkbox {
+    margin-left: 0; /* Remove left margin */
+    margin-top: 0.5rem; /* Adjust top margin */
+    font-size: 1.2rem; /* Adjust font size */
+    text-align: left; /* Align text to left */
+    padding-right: 0; /* Remove right padding */
+  }
+}
+
+.form-control{
+  margin: auto;
+  width: 80%;
+  height: auto;
+  border: 1px solid #ccc;
+}
+
+.form-check {
+    margin-left: 100px; 
+}
+
+.form-check-input {
+    margin-right: 5px; 
+    margin-top: 15px;
+    border: 2px solid black;
+}
+
+.form-check-label {
+    margin-left: 5px;
+    margin-top: 10px;
+    margin-right: 20px;
+}
+
+
+.asterisk {
+    color: red;
+}
+
+.form-check-input {
+    margin-right: 5px;
+}
+
+.fixed-buttons {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 2rem; /* Adjust this margin as needed */
+}
+  
+.custom-next {
+    background-color: #6c757d;
+    color: white;
+    font-size: 20px;
+    font-weight: 550;
+    padding: 10px 20px;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+    border: none;
+    margin-top: 20px;
+}
+
+.custom-next:hover {
+    background-color: #111;
+    color: #ffffff;
+}
+
+
+@media (max-width: 768px) {
+    .fixed-buttons {
+      justify-content: center;
+    }
+  }
+
+  table {
+    border-collapse: collapse;
+    width: 100%;
+  }
+  th, td {
+    border: 1px solid black;
+    padding: 8px;
+    text-align: left;
+  }
+
+
+/* forgot password css */
+
+::selection{
+  color: #fff;
+  background: #6665ee;
+}
+
+.container .form{
+  background: #fff;
+  padding: 30px 35px;
+  border-radius: 5px;
+  box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;
+}
+.container .form form .form-control{
+  height: 40px;
+  font-size: 15px;
+}
+.container .form form .forget-pass{
+  margin: -15px 0 15px 0;
+}
+.container .form form .forget-pass a{
+ font-size: 15px;
+}
+.container .form form .button{
+  background: #6665ee;
+  color: #fff;
+  font-size: 17px;
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+.container .form form .button:hover{
+  background: #5757d1;
+}
+.container .form form .link{
+  padding: 5px 0;
+}
+.container .form form .link a{
+  color: #6665ee;
+}
+.container .login-form form p{
+  font-size: 14px;
+}
+.container .row .alert{
+  font-size: 14px;
+}
+
+
+/* content css */
+.content {
+  flex-grow: 1;
+  margin-left: 250px; 
+  width: calc(100% - 250px);
+  overflow-y: auto;
+}
+
+@media(max-width: 768px) {
+  .content {
+    margin-left: 70px;
+    width: calc(100% - 70px);
+  }
+}
+
+.d-flex {
+  display: flex;
+  position: relative;
+}
+
+/* pageheader css */
+.page-header-db{
+  text-align: center;
+  font-size: 5rem;
+  font-weight: 600;
+  letter-spacing: 1rem;
+}
+
+.page-header{
+  text-align: left;
+  margin-top: 1rem;
+  font-size: 4rem;
+  font-weight: 600;
+  margin-left: 2rem;
+}
+
+@media(max-width: 768px) {
+  .page-header-db{
+    font-size: 2rem;
+  }
+  
+  .page-header{
+    font-size: 2rem;
+    margin-left: 0;
+  }
+}
+
+/* amcharts css */
+#chartdiv {
+  width: 100%;
+  height: 480px;
+}
+  
+#chartdiv2 {
+  width: 100%;
+  height: 480px;
+}
+
+.container-flex-chart {
+  background-color: #f9f9f9;
+  padding: 40px;
+  height: 565px;
+  width: auto;
+  border-radius: 10px;
+  box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;
+  margin: 4vh auto; /* Center vertically and horizontally */
+  max-width: calc(100% - 4vw); /* Limit width to 96% of viewport width */
+}
+
+
+/* client table css */
+.divider {
+  height: 2px;
+  background: rgba(136, 125, 125, 0.88);
+  margin: 0 auto; /* Center the divider horizontally */
+
+  /* Use Bootstrap's responsive classes to set the width */
+  width: 100%;
+  max-width: 100%;
+  @media (min-width: 992px) {
+      max-width: 100%;
+  }
+  @media (min-width: 1200px) {
+      max-width: 70%;
+  }
+}
+
+#table {
+  width: 100%;
+  max-width: 1400px;
+  height: 600px; /* Keep a fixed height */
+  overflow-y: auto; /* Enable vertical scrolling */
+  border-radius: 10px;
+  background: #f9f9f9;
+  box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;
+  margin: 20px auto;
+  padding: 20px;
+  transition: var(--tran-05);
+}
+
+
+#clients {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#searchInput {
+  width: calc(100% - 4rem); /* Adjust the width dynamically */
+  max-width: 400px; /* Set a maximum width to prevent it from becoming too wide */
+  height: 40px;
+  line-height: 28px;
+  padding: 0 1rem;
+  padding-left: 2rem;
+  border: 2px solid transparent;
+  border-radius: 8px;
+  outline: none;
+  background-color: #f3f3f4;
+  color: #0d0c22;
+  transition: 0.3s ease;
+}
+
+@media only screen and (max-width: 768px) {
+  #searchInput {
+    width: calc(100% - 3rem); /* Adjust width for smaller screens */
+  }
+}
+
+#searchInput::placeholder{
+  color: #9e9ea7;
+}
+
+#searchInput:focus,
+#searchInput:hover {
+  outline: none;
+  border-color: rgba(0, 48, 73, 0.4);
+  background-color: #fff;
+  box-shadow: 0 0 0 4px rgb(0 48 73 / 10%);
+}
+
+
+@media only screen and (max-height: 950px){
+  .home #table {
+    width: 98%;
+  }
+}
+
+/* image preview services */
+
+.image-input-container {
+  display: flex;
+  align-items: center;
+  gap: 10px; /* Adjust the gap between input and button */
+  position: relative;
+}
+
+.image-input-container img {
+  display: none;
+  position: relative;
+  max-width: 15rem;
+  height: auto;
+  margin-left: 1.25rem;
+  border: 0.1875rem solid #313131;
+  border-radius: 1rem;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: row;
+  align-items: baseline;
+  margin-bottom: 1.875rem;
+}
+
+.form-control-s {
+  width: 100%;
+  margin-left: 0;
+  margin-top: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 10px;
+}
+
+.img-upload {
+  margin-left: 0; /* Remove margin-left */
+  flex: 1;
+}
+
+#fileInputLabel {
+  /* Add necessary styles for ellipsis and white space wrapping */
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  max-width: 15rem; /* Adjust the maximum width as needed */
+  display: inline-block; /* Ensure that the label respects its width */
+}
+
+@media (max-width: 767px) {
+  .image-input-container {
+    flex-direction: column;
+  }
+  
+  .image-input-container img {
+    width: 10rem;
+    margin-left: 0;
+    margin-right: 4rem;
+    margin-top: 0.625rem;
+  }
+
+  .form-group {
+    flex-direction: column; /* Update to column direction */
+    margin-bottom: 1.25rem;
+  }
+
+  .label-checkbox {
+    width: auto;
+    margin-right: 0;
+    margin-bottom: 0.3125rem;
+  }
+
+  .form-control-s {
+    width: 100%;
+    margin-bottom: 0.625rem;
+  }
+
+  .img-upload{
+    margin-left: 0;
+  }
+
+  #fileInputLabel {
+    font-size: 1rem;
+    max-width: 10rem;
+    margin-right: 4rem;
+    padding: 10px;
+  }
+}
+
+.tall-input {
+  margin: auto;
+  width: 100%;
+  height: 13rem;
+  border: 1px solid #ccc;
+  resize: vertical;
+}
+
+
+.image-input-container input[type="file"] {
+  display: none;
+}
+
+
+/* updated css for containers */
+.container-md-custom,
+.container-md-custom-s,
+.container-fluid-custom {
+    background-color: #f9f9f9;
+    padding: 1rem;
+    border-radius: 10px;
+    box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;
+    margin-bottom: 2rem;
+    position: relative; /* Add this line */
+}
+
+.fixed-buttons {
+    position: absolute;
+    bottom: 1rem; /* Adjust as needed */
+    right: 2rem; /* Adjust as needed */
+}
+
+.container-md-custom-s {
+  margin-top: 1rem;
+  width: 95%;
+  max-width: 1400px;
+  align-items: start;
+  padding-bottom: 4rem;
+}
+
+.container-fluid-custom table {
+  width: 100%;
+  max-width: 1400px; /* Keep a fixed width */
+  height: 600px; /* Keep a fixed height */
+  overflow-y: auto; /* Enable vertical scrolling */
+  border-radius: 10px;
+  background: #f9f9f9;
+  box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px; 
+  margin: 20px auto;
+  padding: 20px;
+  transition: var(--tran-05);
+}
+
+.form-group {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: 10px;
+}
+
+
+#servicesForm{
+  width: 90%;
+  align-items: baseline;
+  align-items: center;
+}
+
+
+#promosForm{
+  width: 90%;
+  align-items: baseline;
+  align-items: center;
+}
+
+/* form container */
+.form-container {
+    max-width: 400px;
+    margin: 0 auto;
+    position: relative; /* Add this to make the position relative */
+}
+
+.image-btn{
+  justify-content: center;
+  align-items: center;
+}
+
+/* Add this CSS for the confirmation overlay */
+#confirmationModal {
+  display: none;
+  position: fixed;
+  z-index: 1000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(3px); /* Adjust the blur radius as needed */
+}
+
+
+.modal-content {
+  background-color: #ffffff;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding: 20px;
+  border: 1px solid #888;
+  width: 80%;
+  border-radius: 10px;
+}
+
+.close {
+color: #aaa;
+float: right;
+font-size: 28px;
+font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+color: black;
+text-decoration: none;
+cursor: pointer;
+}
+
+/* Additional styles for the confirmation modal */
+#userInputs {
+  /* list-style-type: none; */
+  padding: 0;
+}
+
+#userInputs li {
+  margin-bottom: 10px;
+}
+
+.custom-modal-content {
+  max-width: 700px; /* Adjust the maximum width as needed */
+  border-radius: 20px; /* Adjust the border-radius as needed */
+  padding: 20px; /* Adjust the padding as needed */
+}
+
+#addLocationModal .custom-modal-content  {
+  max-width: 500px; /* Adjust the maximum width as needed */
+}
+
+#addloc.custom-submit, #closeloc.custom-cancel{
+  width: 150px;
+}
+
+/*Success Modal */
+
+#successModal {
+  display: none;
+  position: fixed;
+  z-index: 1000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(3px);
+}
+
+.success-modal-content {
+  background-color: #ffffff;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding: 20px;
+  border: 1px solid #888;
+  width: 60%; /* Adjust the width as needed */
+  border-radius: 10px;
+  text-align: center;
+}
+
+#successModal .close {
+color: #aaa;
+float: right;
+font-size: 28px;
+font-weight: bold;
+}
+
+#successModal .close:hover,
+#successModal .close:focus {
+color: black;
+text-decoration: none;
+cursor: pointer;
+}
+
+#successModal #userInputs {
+list-style-type: none;
+padding: 0;
+}
+
+#successModal #userInputs li {
+margin-bottom: 10px;
+}
+
+#successModal .custom-modal-content {
+max-width: 700px; /* Adjust the maximum width as needed */
+border-radius: 10px; /* Adjust the border-radius as needed */
+padding: 20px; /* Adjust the padding as needed */
+display: flex;
+flex-direction: column;
+align-items: center;
+}
+
+/* Add the following styles for centering the modal */
+#successModal .success-modal-content {
+position: absolute;
+left: 50%;
+top: 50%;
+transform: translate(-50%, -50%);
+}
+
+.custom-title{
+  color: #ba181b;
+  font-size: 32px;
+  font-weight: bold;
+  /* letter-spacing: 2px; */
+  margin: 0%;
+  padding: 0%;
+}
+
+.custom-title2{
+  color: #04B300;
+  font-size: 32px;
+  font-weight: bold;
+  letter-spacing: 2px;
+}
+
+.custom-button2{
+  width: 328px;
+  height: 54px;
+  flex-shrink: 0;
+  background-color: #1E1E1E;
+  color: #ffffff;
+  border-radius: 39px;
+  mix-blend-mode: darken;
+  box-shadow: 0px 4px 6px 0px rgba(0, 0, 0, 0.25);
+  align-items: center;
+  justify-content: center;
+}
+
+#successModal .custom-modal-content .custom-button2 {
+  margin-top: 20px; /* Adjust the margin as needed */
+}
+
+
+.confirmation-row {
+  display: flex;
+  margin-bottom: 10px;
+}
+
+.confirmation-label {
+  flex-basis: 50%; /* Adjust the width of the label */
+  text-align: right; /* Align the text to the right */
+  padding-right: 50px; /* Add more spacing between label and value */
+  font-weight: bold; /* Make the text bold */
+}
+
+.confirmation-value {
+  flex-basis: 50%; /* Adjust the width of the value */
+  text-align: left;
+  color: #04B300;
+}
+
+/* Add this style to your existing CSS or in a style tag in your HTML */
+th.no-sort::before,
+th.no-sort::after {
+    content: none !important;
+} 
+
+
+#deleteModal {
+  display: none;
+  position: fixed;
+  z-index: 1000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  margin: 0;
+  padding: 0;
+  backdrop-filter: blur(3px); /* Adjust the blur radius as needed */
+}
+
+#deleteModalContent {
+  display: flex;
+  flex-direction: column; /* Stack child elements vertically */
+  align-items: center;
+  justify-content: center;
+  background-color: #ffffff;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border: 1px solid #888;
+  width: 30%; /* Adjust the width as needed */
+  border-radius: 40px;
+  text-align: center;
+}
+
+#deleteModalContent .d-flex {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+#deleteModalContent .d-flex button {
+  margin: 0 10px; /* Adjust horizontal margin as needed */
+}
+
+#successDeleteModal {
+  display: none;
+  position: fixed;
+  z-index: 1000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(3px); /* Adjust the blur radius as needed */
+}
+
+
+.success-modal-content {
+  background-color: #ffffff;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding: 20px;
+  border: 1px solid #888;
+  width: 60%; /* Adjust the width as needed */
+  border-radius: 10px;
+  text-align: center;
+}
+
+#successDeleteModal .close {
+color: #aaa;
+float: right;
+font-size: 28px;
+font-weight: bold;
+}
+
+#successDeleteModal .close:hover,
+#successDeleteModal .close:focus {
+color: black;
+text-decoration: none;
+cursor: pointer;
+}
+
+#successDeleteModal #userInputs {
+list-style-type: none;
+padding: 0;
+}
+
+#successDeleteModal #userInputs li {
+margin-bottom: 10px;
+}
+
+#successDeleteModal .custom-modal-content {
+max-width: 500px; /* Adjust the maximum width as needed */
+border-radius: 30px; /* Adjust the border-radius as needed */
+padding: 30px; /* Adjust the padding as needed */
+display: flex;
+flex-direction: column;
+align-items: center;
+}
+
+/* Add the following styles for centering the modal */
+#successDeleteModal .success-modal-content {
+position: absolute;
+left: 50%;
+top: 50%;
+transform: translate(-50%, -50%);
+}
+
+
+#successDeleteModal .close {
+color: #aaa;
+float: right;
+font-size: 28px;
+font-weight: bold;
+}
+
+#successDeleteModal .close:hover,
+#successDeleteModal .close:focus {
+color: black;
+text-decoration: none;
+cursor: pointer;
+}
+
+#successDeleteModal #userInputs {
+list-style-type: none;
+padding: 0;
+}
+
+#successDeleteModal #userInputs li {
+margin-bottom: 10px;
+}
+
+#successDeleteModal .custom-modal-content {
+max-width: 500px; /* Adjust the maximum width as needed */
+border-radius: 30px; /* Adjust the border-radius as needed */
+padding: 30px; /* Adjust the padding as needed */
+display: flex;
+flex-direction: column;
+align-items: center;
+}
+
+/* Add the following styles for centering the modal */
+#successDeleteModal .success-modal-content {
+position: absolute;
+left: 50%;
+top: 50%;
+transform: translate(-50%, -50%);
+}
+
+
+
+/* displaying images */
+.content-container {
+  padding: 20px;
+}
+
+.service-container {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.service-card {
+  width: calc(33.33% - 20px);
+  margin: 10px;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.service-card img {
+  width: 100%;
+  border-radius: 10px;
+  margin-bottom: 10px;
+}
+
+.service-card h2 {
+  font-size: 18px;
+  margin-bottom: 10px;
+}
+
+.service-card p {
+  font-size: 14px;
+  margin-bottom: 10px;
+}
+
+.service-card button {
+  padding: 8px 16px;
+  background-color: #ff6b6b;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.service-card button:hover {
+  background-color: #ff4d4d;
+}
+
+.service-container {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.service-card {
+  position: relative;
+  width: calc(33.33% - 20px); /* Adjust width as needed */
+  margin: 10px;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.delete-btn {
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  padding: 8px 16px;
+  background-color: #ff6b6b;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+/* Hide the label associated with the checkbox */
+.service-card label {
+  display: none;
+}
+
+.delete-btn:hover{
+  background-color: #ff4d4d;
+}
+
+.delete-checkbox {
+  position: absolute;
+  bottom: 1.125rem; /* Adjust this value as needed */
+  right: 0.8rem; /* Adjust this value as needed */
+}
+
+.bolded{
+  font-weight: 700;
+  margin-top: 1.25rem;
+}
+
+.btn-add-service {
+  margin-top: 4rem;
+  position: absolute;
+  top: 0;
+  right: 0;
+  margin-right: 3.3rem; /* Adjust this margin as needed */
+  background-color: #313131;
+  border: 1px solid #313131;
+  color: #ffffff;
+}
+
+.btn-add-service:hover {
+  background-color: #111111;
+  border: 1px solid #111111;
+}
+
+.btn.btn-add-service:active {
+  background-color: #ffffff;
+  color: #111111;
+  border: 1px solid #111111;
+}
+
+.btn-add-service:active img {
+  filter: grayscale(100%) brightness(0%);
+}
+
+
+/* Media query for small screens */
+@media screen and (max-width: 768px) {
+  .service-card {
+    width: calc(50% - 20px);
+  }
+  .btn-add-service {
+    margin-top: 2rem;
+    margin-right: 3rem;
+  }
+}
+
+/* Media query for extra small screens */
+@media screen and (max-width: 576px) {
+  .service-card {
+    width: calc(100% - 20px);
+  }
+
+  .btn-add-service {
+    margin-top: 2rem;
+    margin-right: 1.5rem;
+  }
+}
+
+.header-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px; /* Adjust this margin as needed */
+}
