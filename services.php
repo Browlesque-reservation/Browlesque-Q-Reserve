@@ -26,6 +26,8 @@ $current_page = basename($_SERVER['PHP_SELF']);
         <h1 class="page-header">Add Services</h1>
         <div class="container-fluid container-md-custom-s">
         <form id="servicesForm" method="POST" action="insert_service.php" enctype="multipart/form-data" onsubmit="event.preventDefault(); showConfirmationModal();">                
+                   <!-- Hidden input field to store admin_id -->
+                <input type="hidden" id="admin_id" name="admin_id" value="<?php echo "$admin_id"; ?>">
                 <div class="form-group">
                     <label for="service_image" class="label-checkbox"><span class="asterisk">*</span>Upload Picture:</label>
                     <div class="image-input-container">

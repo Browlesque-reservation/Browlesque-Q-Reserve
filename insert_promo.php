@@ -17,19 +17,22 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         // Escape user inputs for security
         $promo_details = mysqli_real_escape_string($conn, $_POST['promo_details']);
 
+        // Retrieve admin_id from the hidden input field
+        $admin_id = $_POST['admin_id'];
+
         // Check if a file is uploaded
         if(isset($_FILES['promo_image']) && $_FILES['promo_image']['error'] === UPLOAD_ERR_OK) {
             // Get the image data
             $image_data = file_get_contents($_FILES['promo_image']['tmp_name']);
 
             // Insert query with BLOB data
-            $query = "INSERT INTO promo (promo_details, promo_image) VALUES (?, ?)";
+            $query = "INSERT INTO promo (admin_id, promo_details, promo_image) VALUES (?, ?, ?)";
             
             // Prepare statement
             $stmt = mysqli_prepare($conn, $query);
             if ($stmt) {
                 // Bind parameters
-                mysqli_stmt_bind_param($stmt, 'ss', $promo_details, $image_data);
+                mysqli_stmt_bind_param($stmt, 'iss', $admin_id, $promo_details, $image_data);
 
                 // Execute the statement
                 if (mysqli_stmt_execute($stmt)) {

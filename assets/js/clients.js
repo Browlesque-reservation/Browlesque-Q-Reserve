@@ -1,19 +1,45 @@
 document.addEventListener("DOMContentLoaded", function () {
   var gridOptions = {
     columnDefs: [
-        { field: 'appointment_id', headerName: 'Appointment ID' },
-        { field: 'service_id', headerName: 'Service ID' },
-        { field: 'promo_id', headerName: 'Promo ID' },
-        { field: 'client_date', headerName: 'Date' },
-        { field: 'client_time', headerName: 'Time' },
-        { field: 'client_name', headerName: 'Name' },
-        { field: 'client_contactno', headerName: 'Contact Number' },
-        { field: 'no_of_companions', headerName: 'Number of Companions' },
-        { field: 'client_notes', headerName: 'Notes' },
-        { field: 'terms_conditions', headerName: 'Terms and Conditions' },
-        { field: 'status', headerName: 'Status' },
+      { field: 'client_name', headerName: 'Customer Name' },
+      { field: 'client_contactno', headerName: 'Contact Number' },
+      { field: 'service_id', headerName: 'Services' },
+      { field: 'promo_id', headerName: 'Promos' },
+      { field: 'client_date', headerName: 'Date of Appointment' },
+      { field: 'client_time', headerName: 'Time' },
+      { field: 'no_of_companions', headerName: 'No. of Companions' },
+      { field: 'client_notes', headerName: 'Notes' },
+      { field: 'status', headerName: 'Status', editable: true, cellEditor: 'agSelectCellEditor', cellEditorParams: {
+          values: ['Pending', 'Confirmed', 'Cancelled']
+        }
+      },
     ],
     quickFilterText: '', // Set quickFilterText to an empty string initially
+    singleClickEdit: true, // Allow single-click editing
+    onCellValueChanged: function(params) {
+      // When a cell value changes, send the updated data to the server
+      var updatedData = {
+        appointment_id: params.data.appointment_id,
+        status: params.data.status
+      };
+
+      // Send an AJAX request to update the database
+      $.ajax({
+        url: "update_data_clients.php",
+        method: "POST",
+        data: updatedData,
+        success: function (response) {
+          console.log("Data updated successfully");
+          // If the update was successful, update the data in the grid
+          var rowData = gridOptions.api.getRowNode(params.node.id).data;
+          rowData.status = params.data.status;
+          gridOptions.api.applyTransaction({ update: [rowData] });
+        },
+        error: function (error) {
+          console.error("Error updating data:", error);
+        }
+      });
+    }
   };
 
   var gridDiv = document.querySelector("#myGrid1");
