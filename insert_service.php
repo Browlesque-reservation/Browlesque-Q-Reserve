@@ -18,19 +18,22 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $service_name = mysqli_real_escape_string($conn, $_POST['service_name']);
         $service_description = mysqli_real_escape_string($conn, $_POST['service_description']);
 
+        // Retrieve admin_id from the hidden input field
+        $admin_id = $_POST['admin_id'];
+
         // Check if a file is uploaded
         if(isset($_FILES['service_image']) && $_FILES['service_image']['error'] === UPLOAD_ERR_OK) {
             // Get the image data
             $image_data = file_get_contents($_FILES['service_image']['tmp_name']);
 
             // Insert query with BLOB data
-            $query = "INSERT INTO services (service_name, service_description, service_image) VALUES (?, ?, ?)";
+            $query = "INSERT INTO services (admin_id, service_name, service_description, service_image) VALUES (?, ?, ?, ?)";
             
             // Prepare statement
             $stmt = mysqli_prepare($conn, $query);
             if ($stmt) {
                 // Bind parameters
-                mysqli_stmt_bind_param($stmt, 'sss', $service_name, $service_description, $image_data);
+                mysqli_stmt_bind_param($stmt, 'isss', $admin_id, $service_name, $service_description, $image_data);
 
                 // Execute the statement
                 if (mysqli_stmt_execute($stmt)) {
