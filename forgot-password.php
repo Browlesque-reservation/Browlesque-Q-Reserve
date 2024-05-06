@@ -27,10 +27,10 @@
                             <?php
                         }
                     ?>
-                    <div class="form-group">
+                    <div class="form-group-f">
                         <input class="form-control" type="email" name="admin_email" placeholder="Enter email address" required value="<?php echo $admin_email ?>">
                     </div>
-                    <div class="form-group">
+                    <div class="form-group-f">
                         <input class="form-control button" type="submit" name="check-email" value="Continue">
                     </div>
                 </form>

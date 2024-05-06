@@ -4,9 +4,9 @@ function validateFile() {
     var fileInputLabel = document.getElementById('fileInputLabel');
     var filePath = fileInput.value;
     // Allow image and SVG file types
-    var allowedExtensions = /(\.jpg|\.jpeg|\.png|\.gif|\.svg|\.webp)$/i;
+    var allowedExtensions = /(\.jpg|\.jpeg|\.png|\.gif|\.webp)$/i;
     if (!allowedExtensions.exec(filePath)) {
-        alert('Please upload an image file (jpg, jpeg, png, gif, webp) or SVG only.');
+        alert('Please upload an image file (jpg, jpeg, png, gif, webp only)');
         fileInput.value = '';
         fileDisplay.src = '';
         fileDisplay.style.display = 'none';
