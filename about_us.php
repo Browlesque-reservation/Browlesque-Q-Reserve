@@ -1,15 +1,3 @@
-<?php
-   // define('INCLUDED', true);
-   require_once('connect.php');
-
-   $query = "SELECT promo_id, promo_details, promo_image FROM promo";
-   $result = mysqli_query($conn, $query);
-
-   if (!$result) {
-    echo "Error: " . mysqli_error($conn);
-    exit();
-}
-?>
 <!doctype html>
 <html lang="en">
 <head>
@@ -39,42 +27,31 @@
                     <a class="nav-link" href="book_appointment1.php">Book Appointment</a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link" href="index.php#about_us_section">About us</a>
+                    <a class="nav-link" href="about_us.php">About us</a>
                 </li>
             </ul>
-        </div>
         </div>
     </div>
 </nav>
 
 <div class="container-fluid">
   <div class="container-flex add-white-bg">
-    <div class="promos-container container">
-        <div class="head-promos text-center"> Just for you promos!</div>
-        <?php
-          // Check if there are any services
-          if (mysqli_num_rows($result) > 0) {
-             // Loop through each service
-            while ($row = mysqli_fetch_assoc($result)) {
-              $promo_id = $row['promo_id'];
-              $promo_details = $row['promo_details'];
-              $promo_image = $row['promo_image'];
-        ?>
-          <div class="promos-box">
-            <img class="promo-bg" src='image.php?promo_id=<?php echo $promo_id; ?>' alt='Promo Image'>
-            <div class="promo-details" id="promo_details"><?php echo $promo_details; ?></div>
-          </div>
-            <?php }
-              } else {
-                  echo "No promos found.";
-                  }
-            ?>
-    </div>
+      <div class="container">
+        <div class="people-container">
+            <!-- left position -->
+            <img src="./assets/images/pictures/browlesque.svg" id="browlesque-img" alt="Browlesque Image" class="about-us-img">         
+            <!-- right position -->
+            <div class="about-us-text">  
+              <h1 class="mt-2 abt-center" id="about_label">About Us</h1>
+              <div class="sub-text sub-text-m">The Hollywood celebrities and star's choices for best Microblading eyebrows, scalp and other micropigmentation procedures.<br><br>Take this opportunity to have the brows and natural pinkish youthful lips you have always wanted!</div>
+              <div class="sub-text sub-text-m mt-0 add-bold"><br>Located at 12 Real Street Bacoor, Cavite, Philippines.</div>
+            </div>
+        </div>
+      </div>
   </div>
 
-  
 
-  <div class="container-flex add-black-bg">
+    <div class="container-flex add-black-bg">
       <div class="container">
         <div class="footer-container d-flex justify-content-between">
           <div class="contact-us">
@@ -102,14 +79,8 @@
         </div>
       </div>
     </div>
-
 </div>
 
-
-<script src="https://code.jquery.com/jquery-3.7.0.js"></script>
-<script src="./assets/js/text.js"></script>
-<script src="./assets/js/carousel.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
-
 </body>
 </html>
