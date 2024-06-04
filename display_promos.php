@@ -21,12 +21,13 @@ if (isset($_SESSION['admin_email'])) {
     <link rel="stylesheet" href="./assets/css/style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"/>
     <link href='https://unpkg.com/boxicons@2.1.1/css/boxicons.min.css' rel='stylesheet'>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700&display=swap" rel="stylesheet">
 </head>
 <body>
 <div class="d-flex">
     <?php include "sidebar.php"; ?>
     <!-- Content container -->
-    <div class="content-container">
+    <div class="content-container container">
         <div class="header-container">
             <h1 class="page-header">Promos</h1>
             <a href="promos.php" class="btn btn-primary btn-add-service">
@@ -46,7 +47,9 @@ if (isset($_SESSION['admin_email'])) {
                         $promo_image = $row['promo_image'];
                         ?>
                         <div class="service-card">
-                            <img src='image.php?promo_id=<?php echo $promo_id; ?>' alt='Service Image'>
+                            <a href="edit_promos.php?promo_id=<?php echo $promo_id; ?>">
+                                <img src='image.php?promo_id=<?php echo $promo_id; ?>' alt='Service Image'>
+                            </a>
                             <p class="mb-4 mt-2"><?php echo $promo_details; ?></p>
                             <label for="delete_checkbox_<?php echo $promo_id; ?>">Delete</label>
                             <input type="checkbox" id="delete_checkbox_<?php echo $promo_id; ?>"
@@ -54,7 +57,7 @@ if (isset($_SESSION['admin_email'])) {
                         </div>
                     <?php }
                 } else {
-                    echo "No services found.";
+                    echo "No promos found.";
                 }
                 ?>
                 <button class="text-center delete-btn mb-2 me-3" onclick="showConfirmationModalDeleteP()">Delete</button>
