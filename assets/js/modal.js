@@ -2,18 +2,19 @@
 //for SERVICESSSS
 function submitForm() {
     // Submit the form using AJAX
-    var formData = new FormData(document.getElementById('appointmentForm'));
+    var formData = new FormData(document.getElementById('servicesForm'));
     $.ajax({
         type: "POST",
-        url: "insert.php",
+        url: "insert_service.php",
         data: formData,
         processData: false,
         contentType: false,
         success: function(response) {
-            // Assuming insert.php returns the appointment_id
-            var appointment_id = response.appointment_id;
-            // Redirect to confirmation-qr.php with appointment_id parameter
-            window.location.href = "confirmation-qr.php?";
+            // Show the success modal
+            showSuccessModal();
+            // Hide the confirmation modal
+            hideConfirmationModal();
+            console.log("Confirmation modal hidden");
         },
         error: function(xhr, status, error) {
             // Handle errors here
@@ -22,6 +23,29 @@ function submitForm() {
     });
 }
 
+//for PROMOSSS
+function submitFormP() {
+    // Submit the form using AJAX
+    var formData1 = new FormData(document.getElementById('promosForm'));
+    $.ajax({
+        type: "POST",
+        url: "insert_promo.php",
+        data: formData1,
+        processData: false,
+        contentType: false,
+        success: function(response) {
+            // Show the success modal
+            showSuccessModal();
+            // Hide the confirmation modal
+            hideConfirmationModal();
+            console.log("Confirmation modal hidden");
+        },
+        error: function(xhr, status, error) {
+            // Handle errors here
+            console.error(xhr.responseText);
+        }
+    });
+}
 
 function showConfirmationModalDelete() {
     var checkboxes = document.querySelectorAll('.delete-checkbox:checked');

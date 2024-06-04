@@ -21,12 +21,13 @@ if (isset($_SESSION['admin_email'])) {
     <link rel="stylesheet" href="./assets/css/style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"/>
     <link href='https://unpkg.com/boxicons@2.1.1/css/boxicons.min.css' rel='stylesheet'>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700&display=swap" rel="stylesheet">
 </head>
 <body>
 <div class="d-flex">
     <?php include "sidebar.php"; ?>
     <!-- Content container -->
-    <div class="content-container">
+    <div class="content-container container">
         <div class="header-container">
             <h1 class="page-header">Services</h1>
             <a href="services.php" class="btn btn-primary btn-add-service">
@@ -47,7 +48,9 @@ if (isset($_SESSION['admin_email'])) {
                         $service_image = $row['service_image'];
                         ?>
                         <div class="service-card">
-                            <img src='image.php?service_id=<?php echo $service_id; ?>' alt='Service Image'>
+                            <a href="edit_services.php?service_id=<?php echo $service_id; ?>">
+                                <img src='image.php?service_id=<?php echo $service_id; ?>' alt='Service Image'>
+                            </a>
                             <h2 class="bolded"><?php echo $service_name; ?></h2>
                             <p class="mb-4"><?php echo $service_description; ?></p>
                             <label for="delete_checkbox_<?php echo $service_id; ?>">Delete</label>

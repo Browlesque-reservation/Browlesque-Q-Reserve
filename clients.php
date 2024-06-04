@@ -17,17 +17,28 @@ if(isset($_SESSION['admin_email'])) {
     <link rel="stylesheet" href="./assets/css/style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"/>
     <link href='https://unpkg.com/boxicons@2.1.1/css/boxicons.min.css' rel='stylesheet'>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700&display=swap" rel="stylesheet">
 </head>
 <body>
 <div class="d-flex">
     <?php include "sidebar.php";?>
     <!-- Content container -->
-    <div class="content-container">
+    <div class="content-container container">
         <h1 class="page-header">List of Clients</h1>
         <section class="home" id="clients">
             <div class="container-fluid">
-                <div class="" id="table">   
-                    <input type="text" id="searchInput" class="mb-2" placeholder="Search...">
+                <div class="" id="table">
+                    <div class="sas-table">
+                        <div class="search-container">
+                            <input type="text" id="searchInput" class="mb-2" placeholder="Search...">
+                        </div>
+                        <button class="archive-btn mb-2 me-3" onclick="showConfirmationModalDeleteP()">
+                            <img src="./assets/images/icon/archive.svg" class="archive-svg" alt="Archive Icon">
+                        </button>
+                        <button class="archive-btn mb-2 me-1" onclick="showConfirmationModalDeleteP()">
+                            <img src="./assets/images/icon/qrscan.svg" class="qrscan-svg" alt="Scan Icon">
+                        </button>
+                    </div>
                     <div id="myGrid1" style="width: 100%; height: 90%" class="ag-theme-quartz"></div>
                 </div>
             </div>
