@@ -110,7 +110,7 @@ require 'PHPMailer/src/SMTP.php';
             $fetch_data = mysqli_fetch_assoc($code_res);
             $admin_email = $fetch_data['admin_email'];
             $_SESSION['email'] = $admin_email;
-            $info = "Please create a new password that you don't use on any other site.";
+            $info = "Please create a new password that has at least 6 characters and contain at least one letter and one number.";
             $_SESSION['info'] = $info;
             header('location: new-password.php');
             exit();
