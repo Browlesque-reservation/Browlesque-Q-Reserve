@@ -72,7 +72,7 @@ function showConfirmationModalDeleteP() {
     });
     
     if(serviceIds.length === 0) {
-        alert("Please select at least one service to delete.");
+        alert("Please select at least one promo to delete.");
         return;
     }
 
@@ -82,6 +82,64 @@ function showConfirmationModalDeleteP() {
     // Show the confirmation modal
     $('#confirmationModal').show();
 }
+
+function showConfirmationModalArchive() {
+    // Get the grid's selected rows
+    var selectedNodes = gridApi.getSelectedNodes();
+    console.log("Number of checkboxes checked:", selectedNodes.length);
+
+    // Map to extract appointment_id from the selected rows
+    var archiveIds = selectedNodes.map(function(node) {
+        return node.data.appointment_id; // Extract appointment_id from node data
+    });
+
+    if (archiveIds.length === 0) {
+        alert("Please select at least one appointment to archive.");
+        return;
+    }
+
+    // Log the appointment_id selected
+    // console.log("Appointment IDs selected:", archiveIds);
+
+    // Store the archiveIds in the confirm button's data attribute
+    $('#confirmButton').data('archiveIds', archiveIds);
+
+    // Show the confirmation modal
+    $('#confirmationModal').show();
+}
+
+document.getElementById('confirmButton').addEventListener('click', showConfirmationModalArchive);
+
+function showConfirmationModalRestore() {
+    // Get the grid's selected rows
+    var selectedNodes = gridApi.getSelectedNodes();
+    console.log("Number of checkboxes checked:", selectedNodes.length);
+
+    // Map to extract archive_id from the selected rows
+    var restoreIds = selectedNodes.map(function(node) {
+        return node.data.archive_id; // Extract archive_id from node data
+    });
+
+    if (restoreIds.length === 0) {
+        alert("Please select at least one appointment to restore.");
+        return;
+    }
+
+    // Log the archive_id selected
+    // console.log("Appointment IDs selected:", restoreIds);
+
+    // Store the restoreIds in the confirm button's data attribute
+    $('#confirmButtonrestore').data('restoreIds', restoreIds);
+
+    // Show the confirmation modal
+    $('#confirmationModal').show();
+}
+
+
+// Event listener to show the confirmation modal when the confirm button is clicked
+document.getElementById('confirmButtonrestore').addEventListener('click', showConfirmationModalRestore);
+
+
 
 
 function showConfirmationModal() {
