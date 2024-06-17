@@ -26,38 +26,7 @@ if(isset($_SESSION['admin_email'])) {
     <!-- JS for full calendar -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.20.1/moment.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.9.0/fullcalendar.min.js"></script>
-    <style>
-        .modal-custom {
-            background: white;
-            border-radius: 10px;
-            padding: 20px;
-            max-width: 500px;
-            margin: auto;
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            box-shadow: 0px 0px 10px rgba(0,0,0,0.1);
-        }
-        .modal-custom h5 {
-            margin-bottom: 20px;
-        }
-        .modal-custom ul {
-            list-style-type: none;
-            padding: 0;
-        }
-        .modal-custom ul li {
-            margin-bottom: 10px;
-        }
-        .modal-custom .close {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            background: none;
-            border: none;
-            font-size: 20px;
-        }
-    </style>
+
 </head>
 <body>
 <div class="d-flex">
@@ -75,7 +44,7 @@ if(isset($_SESSION['admin_email'])) {
 <div class="modal fade" id="event_entry_modal" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content modal-custom">
-            <button type="button" class="close" id="close_modal_button" aria-label="Close">&times;</button>
+            <button type="button" class="close_date" id="close_modal_button" aria-label="Close">&times;</button>
             <h5 class="modal-title" id="modalLabel">Appointments for <span id="selected_date"></span></h5>
             <div class="modal-body">
                 <div id="appointments_list"></div>
@@ -126,7 +95,17 @@ $(document).ready(function() {
         },
         selectable: true,
         selectHelper: true,
+        dayRender: function (date, cell) {
+            if (date.day() === 3) { // 3 corresponds to Wednesday
+                cell.addClass('fc-wednesday');
+            }
+        },
         select: function(start, end) {
+            if (start.day() === 3) { // Prevent selection on Wednesdays
+                // alert('Selection on Wednesdays is not allowed.');
+                $('#calendar').fullCalendar('unselect');
+                return;
+            }
             var clickedDate = moment(start).format('YYYY-MM-DD');
             fetchAppointments(clickedDate);
         }

@@ -28,24 +28,24 @@ $current_page = basename($_SERVER['PHP_SELF']);
     <div class="content-container container">
         <h1 class="page-header">Add Promos</h1>
         <div class="container-fluid container-md-custom-s">
-        <form id="promosForm" method="POST" action="insert_promo.php" enctype="multipart/form-data" onsubmit="event.preventDefault(); showConfirmationModal();">                
+        <form id="promosForm" method="POST" action="insert_promo.php" enctype="multipart/form-data" onsubmit="validateBeforeSubmit(event)">                
     <!-- Hidden input field to store admin_id -->
     <input type="hidden" id="admin_id" name="admin_id" value="<?php echo "$admin_id"; ?>">
 
     <div class="form-group">
         <label for="promo_image" class="label-checkbox"><span class="asterisk">*</span>Upload Picture:</label>
         <div class="image-input-container">
-            <input type="file" class="form-control form-control-s img-upload" id="promo_image" name="promo_image" onchange="validateFile()" required>
+            <input type="file" class="form-control form-control-s img-upload" id="promo_image" name="promo_image" onchange="validateFile()">
             <label for="promo_image" id="fileInputLabel" class="form-control-s btn btn-primary btn-primary-custom image-btn">Choose Image</label>
             <img id="image_preview" alt="Promo Image"/>
         </div>
     </div>
     <div class="form-group">
         <label for="promo_details" class="label-checkbox"><span class="asterisk">*</span>Promo Details:</label>
-        <textarea type="text" class="form-control form-control-s tall-input" id="promo_details" name="promo_details" placeholder="Details..." required></textarea>
+        <textarea type="text" class="form-control form-control-s tall-input" id="promo_details" name="promo_details" placeholder="Details..." minlength="3" maxlength="400" required></textarea>
     </div>
     <div class="fixed-buttons">
-        <button type="submit" name="user_submit" class="btn btn-primary btn-primary-custom text-center" onclick="validateBeforeSubmit()">Submit</button>
+        <button type="submit" name="user_submit" class="btn btn-primary btn-primary-custom text-center">Submit</button>
         <a href="display_promos.php" class="btn btn-primary btn-primary-custom cancel-btn text-center">Cancel</a>
     </div>
 </form>
