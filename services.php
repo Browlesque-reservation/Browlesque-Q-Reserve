@@ -26,27 +26,27 @@ $current_page = basename($_SERVER['PHP_SELF']);
     <div class="content-container container">
         <h1 class="page-header">Add Services</h1>
         <div class="container-fluid container-md-custom-s">
-        <form id="servicesForm" method="POST" action="insert_service.php" enctype="multipart/form-data" onsubmit="event.preventDefault(); showConfirmationModal();">                
+        <form id="servicesForm" method="POST" action="insert_service.php" enctype="multipart/form-data" onsubmit="validateBeforeSubmit(event)">                
                    <!-- Hidden input field to store admin_id -->
                 <input type="hidden" id="admin_id" name="admin_id" value="<?php echo "$admin_id"; ?>">
                 <div class="form-group">
                     <label for="service_image" class="label-checkbox"><span class="asterisk">*</span>Upload Picture:</label>
                     <div class="image-input-container">
-                        <input type="file" class="form-control form-control-s img-upload" id="service_image" name="service_image" onchange="validateFile()" required>
+                        <input type="file" class="form-control form-control-s img-upload" id="service_image" name="service_image" onchange="validateFile()">
                         <label for="service_image" id="fileInputLabel" class="form-control-s btn btn-primary btn-primary-custom image-btn">Choose Image</label>
                         <img id="image_preview" alt="Service Image"/>
                     </div>
                 </div>
                 <div class="form-group">
                     <label for="service_name" class="label-checkbox"><span class="asterisk">*</span>Service Name:</label>
-                    <input type="text" class="form-control form-control-s" id="service_name" name="service_name" placeholder="Service Name" required>
+                    <input type="text" class="form-control form-control-s" id="service_name" name="service_name" placeholder="Service Name" required minlength="3" maxlength="50">
                 </div>
                 <div class="form-group">
                     <label for="service_description" class="label-checkbox"><span class="asterisk">*</span>Details:</label>
-                    <textarea type="text" class="form-control form-control-s tall-input" id="service_description" name="service_description" placeholder="Details..." required></textarea>
+                    <textarea type="text" class="form-control form-control-s tall-input" id="service_description" name="service_description" placeholder="Details..." required  minlength="3" maxlength="400"></textarea>
                 </div>
                 <div class="fixed-buttons">
-                    <button type="submit" name="user_submit" class="btn btn-primary btn-primary-custom text-center" onclick="validateBeforeSubmit()">Submit</button>
+                    <button type="submit" name="user_submit" class="btn btn-primary btn-primary-custom text-center">Submit</button>
                     <a href="display_services.php" class="btn btn-primary btn-primary-custom cancel-btn text-center">Cancel</a>
                 </div>
             </form>

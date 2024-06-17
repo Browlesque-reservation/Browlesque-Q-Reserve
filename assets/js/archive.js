@@ -4,7 +4,7 @@ var gridApi;
 document.addEventListener("DOMContentLoaded", function () {
     var gridOptions = {
         columnDefs: [
-            { field: 'appointment_id', hide: true }, // Hidden column for appointment_id
+            { field: 'archive_id', hide: true }, // Hidden column for archive_id
             { field: 'client_name', headerName: 'Customer Name', headerClass: 'custom-header' },
             { field: 'client_contactno', headerName: 'Contact Number', headerClass: 'custom-header' },
             { field: 'services', headerName: 'Services', headerClass: 'custom-header', cellRenderer: 'multilineCellRenderer', autoHeight: 'true' },
@@ -16,7 +16,7 @@ document.addEventListener("DOMContentLoaded", function () {
             { field: 'status', headerName: 'Status', editable: true, cellEditor: 'agSelectCellEditor', cellEditorParams: {
                 values: ['Pending', 'Confirmed', 'Complete', 'Cancelled']
             }, headerClass: 'custom-header' },
-            { field: 'archive', headerName: 'Archive', checkboxSelection: true, headerCheckboxSelection: true, headerCheckboxSelectionFilteredOnly: true, headerClass: 'custom-header' }
+            { field: 'restore', headerName: 'Restore', checkboxSelection: true, headerCheckboxSelection: true, headerCheckboxSelectionFilteredOnly: true, headerClass: 'custom-header' }
         ],
         rowSelection: 'multiple',
         quickFilterText: '', // Set quickFilterText to an empty string initially
@@ -39,7 +39,7 @@ document.addEventListener("DOMContentLoaded", function () {
         onCellValueChanged: function(params) {
             // When a cell value changes, send the updated data to the server
             var updatedData = {
-                appointment_id: params.data.appointment_id,
+                archive_id: params.data.archive_id,
                 status: params.data.status
             };
 
@@ -62,7 +62,7 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     };
 
-    var gridDiv = document.querySelector("#myGrid1");
+    var gridDiv = document.querySelector("#myGrid2");
     // Initialize the grid and assign the API to the global variable
     gridApi = agGrid.createGrid(gridDiv, gridOptions);
 
@@ -74,7 +74,7 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 
     $.ajax({
-        url: "fetch_data_clients.php",
+        url: "fetch_data_archive.php",
         method: "GET",
         dataType: "json",
         success: function (data) {
@@ -186,27 +186,26 @@ document.addEventListener("DOMContentLoaded", function () {
     addCheckboxIDs();
 });
 
-function showConfirmationModalArchive() {
+function showConfirmationModalRestore() {
     // Get the grid's selected rows
     var selectedNodes = gridApi.getSelectedNodes();
     console.log("Number of checkboxes checked:", selectedNodes.length);
 
-    // Map to extract appointment_id from the selected rows
-    var archiveIds = selectedNodes.map(function(node) {
-        return node.data.appointment_id; // Extract appointment_id from node data
+    var restoreIds = selectedNodes.map(function(node) {
+        return node.data.archive_id;
     });
 
-    if (archiveIds.length === 0) {
-        alert("Please select at least one appointment to archive.");
+    if (restoreIds.length === 0) {
+        alert("Please select at least one appointment to restore.");
         return;
     }
 
     // Store the archiveIds in the confirm button's data attribute
-    $('#confirmButton').data('archiveIds', archiveIds);
+    $('#confirmButtonrestore').data('restoreIds', restoreIds);
 
     // Show the confirmation modal
     $('#confirmationModal').show();
 }
 
 // Event listener to show the confirmation modal when the confirm button is clicked
-document.getElementById('confirmButton').addEventListener('click', showConfirmationModalArchive);
+document.getElementById('confirmButtonrestore').addEventListener('click', showConfirmationModalRestore);

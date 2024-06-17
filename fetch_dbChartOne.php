@@ -14,7 +14,7 @@ if (isset($_SESSION['admin_email'])) {
     if ($result->num_rows > 0) {
         while($row = $result->fetch_assoc()) {
             $data1[] = [
-                'label' => $row['antecedents'] . ' => ' . $row['consequents'],
+                'label' => $row['antecedents'] . '=>' . $row['consequents'],
                 'value' => $row['conviction']
             ];
         }

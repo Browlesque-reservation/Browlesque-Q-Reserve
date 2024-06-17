@@ -31,12 +31,36 @@ function validateFile() {
     return true;
 }
 
-function validateBeforeSubmit() {
+function validateBeforeSubmit(event) {
+    event.preventDefault();
+    
     var fileInput = document.getElementById('service_image');
-    // Check if a file is selected
-    if (fileInput.files.length === 0) {
+    var serviceName = document.getElementById("service_name").value.trim();
+    var serviceDetails = document.getElementById("service_description").value.trim();
+
+    // Check if a file has been selected
+    if (!fileInput.files || fileInput.files.length === 0) {
         alert("Please choose an image.");
-        return false; // Prevent form submission
+        return false;
     }
-    return true; // Allow form submission
+
+    if (serviceName === "") {
+        alert("Service Name cannot be empty.");
+        return false;
+    }
+    if (serviceDetails === "") {
+        alert("Service Details cannot be empty.");
+        return false;
+    }
+    if (/^\s*$/.test(serviceName)) {
+        alert("Service Name cannot be just spaces.");
+        return false;
+    }
+    if (/^\s*$/.test(serviceDetails)) {
+        alert("Service Details cannot be just spaces.");
+        return false; 
+    }
+
+    showConfirmationModal();
+    return true;
 }
