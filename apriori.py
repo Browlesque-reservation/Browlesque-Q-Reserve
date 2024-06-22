@@ -65,7 +65,7 @@ def main():
         # print(basket)
 
         # Generate frequent itemsets with a lower min_support
-        frequent_itemsets = apriori(basket, min_support=0.1, use_colnames=True)
+        frequent_itemsets = apriori(basket, min_support=0.5, use_colnames=True)
 
         # Print frequent_itemsets to check if it's empty
         # print("Frequent Itemsets:")
@@ -135,6 +135,8 @@ def main():
                         UNIQUE KEY unique_rule (antecedents, consequents)
                     )
                 """)
+
+                cursor.execute("TRUNCATE TABLE association_rules")
                 
                 for _, row in rules_df.iterrows():
                     cursor.execute("""

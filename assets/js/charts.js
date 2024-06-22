@@ -34,7 +34,7 @@ am5.ready(function() {
       centerY: am5.p50,
       centerX: am5.p50,
       paddingRight: 15,
-      fontSize: 10
+      fontSize: 16
     });
 
     xRenderer1.grid.template.setAll({
@@ -53,7 +53,7 @@ am5.ready(function() {
     });
 
     yRenderer1.labels.template.setAll({
-      fontSize: 10 // Set font size for y-axis labels
+      fontSize: 16 // Set font size for y-axis labels
     });
 
     var yAxis1 = chart1.yAxes.push(am5xy.ValueAxis.new(root1, {
@@ -98,22 +98,22 @@ am5.ready(function() {
       })
       .catch(error => console.error('Error fetching data chart 1:', error));
 
-      var chartTitle = am5.Label.new(root1, {
-        text: "Service Association Chart (Conviction)",
-        fontSize: 24,
-        fontWeight: "700",
-        fontFamily: "Montserrat",
-        textAlign: "center",
-        x: am5.percent(50),
-        y: -55,
-        centerX: am5.percent(50),
-        paddingTop: 52,
-        paddingBottom: 20,
-        marginTop: 30
-    });
+    //   var chartTitle = am5.Label.new(root1, {
+    //     text: "Service Association Chart (Conviction)",
+    //     fontSize: 24,
+    //     fontWeight: "700",
+    //     fontFamily: "Montserrat",
+    //     textAlign: "center",
+    //     x: am5.percent(50),
+    //     y: -55,
+    //     centerX: am5.percent(50),
+    //     paddingTop: 52,
+    //     paddingBottom: 20,
+    //     marginTop: 30
+    // });
 
-        chart1.children.push(chartTitle);
-        chartTitle.toFront();
+    //     chart1.children.push(chartTitle);
+    //     chartTitle.toFront();
   }
 
   function createOrUpdateChart2(data2) {
@@ -212,22 +212,22 @@ am5.ready(function() {
       .catch(error => console.error('Error fetching data chart 2:', error));
 
   
-      var chartTitle = am5.Label.new(root2, {
-          text: "Total Number per Services Availed",
-          fontSize: 24,
-          fontWeight: "700",
-          fontFamily: "Montserrat",
-          textAlign: "center",
-          x: am5.percent(50),
-          y: -55,
-          centerX: am5.percent(50),
-          paddingTop: 52,
-          paddingBottom: 20,
-          marginTop: 30
-      });
+      // var chartTitle = am5.Label.new(root2, {
+      //     text: "Total Number per Services Availed",
+      //     fontSize: 24,
+      //     fontWeight: "700",
+      //     fontFamily: "Montserrat",
+      //     textAlign: "center",
+      //     x: am5.percent(50),
+      //     y: -55,
+      //     centerX: am5.percent(50),
+      //     paddingTop: 52,
+      //     paddingBottom: 20,
+      //     marginTop: 30
+      // });
   
-      chart2.children.push(chartTitle);
-      chartTitle.toFront();
+      // chart2.children.push(chartTitle);
+      // chartTitle.toFront();
     }
 
 // Function to fetch data and update charts

@@ -20,6 +20,7 @@ if (!isset($_SESSION['admin_email'])) {
     <link rel="stylesheet" href="./assets/css/style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"/>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700&display=swap" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
 
     <!-- amcharts script -->
     <script src="https://cdn.amcharts.com/lib/5/index.js"></script>
@@ -36,11 +37,13 @@ if (!isset($_SESSION['admin_email'])) {
     <div class="content-container content">
         <h1 class="page-header-db">DASHBOARD</h1>
         <div class="container-md container-flex-chart">
-            <div id="chartdiv" style="width: 100%; height: 500px;"></div>
+            <h4 class="chart-name">Service Association Chart (Conviction)</h4>
+            <div id="chartdiv" style="width: 100%; height: 420px;"></div>
         </div>
 
         <div class="container-md container-flex-chart">
-            <div id="chartdiv2" style="width: 100%; height: 500px;"></div>
+            <h4 class="chart-name">Total Number per Services Availed</h4>
+            <div id="chartdiv2" style="width: 100%; height: 420px;"></div>
         </div>
     </div>
 </div>
