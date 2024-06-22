@@ -5,7 +5,7 @@ require_once('stopback.php');
 
 if (isset($_SESSION['admin_email'])) {
     // Query to fetch services from the database
-    $query = "SELECT service_id, service_name, service_description, service_image FROM services";
+    $query = "SELECT service_id, service_name, service_description, service_image, service_state FROM services";
     $result = mysqli_query($conn, $query);
 
     ?>
@@ -46,8 +46,19 @@ if (isset($_SESSION['admin_email'])) {
                         $service_name = $row['service_name'];
                         $service_description = $row['service_description'];
                         $service_image = $row['service_image'];
+                        $service_state = $row['service_state'];
                         ?>
                         <div class="service-card">
+                            <div class="toggle-container">
+                                <div class="form-check form-switch">
+                                    <input class="form-check-input toggle-service-state" type="checkbox"
+                                           id="state_switch_<?php echo $service_id; ?>" <?php echo $service_state == 'Activated' ? 'checked' : ''; ?>
+                                           data-service-id="<?php echo $service_id; ?>">
+                                    <label class="form-check-label" for="state_switch_<?php echo $service_id; ?>">
+                                        <?php echo ucfirst($service_state); ?>
+                                    </label>
+                                </div>
+                            </div>
                             <a href="edit_services.php?service_id=<?php echo $service_id; ?>">
                                 <img src='image.php?service_id=<?php echo $service_id; ?>' alt='Service Image'>
                             </a>
@@ -140,6 +151,31 @@ $('#confirmButton').click(function() {
         }
     });
 });
+
+// Function to handle service state toggle
+$(document).on('change', '.toggle-service-state', function() {
+    var serviceId = $(this).data('service-id');
+    var newState = this.checked ? 'Activated' : 'Deactivated';
+
+    // Send AJAX request to update state
+    $.ajax({
+        type: "POST",
+        url: "update_service_state.php",
+        data: { service_id: serviceId, service_state: newState },
+        success: function(response) {
+            if (response === "success") {
+                // Update the label text
+                $('label[for="state_switch_' + serviceId + '"]').text(newState.charAt(0).toUpperCase() + newState.slice(1));
+            } else {
+                alert("Error updating service state.");
+            }
+        },
+        error: function() {
+            alert("Error updating service state. Please try again later.");
+        }
+    });
+});
+
 </script>
 
 </body>

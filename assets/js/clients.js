@@ -73,6 +73,21 @@ document.addEventListener("DOMContentLoaded", function () {
         gridApi.setQuickFilter(searchText);
     });
 
+    // Check for search query parameter in the URL
+    var urlParams = new URLSearchParams(window.location.search);
+    var searchValue = urlParams.get('search');
+
+    if (searchValue) {
+        $('#searchInput').val(searchValue);
+        performSearch(searchValue); // Call the search function with the searchValue
+    }
+
+    // Define the performSearch function
+    function performSearch(searchValue) {
+        // Trigger the search functionality on the ag-Grid
+        gridApi.setQuickFilter(searchValue);
+    }
+
     $.ajax({
         url: "fetch_data_clients.php",
         method: "GET",
