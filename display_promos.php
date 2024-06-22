@@ -4,8 +4,8 @@ require_once('connect.php');
 require_once('stopback.php');
 
 if (isset($_SESSION['admin_email'])) {
-    // Query to fetch services from the database
-    $query = "SELECT promo_id, promo_details, promo_image FROM promo";
+    // Query to fetch promo from the database
+    $query = "SELECT promo_id, promo_details, promo_image, promo_state FROM promo";
     $result = mysqli_query($conn, $query);
 
     ?>
@@ -38,15 +38,26 @@ if (isset($_SESSION['admin_email'])) {
         <div class="container-fluid container-md-custom-s">
             <div class="service-container">
                 <?php
-                // Check if there are any services
+                // Check if there are any [promos]
                 if (mysqli_num_rows($result) > 0) {
-                    // Loop through each service
+                    // Loop through each promo
                     while ($row = mysqli_fetch_assoc($result)) {
                         $promo_id = $row['promo_id'];
                         $promo_details = $row['promo_details'];
                         $promo_image = $row['promo_image'];
+                        $promo_state = $row['promo_state'];
                         ?>
                         <div class="service-card">
+                            <div class="toggle-container">
+                                <div class="form-check form-switch">
+                                    <input class="form-check-input toggle-promo-state" type="checkbox"
+                                           id="state_switch_<?php echo $promo_id; ?>" <?php echo $promo_state == 'Activated' ? 'checked' : ''; ?>
+                                           data-promo-id="<?php echo $promo_id; ?>">
+                                    <label class="form-check-label" for="state_switch_<?php echo $promo_id; ?>">
+                                        <?php echo ucfirst($promo_state); ?>
+                                    </label>
+                                </div>
+                            </div>
                             <a href="edit_promos.php?promo_id=<?php echo $promo_id; ?>">
                                 <img src='image.php?promo_id=<?php echo $promo_id; ?>' alt='Service Image'>
                             </a>
@@ -103,7 +114,7 @@ function deleteChecked() {
     });
     
     if(promoIds.length === 0) {
-        alert("Please select at least one service to delete.");
+        alert("Please select at least one promo to delete.");
         return;
     }
 
@@ -138,6 +149,31 @@ $('#confirmButton').click(function() {
         }
     });
 });
+
+// Function to handle promo state toggle
+$(document).on('change', '.toggle-promo-state', function() {
+    var promoId = $(this).data('promo-id');
+    var newState = this.checked ? 'Activated' : 'Deactivated';
+
+    // Send AJAX request to update state
+    $.ajax({
+        type: "POST",
+        url: "update_promo_state.php",
+        data: { promo_id: promoId, promo_state: newState },
+        success: function(response) {
+            if (response === "success") {
+                // Update the label text
+                $('label[for="state_switch_' + promoId + '"]').text(newState.charAt(0).toUpperCase() + newState.slice(1));
+            } else {
+                alert("Error updating promo state.");
+            }
+        },
+        error: function() {
+            alert("Error updating promo state. Please try again later.");
+        }
+    });
+});
+
 </script>
 
 </body>

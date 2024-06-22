@@ -25,9 +25,7 @@ if(isset($_SESSION['admin_email'])) {
     <!-- Content container -->
     <div class="content-container container">
         <h1 class="page-header">Archived Appointments</h1>
-        <section class="home" id="clients">
-            <div class="container-fluid">
-                <div class="" id="table">
+                <div class="container-md" id="table">
                     <div class="sas-table">
                         <div class="search-container">
                             <input type="text" id="searchInput" class="mb-2" placeholder="Search...">
@@ -36,10 +34,8 @@ if(isset($_SESSION['admin_email'])) {
                             <img src="./assets/images/icon/restore.svg" class="archive-svg" alt="Restore Icon">
                         </button>
                     </div>
-                    <div id="myGrid2" style="width: 100%; height: 90%" class="ag-theme-quartz"></div>
+                    <div id="myGrid2" style="width: 100%; height: 480px" class="ag-theme-quartz"></div>
                 </div>
-            </div>
-        </section>
     </div>
 </div>
 
@@ -123,6 +119,34 @@ function restoreChecked() {
     $('#confirmationModal').hide();
 }
 
+function showConfirmationModalRestore() {
+    // Get the grid's selected rows
+    var selectedNodes = gridApi.getSelectedNodes();
+    console.log("Number of checkboxes checked:", selectedNodes.length);
+
+    // Map to extract archive_id from the selected rows
+    var restoreIds = selectedNodes.map(function(node) {
+        return node.data.archive_id; // Extract archive_id from node data
+    });
+
+    if (restoreIds.length === 0) {
+        alert("Please select at least one appointment to restore.");
+        return;
+    }
+
+    // Log the archive_id selected
+    // console.log("Appointment IDs selected:", restoreIds);
+
+    // Store the restoreIds in the confirm button's data attribute
+    $('#confirmButtonrestore').data('restoreIds', restoreIds);
+
+    // Show the confirmation modal
+    $('#confirmationModal').show();
+}
+
+
+// Event listener to show the confirmation modal when the confirm button is clicked
+document.getElementById('confirmButtonrestore').addEventListener('click', showConfirmationModalRestore);
 </script>
 
 </body>
