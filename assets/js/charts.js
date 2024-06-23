@@ -86,7 +86,7 @@ am5.ready(function() {
     fetch('fetch_dbChartOne.php')
       .then(response => response.json())
       .then(data1 => {
-        console.log(data1);
+        // console.log(data1);
         // Set data for the first chart
         data1 = data1.map(item => ({ ...item, value: parseFloat(item.value) }));
         xAxis1.data.setAll(data1);
@@ -199,7 +199,7 @@ am5.ready(function() {
     fetch('fetch_dbChartTwo.php')
       .then(response => response.json())
       .then(data2 => {
-          console.log(data2);
+          // console.log(data2);
           
           xAxis2.data.setAll(data2);
           series2.data.setAll(data2);
@@ -244,7 +244,7 @@ function fetchDataAndUpdateCharts() {
         fetch('fetch_dbChartOne.php')
           .then(response => response.json())
           .then(data1 => {
-            console.log(data1);
+            // console.log(data1);
             data1 = data1.map(item => ({ ...item, value: parseFloat(item.value) }));
             createOrUpdateChart1(data1);
           })
@@ -254,7 +254,7 @@ function fetchDataAndUpdateCharts() {
         fetch('fetch_dbChartTwo.php')
           .then(response => response.json())
           .then(data2 => {
-            console.log(data2);
+            // console.log(data2);
             createOrUpdateChart2(data2);
           })
           .catch(error => console.error('Error fetching data chart 2:', error));

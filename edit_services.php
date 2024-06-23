@@ -33,7 +33,7 @@ if(isset($_SESSION['admin_email'])) {
 <div class="d-flex">
     <?php include "sidebar.php";?>
     <!-- Content container -->
-    <div class="content-container container">
+    <div class="content-container content">
         <h1 class="page-header">Edit Services</h1>
         <div class="container-fluid container-md-custom-s">
         <form id="servicesForm" method="POST" action="update_service.php" enctype="multipart/form-data" onsubmit="validateBeforeSubmit(event)">                

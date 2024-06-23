@@ -24,7 +24,7 @@ if(isset($_SESSION['admin_email'])) {
 <div class="d-flex">
     <?php include "sidebar.php";?>
     <!-- Content container -->
-    <div class="content-container container">
+    <div class="content-container content">
         <h1 class="page-header">List of Clients</h1>
                 <div class="container-md" id="table">
                     <div class="sas-table">
@@ -84,7 +84,7 @@ if(isset($_SESSION['admin_email'])) {
 <div id="qrScannedDetailsModal" class="modal">
     <div class="modal-content custom-modal-content d-flex flex-column align-items-center">
         <!-- <img src="./assets/images/icon/confirm-archive.svg" class="mt-3" alt="Success Icon" width="70" height="70"> -->
-        <h2 class="text-center mt-3 mb-0">Scanned Client Details</h2>
+        <h2 class="text-center mt-3 mb-0">QR Scanned Client Details</h2>
             <div class="qr-modal-body" id="qrScannedBody"></div>
                 <div class="d-flex justify-content-end mt-2">
                     <button type="button" id="confirmScanButton" class="btn btn-primary btn-primary-custom me-2 fs-5 text-center" onclick="statusUpdate()">Confirm</button>
@@ -95,7 +95,7 @@ if(isset($_SESSION['admin_email'])) {
 
 <div id="notRecognizedModal" class="modal">
     <div class="modal-content custom-modal-content d-flex flex-column align-items-center">
-        <img src="./assets/images/icon/confirm-archive.svg" class="mt-3" alt="Success Icon" width="70" height="70">
+        <img src="./assets/images/icon/wrong-qr.svg" class="mt-3" alt="Success Icon" width="70" height="70">
         <h2 class="text-center mt-3 mb-0">QR Code Not Recognized!</h2>
             <div class="d-flex justify-content-end mt-2">
                 <button type="button" id="cancelButton" class="btn btn-primary-custom cancel-btn reset-ml fs-5 text-center" onclick="$('#notRecognizedModal').hide();">Back</button>
@@ -110,6 +110,7 @@ if(isset($_SESSION['admin_email'])) {
 <script src="./assets/js/clients.js"></script>
 <script src="./assets/js/modal.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+<!-- <script src="./assets/js/preloader.js"></script> -->
 <script>
 // Function to archive checked appointments
 function archiveChecked() {
@@ -228,14 +229,16 @@ $(document).ready(function() {
                         $('#qrScannedBody').data('endTime', response.end_time);
                         // Populate qrScannedBody with retrieved data
                         $('#qrScannedBody').html(`
-                            <p style="margin-top: 1rem;"><strong>Client Name:</strong> ${response.client_name}</p>
-                            <p><strong>Contact Number:</strong> ${response.client_contactno}</p>
-                            <p><strong>Service/s Availed:</strong> ${response.service_names}</p>
-                            <p><strong>Promo/s Availed:</strong> ${response.promo_details}</p>
-                            <p><strong>No. of Companions:</strong> ${response.no_of_companions}</p>
-                            <p><strong>Notes:</strong> ${response.client_notes}</p>
-                            <p><strong>Date:</strong> ${response.client_date}</p>
-                            <p><strong>Time:</strong> ${response.start_time} - ${response.end_time}</p>
+                            <div style="padding: 1rem; padding-bottom: 0; margin-left: 1rem; margin-right: 1rem;">
+                                <p style="margin-top: 1rem; margin-bottom: 0.5rem;"><strong>Client Name:</strong> ${response.client_name}</p>
+                                <p style="margin-bottom: 0.5rem;"><strong>Contact Number:</strong> ${response.client_contactno}</p>
+                                <p style="margin-bottom: 0.5rem;"><strong>Service/s Availed:</strong> ${response.service_names}</p>
+                                <p style="margin-bottom: 0.5rem;"><strong>Promo/s Availed:</strong> ${response.promo_details}</p>
+                                <p style="margin-bottom: 0.5rem;"><strong>No. of Companions:</strong> ${response.no_of_companions}</p>
+                                <p style="margin-bottom: 0.5rem;"><strong>Notes:</strong> ${response.client_notes}</p>
+                                <p style="margin-bottom: 0.5rem;"><strong>Date:</strong> ${response.client_date}</p>
+                                <p style="margin-bottom: 0;"><strong>Time:</strong> ${response.start_time} - ${response.end_time}</p>
+                            </div>
                         `);
 
                         // Show qrScannedDetailsModal correctly

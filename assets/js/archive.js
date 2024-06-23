@@ -13,9 +13,7 @@ document.addEventListener("DOMContentLoaded", function () {
             { field: 'client_time', headerName: 'Time', headerClass: 'custom-header' },
             { field: 'no_of_companions', headerName: 'No. of Companions', headerClass: 'custom-header' },
             { field: 'client_notes', headerName: 'Notes', headerClass: 'custom-header' },
-            { field: 'status', headerName: 'Status', editable: true, cellEditor: 'agSelectCellEditor', cellEditorParams: {
-                values: ['Pending', 'Confirmed', 'Complete', 'Cancelled']
-            }, headerClass: 'custom-header' },
+            { field: 'status', headerName: 'Status', headerClass: 'custom-header' },
             { field: 'restore', headerName: 'Restore', checkboxSelection: true, headerCheckboxSelection: true, headerCheckboxSelectionFilteredOnly: true, headerClass: 'custom-header' }
         ],
         rowSelection: 'multiple',
@@ -178,7 +176,7 @@ document.addEventListener("DOMContentLoaded", function () {
         checkboxes.forEach(function(checkbox, index) {
             var checkboxID = 'archive_id_' + index; // Generate unique ID
             checkbox.setAttribute('id', checkboxID); // Add unique IDs to each checkbox
-            console.log("Checkbox ID:", checkboxID); // Log the ID of each checkbox
+            // console.log("Checkbox ID:", checkboxID); 
         });
     }
 

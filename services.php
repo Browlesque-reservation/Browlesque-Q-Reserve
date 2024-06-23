@@ -23,7 +23,7 @@ $current_page = basename($_SERVER['PHP_SELF']);
 <div class="d-flex">
     <?php include "sidebar.php";?>
     <!-- Content container -->
-    <div class="content-container container">
+    <div class="content-container content">
         <h1 class="page-header">Add Services</h1>
         <div class="container-fluid container-md-custom-s">
         <form id="servicesForm" method="POST" action="insert_service.php" enctype="multipart/form-data" onsubmit="validateBeforeSubmit(event)">                

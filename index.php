@@ -56,28 +56,45 @@ if($conn)
         <img src="./assets/images/icon/Browlesque-1.svg" class="logo-browlesque-client" alt="Browlesque Logo">
     </div>
     <div class="container-md container-md-custom <?php echo isset($_SESSION['error']) ? 'error-displayed' : ''; ?> form-container">
-            <h3 class="text-center" id="login-text">Login Account</h3>
-            <?php if(isset($_SESSION['error'])): ?>
-                <div class="a-center alert alert-danger" role="alert">
-                    <?php echo $_SESSION['error']; ?>
+        <h3 class="text-center" id="login-text">Login Account</h3>
+        <?php if(isset($_SESSION['error'])): ?>
+            <div class="a-center alert alert-danger" role="alert">
+                <?php echo $_SESSION['error']; ?>
+            </div>
+            <?php unset($_SESSION['error']); // Clear the error message after displaying it ?>
+        <?php endif; ?>
+        <form method="post" action="index.php">
+            <div class="mb-3">
+                <label for="admin_email" class="form-label">Email address</label>
+                <input type="email" class="form-control form-control-p" id="admin_email" name="admin_email" aria-describedby="emailHelp" placeholder="e.g., browlesque@gmail.com" required>
+            </div>
+            <div class="mb-3">
+                <label for="admin_password" class="form-label">Password</label>
+                <div class="password-container">
+                    <input type="password" class="form-control form-control-p" id="admin_password" name="admin_password" placeholder="Enter your password" required>
+                    <button type="button" class="password-toggle" id="password-toggle-btn" onclick="togglePasswordVisibility()">Show</button>
                 </div>
-                <?php unset($_SESSION['error']); // Clear the error message after displaying it ?>
-            <?php endif; ?>
-            <form method="post" action="index.php">
-                <div class="mb-3">
-                    <label for="admin_email" class="form-label">Email address</label>
-                    <input type="email" class="form-control" id="admin_email" name="admin_email" aria-describedby="emailHelp" placeholder="e.g., browlesque@gmail.com" required>
-                </div>
-                <div class="mb-3">
-                    <label for="admin_password" class="form-label">Password</label>
-                    <input type="password" class="form-control" id="admin_password" name="admin_password" placeholder="Enter you password" required>
-                </div>
-                <div class="form-label text-left"><a href="forgot-password.php">Forgot password?</a></div>
-                <button type="submit" name="admin_submit" class="btn btn-primary btn-primary-custom text-size">Login</button>
-            </form>
-        </div>
+            </div>
+            <div class="form-label text-left"><a href="forgot-password.php">Forgot password?</a></div>
+            <button type="submit" name="admin_submit" class="btn btn-primary btn-primary-custom text-size">Login</button>
+        </form>
+    </div>
 </div>
 
+<script>
+    function togglePasswordVisibility() {
+        var passwordField = document.getElementById("admin_password");
+        var passwordToggleBtn = document.getElementById("password-toggle-btn");
+
+        if (passwordField.type === "password") {
+            passwordField.type = "text";
+            passwordToggleBtn.textContent = "Hide";
+        } else {
+            passwordField.type = "password";
+            passwordToggleBtn.textContent = "Show";
+        }
+    }
+</script>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 </body>
