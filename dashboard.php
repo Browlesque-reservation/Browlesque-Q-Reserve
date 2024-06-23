@@ -2,6 +2,7 @@
 define('INCLUDED', true);
 require_once('connect.php');
 require_once('stopback.php');
+require_once('./vendors/tcpdf/tcpdf.php');
 if (!isset($_SESSION['admin_email'])) {
     header("Location: index.php");
     die();
@@ -37,13 +38,23 @@ if (!isset($_SESSION['admin_email'])) {
     <div class="content-container content">
         <h1 class="page-header-db">DASHBOARD</h1>
         <div class="container-md container-flex-chart">
-            <h4 class="chart-name">Service Association Chart (Conviction)</h4>
+            <h4 class="chart-name">Service Association Chart</h4>
             <div id="chartdiv" style="width: 100%; height: 420px;"></div>
+            <div class="pdf-container"> 
+                <form action="generate_pdf_one.php" method="post">
+                    <button class="pdf-btn" type="submit">Download PDF Report</button>
+                </form>
+            </div>
         </div>
 
         <div class="container-md container-flex-chart">
             <h4 class="chart-name">Total Number per Services Availed</h4>
             <div id="chartdiv2" style="width: 100%; height: 420px;"></div>
+            <div class="pdf-container"> 
+                <form action="generate_pdf_two.php" method="post">
+                    <button class="pdf-btn" type="submit">Download PDF Report</button>
+                </form>
+            </div>
         </div>
     </div>
 </div>
@@ -53,5 +64,22 @@ if (!isset($_SESSION['admin_email'])) {
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
         crossorigin="anonymous"></script>
+<!-- <script src="./assets/js/preloader.js"></script> -->
+<script>
+$('#generate-pdf-btn').click(function() {
+    $.ajax({
+        url: 'generate_pdf.php',
+        type: 'GET',
+        success: function(response) {
+            // Optionally handle success response (e.g., display a success message)
+            console.log('PDF generation successful');
+        },
+        error: function(xhr, status, error) {
+            // Handle error response (e.g., display an error message)
+            console.error('Error generating PDF:', error);
+        }
+    });
+});
+</script>
 </body>
 </html>

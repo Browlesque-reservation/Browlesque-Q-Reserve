@@ -27,7 +27,7 @@ if (isset($_SESSION['admin_email'])) {
 <div class="d-flex">
     <?php include "sidebar.php"; ?>
     <!-- Content container -->
-    <div class="content-container container">
+    <div class="content-container content">
         <div class="header-container">
             <h1 class="page-header">Promos</h1>
             <a href="promos.php" class="btn btn-primary btn-add-service">
