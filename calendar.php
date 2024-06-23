@@ -32,7 +32,7 @@ if(isset($_SESSION['admin_email'])) {
 <div class="d-flex">
     <?php include "sidebar.php";?>
     <!-- Content container -->
-    <div class="content-container container">
+    <div class="content-container content">
         <h1 class="page-header">Calendar</h1>
         <div class="container-fluid container-md-custom-s">
             <div id="calendar"></div>        
@@ -57,6 +57,7 @@ if(isset($_SESSION['admin_email'])) {
 
 <script src="./assets/js/sidebar.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+<!-- <script src="./assets/js/preloader.js"></script> -->
 <script>
 $(document).ready(function() {
  // Close modal when close button is clicked

@@ -34,15 +34,16 @@ if (isset($_GET['start_date']) && isset($_GET['end_date'])) {
 
     $appointments = array();
     while($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) {    
-        $appointment = array(
-            'id' => $row['appointment_id'],
-            'title' => $row['client_name'],
-            'date' => $row['client_date'],
-            'start_time' => date("h:i A", strtotime($row['start_time'])),
-            'end_time' => date("h:i A", strtotime($row['end_time']))
-        );
-        $appointments[] = $appointment;
-    }
+      $appointment = array(
+          'id' => $row['appointment_id'],
+          'title' => $row['client_name'],
+          'date' => $row['client_date'],
+          'start_time' => date("h:i A", strtotime($row['start_time'])),
+          'end_time' => date("h:i A", strtotime($row['end_time']))
+      );
+      $appointments[] = $appointment;
+  }
+  
 
     $response = array(
         'status' => true,
@@ -76,15 +77,16 @@ if (isset($_GET['start_date']) && isset($_GET['end_date'])) {
     if($count > 0) {
         $data_arr = array();
         while($data_row = mysqli_fetch_array($results, MYSQLI_ASSOC)) {    
-            $event = array();
-            $event['id'] = $data_row['appointment_id'];
-            $event['title'] = "•" . date("h:i", strtotime($data_row['start_time'])) . " - " . date("h:i", strtotime($data_row['end_time'])) . " " . $data_row['client_name'];
-            $event['start'] = $data_row['client_date'] . 'T' . date("H:i:s", strtotime($data_row['start_time']));
-            $event['end'] = $data_row['client_date'] . 'T' . date("H:i:s", strtotime($data_row['end_time']));
-            $event['color'] = '#' . substr(uniqid(), -6); 
-
-            $data_arr[] = $event;
-        }
+          $event = array();
+          $event['id'] = $data_row['appointment_id'];
+          $event['title'] = "• " . date("h:i A", strtotime($data_row['start_time'])) . " - " . date("h:i A", strtotime($data_row['end_time'])) . " " . $data_row['client_name'];
+          $event['start'] = $data_row['client_date'] . 'T' . date("H:i:s", strtotime($data_row['start_time']));
+          $event['end'] = $data_row['client_date'] . 'T' . date("H:i:s", strtotime($data_row['end_time']));
+          $event['color'] = '#' . substr(uniqid(), -6); 
+      
+          $data_arr[] = $event;
+      }
+      
         
         $data = array(
             'status' => true,

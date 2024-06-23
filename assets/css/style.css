@@ -355,6 +355,19 @@ html, body {
   color: #ffffff;
 }
 
+@media (max-width: 768px) {
+  .btn.btn-primary-custom {
+    font-size: 1rem; 
+    padding-left: 1rem; 
+    padding-right: 1rem;
+    margin-top: 1.5rem;
+  }
+
+  .btn.cancel-btn {
+    margin-left: 1rem; 
+  }
+}
+
 .btn.cancel-btn.reset-ml{
   margin-left: 0;
 }
@@ -487,11 +500,14 @@ html, body {
 
 @media (max-width: 768px) {
   .label-checkbox {
-    margin-left: 0; /* Remove left margin */
-    margin-top: 0.5rem; /* Adjust top margin */
-    font-size: 1.2rem; /* Adjust font size */
-    text-align: left; /* Align text to left */
-    padding-right: 0; /* Remove right padding */
+    margin-left: 0;
+    margin-top: 0.5rem;
+    font-size: 0.8rem;
+    text-align: left;
+    padding-right: 0;
+    width: auto;
+    margin-right: 0;
+    margin-bottom: 0.3125rem;
   }
 }
 
@@ -502,6 +518,10 @@ html, body {
   border: 1px solid #ccc;
 }
 
+.form-control-p{
+  width: 30%;
+}
+
 .form-check {
     margin-left: 100px; 
 }
@@ -509,7 +529,7 @@ html, body {
 .form-check-input {
     margin-right: 5px; 
     margin-top: 15px;
-    border: 2px solid black;
+    border: 1px solid black;
     transition: background-color 0.3s ease-in-out;
 }
 
@@ -636,6 +656,7 @@ html, body {
   margin-left: 250px; 
   width: calc(100% - 250px);
   overflow-y: auto;
+  align-items: center;
 }
 
 @media(max-width: 768px) {
@@ -692,7 +713,7 @@ html, body {
   background-color: #f9f9f9;
   padding: 3rem;
   padding-top: 2rem;
-  height: 535px;
+  height: 570px;
   width: 95%;
   border-radius: 10px;
   box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;
@@ -824,6 +845,14 @@ html, body {
   flex: 1;
 }
 
+.tall-input {
+  margin: auto;
+  width: 100%;
+  height: 13rem;
+  border: 1px solid #ccc;
+  resize: vertical;
+}
+
 #fileInputLabel {
   /* Add necessary styles for ellipsis and white space wrapping */
   overflow: hidden;
@@ -833,15 +862,15 @@ html, body {
   display: inline-block; /* Ensure that the label respects its width */
 }
 
-@media (max-width: 767px) {
+@media (max-width: 768px) {
   .image-input-container {
     flex-direction: column;
   }
   
   .image-input-container img {
-    width: 10rem;
+    width: 5rem;
     margin-left: 0;
-    margin-right: 4rem;
+    margin-right: 7rem;
     margin-top: 0.625rem;
   }
 
@@ -850,15 +879,14 @@ html, body {
     margin-bottom: 1.25rem;
   }
 
-  .label-checkbox {
-    width: auto;
-    margin-right: 0;
-    margin-bottom: 0.3125rem;
-  }
-
   .form-control-s {
     width: 100%;
     margin-bottom: 0.625rem;
+    font-size: 0.8rem;
+  }
+  
+  .form-control-s::placeholder {
+    font-size: 0.8rem;
   }
 
   .img-upload{
@@ -866,19 +894,55 @@ html, body {
   }
 
   #fileInputLabel {
-    font-size: 1rem;
-    max-width: 10rem;
-    margin-right: 4rem;
+    font-size: 0.8rem;
+    max-width: 5rem;
+    margin-right: 7rem;
     padding: 10px;
   }
 }
 
-.tall-input {
-  margin: auto;
-  width: 100%;
-  height: 13rem;
-  border: 1px solid #ccc;
-  resize: vertical;
+@media (max-width: 1024px) and (min-width: 769px) {
+  .image-input-container {
+    flex-direction: column;
+  }
+  
+  .image-input-container img {
+    width: 8rem;
+    margin-left: 0;
+    margin-right: 5rem;
+    margin-top: 0.625rem;
+  }
+
+  .form-group {
+    flex-direction: column;
+    margin-bottom: 1.25rem;
+  }
+
+  .form-control-s {
+    width: 100%;
+    margin-bottom: 0.625rem;
+    font-size: 1rem;
+    margin-left: 1rem;
+  }
+  
+  .form-control-s::placeholder {
+    font-size: 1rem;
+  }
+
+  .img-upload {
+    margin-left: 0;
+  }
+
+  #fileInputLabel {
+    font-size: 0.9rem;
+    max-width: 10rem;
+    margin-right: 7rem;
+    padding: 10px;
+  }
+
+  .tall-input {
+    margin-left: 1rem;
+  }
 }
 
 
@@ -1660,4 +1724,143 @@ transform: translate(-50%, -50%);
 
 @keyframes l24{
   100%{background-position: left}
+}
+
+@media (max-width: 768px) {
+  .loader {
+    font-size: 18px; /* Further reduced font size for small screens */
+  }
+}
+
+.spinner-wrapper {
+  background-color: #ffffff;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 9999;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: all 0.3s;
+}
+
+/* HTML: <div class="loader"></div> */
+.loading {
+  width: 120px;
+  height: 20px;
+  background: linear-gradient(#000 50%,#0000 0),
+    linear-gradient(#0000 50%,#000 0),
+    linear-gradient(#000 50%,#0000 0),
+    linear-gradient(#0000 50%,#000 0),
+    linear-gradient(#000 50%,#0000 0),
+    linear-gradient(#0000 50%,#000 0)
+    #ddd;
+  background-size: calc(100%/6 + 1px) 200%;
+  background-repeat: no-repeat;
+  animation: l12 2s infinite;
+}
+
+@keyframes l12 {
+  0% {
+    background-position: calc(0*100%/5) 100%,calc(1*100%/5)   0%,calc(2*100%/5) 100%,calc(3*100%/5)   0%,calc(4*100%/5) 100%,calc(5*100%/5)   0%
+  }
+
+  16.67% {
+    background-position: calc(0*100%/5)   0%,calc(1*100%/5)   0%,calc(2*100%/5) 100%,calc(3*100%/5)   0%,calc(4*100%/5) 100%,calc(5*100%/5)   0%
+  }
+
+  33.33% {
+    background-position: calc(0*100%/5)   0%,calc(1*100%/5) 100%,calc(2*100%/5) 100%,calc(3*100%/5)   0%,calc(4*100%/5) 100%,calc(5*100%/5)   0%
+  }
+
+  50% {
+    background-position: calc(0*100%/5)   0%,calc(1*100%/5) 100%,calc(2*100%/5)   0%,calc(3*100%/5)   0%,calc(4*100%/5) 100%,calc(5*100%/5)   0%
+  }
+
+  66.67% {
+    background-position: calc(0*100%/5)   0%,calc(1*100%/5) 100%,calc(2*100%/5)   0%,calc(3*100%/5) 100%,calc(4*100%/5) 100%,calc(5*100%/5)   0%
+  }
+
+  83.33% {
+    background-position: calc(0*100%/5)   0%,calc(1*100%/5) 100%,calc(2*100%/5)   0%,calc(3*100%/5) 100%,calc(4*100%/5)   0%,calc(5*100%/5)   0%
+  }
+
+  100% {
+    background-position: calc(0*100%/5)   0%,calc(1*100%/5) 100%,calc(2*100%/5)   0%,calc(3*100%/5) 100%,calc(4*100%/5)   0%,calc(5*100%/5) 100%
+  }
+}
+
+.pdf-btn{
+  border-radius: 10px;
+  background-color: #313131;
+  color: #ffffff;
+  font-weight: 300;
+  margin-top: 1rem;
+  border: 0.5px solid black;
+  padding: 10px;
+  transition: transform .5s ease-in-out;
+}
+.pdf-btn:hover{
+  transform: scale(1.1);
+}
+
+.pdf-container {
+  display: flex;
+  justify-content: flex-end;
+}
+
+
+.password-container {
+  position: relative;
+}
+
+.password-toggle {
+  position: absolute;
+  top: 50%;
+  right: 2.3rem; /* Adjust as needed */
+  transform: translateY(-50%);
+  width: 4rem; /* Fixed width */
+  padding: 7px 10px; /* Adjust padding as needed */
+  background-color: #f0f0f0; /* Adjust background color as needed */
+  border: 1px solid #ccc; /* Adjust border as needed */
+  border-radius: 5px; /* Adjust border radius as needed */
+  cursor: pointer;
+}
+
+.form-control-p {
+  width: calc(100% - 40px); /* Adjust width accounting for toggle button */
+}
+
+@media screen and (max-width: 768px) {
+  .form-control-p{
+    font-size: 12px;
+  }
+
+  .form-control-p::placeholder{
+    font-size: 12px;
+  }
+
+  .password-toggle {
+    right: 1.8rem; /* Adjust position for small screens */
+    padding: 7px; /* Adjust padding for small screens */
+    font-size: 12px; /* Adjust font size for small screens */
+  }
+}
+
+/* Media Query for Midsize Screens (e.g., tablets) */
+@media screen and (min-width: 1024) and (max-width: 1284px) {
+  .password-toggle {
+    right: 1.5rem; /* Adjust position for midsize screens */
+    padding: 6px 8px; /* Adjust padding for midsize screens */
+    font-size: 14px; /* Adjust font size for midsize screens */
+  }
+}
+
+/* Hide the default eye icon in Edge */
+input[type="password"]::-ms-reveal,
+input[type="password"]::-webkit-contacts-auto-fill-button,
+input[type="password"]::-webkit-credentials-auto-fill-button {
+    display: none !important;
 }

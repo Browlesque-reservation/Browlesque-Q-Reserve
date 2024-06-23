@@ -23,7 +23,7 @@ if(isset($_SESSION['admin_email'])) {
 <div class="d-flex">
     <?php include "sidebar.php";?>
     <!-- Content container -->
-    <div class="content-container container">
+    <div class="content-container content">
         <h1 class="page-header">Archived Appointments</h1>
                 <div class="container-md" id="table">
                     <div class="sas-table">
