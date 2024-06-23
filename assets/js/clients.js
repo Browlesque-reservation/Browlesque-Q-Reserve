@@ -193,7 +193,7 @@ document.addEventListener("DOMContentLoaded", function () {
         checkboxes.forEach(function(checkbox, index) {
             var checkboxID = 'archive_id_' + index; // Generate unique ID
             checkbox.setAttribute('id', checkboxID); // Add unique IDs to each checkbox
-            console.log("Checkbox ID:", checkboxID); // Log the ID of each checkbox
+            // console.log("Checkbox ID:", checkboxID);
         });
     }
 
