@@ -137,14 +137,10 @@ require 'PHPMailer/src/SMTP.php';
                 $info = "Your password changed. Now you can login with your new password.";
                 $_SESSION['info'] = $info;
                 header('Location: password-changed.php');
+                exit();
             }else{
                 $errors['db-error'] = "Failed to change your password!";
             }
         }
-    }
-    
-   //if login now button click
-    if(isset($_POST['login-now'])){
-        header('Location: dashboard.php');
     }
 ?>

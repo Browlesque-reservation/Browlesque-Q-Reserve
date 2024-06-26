@@ -5,6 +5,15 @@ $admin_email = $_SESSION['admin_email'];
 if($admin_email == false){
   header('Location: index.php');
 }
+
+// Assuming your password change logic sets $_SESSION['info'] upon successful password change
+if(isset($_SESSION['info'])) {
+    $success_message = $_SESSION['info'];
+    // Clear the session info after displaying it
+    unset($_SESSION['info']);
+} else {
+    $success_message = "Password changed successfully!";
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -23,17 +32,10 @@ if($admin_email == false){
         <img src="./assets/images/icon/Browlesque-1.svg" class="logo-browlesque-client" alt="Browlesque Logo">
     </div>
         <div class="size-form s-size">
-                    <?php 
-                    if(isset($_SESSION['info'])){
-                        ?>
-                        <div class="alert alert-success text-center custom-alert add-margin">
-                            <?php echo $_SESSION['info']; ?>
-                        </div>
-                        <?php
-                    }
-                    ?>
-                    
-                <form action="dashboard.php" method="POST">
+                    <div class="alert alert-success text-center custom-alert add-margin">
+                        <?php echo $success_message; ?>
+                    </div> 
+                <form action="logout.php" method="POST">
                     <div class="form-group-f">
                         <input class="btn btn-primary btn-primary-custom text-size add-margin" type="submit" name="login-now" value="Login Now">
                     </div>

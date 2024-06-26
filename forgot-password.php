@@ -1,5 +1,3 @@
-
-
 <?php
 if (isset($_SESSION['admin_email'])) {
         header("Location: dashboard.php");
@@ -7,7 +5,6 @@ if (isset($_SESSION['admin_email'])) {
 }
 define('INCLUDED', true);
 require_once "controllerUserData.php"
-
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -43,16 +40,22 @@ require_once "controllerUserData.php"
                         }
                     ?>
                     <div class="form-group-f">
-                        <input class="form-control" type="email" name="admin_email" required value="<?php echo $admin_email ?>">
+                        <input id="email" class="form-control" type="email" name="admin_email" required value="<?php echo $admin_email ?>">
                     </div>
                     <div class="form-group-f">
-                        <input class="btn btn-primary btn-primary-custom text-size" type="submit" name="check-email" value="Continue">
+                        <input id="submit-btn" class="btn btn-primary btn-primary-custom text-size" type="submit" name="check-email" value="Continue" disabled>
                     </div>
                 </form>
         </div>
 </div>
 
-
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+<script>
+document.getElementById('email').addEventListener('input', function() {
+    var emailInput = document.getElementById('email').value;
+    var submitBtn = document.getElementById('submit-btn');
+    submitBtn.disabled = !emailInput.trim(); // Disable if input is empty or just whitespace
+});
+</script>
 </body>
 </html>
