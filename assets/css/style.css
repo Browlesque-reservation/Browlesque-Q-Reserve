@@ -1822,7 +1822,7 @@ transform: translate(-50%, -50%);
   right: 2.3rem; /* Adjust as needed */
   transform: translateY(-50%);
   width: 4rem; /* Fixed width */
-  padding: 7px 10px; /* Adjust padding as needed */
+  padding: 5.5px 8px; /* Adjust padding as needed */
   background-color: #f0f0f0; /* Adjust background color as needed */
   border: 1px solid #ccc; /* Adjust border as needed */
   border-radius: 5px; /* Adjust border radius as needed */
