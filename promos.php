@@ -68,12 +68,30 @@ $current_page = basename($_SERVER['PHP_SELF']);
 
 <div id="successModal" class="modal">
     <div class="modal-content custom-modal-content d-flex flex-column align-items-center">
-        <!-- Replace the inline SVG with an <img> tag referencing your SVG file -->
         <img src="./assets/images/icon/successful-icon.svg" alt="Success Icon" width="70" height="70">
-        <!-- End of replaced SVG -->
         <h2 class="text-center custom-subtitle mt-2 mb-2">The promo has been added successfully.</h2>
         <div class="d-flex justify mt-4">
             <button type="button" class="btn btn-primary btn-primary-custom me-2 fs-5 text-center" onclick="hideSuccessModal(); window.location.href = 'display_promos.php';">Back</button>
+        </div>
+    </div>
+</div>
+
+<div id="imageTypeModal" class="modal">
+    <div class="modal-content custom-modal-content d-flex flex-column align-items-center">
+        <img src="./assets/images/icon/wrong-qr.svg" alt="Success Icon" width="70" height="70">
+        <h2 class="text-center custom-subtitle mt-2 mb-2">Please upload an image file in JPEG/JPG or PNG format.</h2>
+        <div class="d-flex justify mt-4">
+            <button type="button" class="btn btn-primary btn-primary-custom me-2 fs-5 text-center" onclick="$('#imageTypeModal').hide();">Back</button>
+        </div>
+    </div>
+</div>
+
+<div id="imageSizeModal" class="modal">
+    <div class="modal-content custom-modal-content d-flex flex-column align-items-center">
+        <img src="./assets/images/icon/wrong-qr.svg" alt="Success Icon" width="70" height="70">
+        <h2 class="text-center custom-subtitle mt-2 mb-2">File size exceeds 10 MB. Please upload a smaller file.</h2>
+        <div class="d-flex justify mt-4">
+            <button type="button" class="btn btn-primary btn-primary-custom me-2 fs-5 text-center" onclick="$('#imageSizeModal').hide();">Back</button>
         </div>
     </div>
 </div>

@@ -66,46 +66,86 @@ if(isset($_SESSION['admin_email'])) {
         </div>
     </div>
 
+<div id="imageTypeModal" class="modal">
+    <div class="modal-content custom-modal-content d-flex flex-column align-items-center">
+        <img src="./assets/images/icon/wrong-qr.svg" alt="Success Icon" width="70" height="70">
+        <h2 class="text-center custom-subtitle mt-2 mb-2">Please upload an image file in JPEG/JPG or PNG format.</h2>
+        <div class="d-flex justify mt-4">
+            <button type="button" class="btn btn-primary btn-primary-custom me-2 fs-5 text-center" onclick="$('#imageTypeModal').hide();">Back</button>
+        </div>
+    </div>
+</div>
+
+<div id="imageSizeModal" class="modal">
+    <div class="modal-content custom-modal-content d-flex flex-column align-items-center">
+        <img src="./assets/images/icon/wrong-qr.svg" alt="Success Icon" width="70" height="70">
+        <h2 class="text-center custom-subtitle mt-2 mb-2">File size exceeds 10 MB. Please upload a smaller file.</h2>
+        <div class="d-flex justify mt-4">
+            <button type="button" class="btn btn-primary btn-primary-custom me-2 fs-5 text-center" onclick="$('#imageSizeModal').hide();">Back</button>
+        </div>
+    </div>
+</div>
+
 <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
-<!-- <script src="./assets/js/uploadpicPromo.js"></script> -->
+<script src="./assets/js/modal.js"></script>
 <script src="./assets/js/sidebar.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 
 <script>
-        function validateFile() {
-            var fileInput = document.getElementById('promo_image');
-            var fileDisplay = document.getElementById('image_preview');
-            var fileInputLabel = document.getElementById('fileInputLabel');
-            var filePath = fileInput.value;
+function validateFile() {
+    var fileInput = document.getElementById('promo_image');
+    var fileDisplay = document.getElementById('image_preview');
+    var fileInputLabel = document.getElementById('fileInputLabel');
+    var filePath = fileInput.value;
 
-            // Allow image and SVG file types
-            var allowedExtensions = /(.jpg|.jpeg|.png|.gif|.webp)$/i;
-            if (!allowedExtensions.exec(filePath)) {
-                alert('Please upload an image file (jpg, jpeg, png, gif, webp only)');
-                fileInput.value = '';
-                fileDisplay.src = '';
-                fileDisplay.style.display = 'none';
-                fileInputLabel.innerText = 'Choose Image';
-                return false;
-            }
+    // Check if a file is selected
+    if (!fileInput.files || fileInput.files.length === 0) {
+        resetFileInput();
+        return false;
+    }
 
-            var reader = new FileReader();
-            reader.onload = function(e) {
-                fileDisplay.src = e.target.result;
-                fileDisplay.style.display = 'block';
-            }
-            reader.readAsDataURL(fileInput.files[0]);
+    var file = fileInput.files[0];
 
-            // Update file input label
-            var fileName = filePath.split('\\').pop();
-            var truncatedFileName = fileName.length > 20 ? fileName.substring(0, 20) + '...' : fileName; // Truncate long file names
-            var replaceImageText = "Replace Image | ";
-            fileInputLabel.title = fileName; // Set full file name as title for tooltip
-            fileInputLabel.innerHTML = replaceImageText + truncatedFileName; // Concatenate the text
-            fileInputLabel.style.width = 'auto'; // Ensure that label width adjusts to its content
+    // Check file size (10 MB maximum)
+    var maxSize = 2 * 1024 * 1024;
+    if (file.size > maxSize) {
+        showImageSizeModal();
+        resetFileInput();
+        return false;
+    }
 
-            return true;
-        }
+    // Allow image file types
+    var allowedExtensions = /(\.jpg|\.jpeg|\.png)$/i;
+    if (!allowedExtensions.exec(filePath)) {
+        showImageTypeModal();
+        resetFileInput();
+        return false;
+    }
+
+    var reader = new FileReader();
+    reader.onload = function(e) {
+        fileDisplay.src = e.target.result;
+        fileDisplay.style.display = 'block';
+    }
+    reader.readAsDataURL(file);
+
+    // Update file input label
+    var fileName = filePath.split('\\').pop();
+    var truncatedFileName = fileName.length > 20 ? fileName.substring(0, 20) + '...' : fileName;
+    var replaceImageText = "Replace Image | ";
+    fileInputLabel.title = fileName; 
+    fileInputLabel.innerHTML = replaceImageText + truncatedFileName; 
+    fileInputLabel.style.width = 'auto';
+
+    return true;
+
+    function resetFileInput() {
+        fileInput.value = '';
+        fileDisplay.src = '';
+        fileDisplay.style.display = 'none';
+        fileInputLabel.innerText = 'Choose Image';
+    }
+}
 
         // Add this function to display the existing image when the page loads
         window.onload = function() {

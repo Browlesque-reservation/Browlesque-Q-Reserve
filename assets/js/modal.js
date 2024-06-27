@@ -106,19 +106,26 @@ function showSuccessModal() {
 
 // Function to hide the success modal
 function hideSuccessModal() {
-    // Hide the modal
     var successModal = document.getElementById('successModal');
     successModal.style.display = 'none';
 }
 
 function showQRDetailsModal() {
-    // Show the modal
     var qrScannedDetailsModal = document.getElementById('qrScannedDetailsModal');
     qrScannedDetailsModal.style.display = 'block';
 }
 
 function showNotRecogModal() {
-    // Show the modal
     var notRecognizedModal = document.getElementById('notRecognizedModal');
     notRecognizedModal.style.display = 'block';
+}
+
+function showImageTypeModal() {
+    var imageTypeModal = document.getElementById('imageTypeModal');
+    imageTypeModal.style.display = 'block';
+}
+
+function showImageSizeModal() {
+    var imageSizeModal = document.getElementById('imageSizeModal');
+    imageSizeModal.style.display = 'block';
 }

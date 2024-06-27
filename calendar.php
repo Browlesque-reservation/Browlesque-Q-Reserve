@@ -60,8 +60,8 @@ if(isset($_SESSION['admin_email'])) {
 <!-- <script src="./assets/js/preloader.js"></script> -->
 <script>
 $(document).ready(function() {
- // Close modal when close button is clicked
- $('#close_modal_button').click(function() {
+    // Close modal when close button is clicked
+    $('#close_modal_button').click(function() {
         $('#event_entry_modal').modal('hide');
     });
     
@@ -92,7 +92,13 @@ $(document).ready(function() {
             today: 'Today'
         },
         viewRender: function(view, element) {
-            $('.fc-day-grid').removeClass('fc-unselectable');
+            // Disable the next button if the current view is at the end of the current year
+            var endOfYear = moment().endOf('year');
+            if (view.intervalEnd.isSameOrAfter(endOfYear)) {
+                $('.fc-next-button').addClass('fc-state-disabled');
+            } else {
+                $('.fc-next-button').removeClass('fc-state-disabled');
+            }
         },
         selectable: true,
         selectHelper: true,
@@ -112,6 +118,8 @@ $(document).ready(function() {
         }
     });
 });
+
+
 
 function fetchAppointments(date) {
     $.ajax({
