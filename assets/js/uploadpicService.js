@@ -76,3 +76,13 @@ function validateBeforeSubmit(event) {
     showConfirmationModal();
     return true;
 }
+
+function showImageTypeModal() {
+    var imageTypeModal = document.getElementById('imageTypeModal');
+    imageTypeModal.style.display = 'block';
+}
+
+function showImageSizeModal() {
+    var imageSizeModal = document.getElementById('imageSizeModal');
+    imageSizeModal.style.display = 'block';
+}

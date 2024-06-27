@@ -184,6 +184,15 @@ function validateFile() {
             document.getElementById("promosForm").submit();
             return true; // Allow form submission
         }
+        function showImageTypeModal() {
+            var imageTypeModal = document.getElementById('imageTypeModal');
+            imageTypeModal.style.display = 'block';
+        }
+
+        function showImageSizeModal() {
+            var imageSizeModal = document.getElementById('imageSizeModal');
+            imageSizeModal.style.display = 'block';
+        }
 </script>
 </body>
 </html>

@@ -86,7 +86,7 @@ if(isset($_SESSION['admin_email'])) {
 </div>
 
 <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
-<script src="./assets/js/modal.js"></script>
+<!-- <script src="./assets/js/modal.js"></script> -->
 <script src="./assets/js/sidebar.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 <script>
@@ -211,6 +211,16 @@ function displayExistingImage() {
 
             document.getElementById("servicesForm").submit();
             return true;
+        }
+
+        function showImageTypeModal() {
+            var imageTypeModal = document.getElementById('imageTypeModal');
+            imageTypeModal.style.display = 'block';
+        }
+
+        function showImageSizeModal() {
+            var imageSizeModal = document.getElementById('imageSizeModal');
+            imageSizeModal.style.display = 'block';
         }
 </script>
 

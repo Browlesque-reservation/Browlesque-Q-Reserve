@@ -119,13 +119,3 @@ function showNotRecogModal() {
     var notRecognizedModal = document.getElementById('notRecognizedModal');
     notRecognizedModal.style.display = 'block';
 }
-
-function showImageTypeModal() {
-    var imageTypeModal = document.getElementById('imageTypeModal');
-    imageTypeModal.style.display = 'block';
-}
-
-function showImageSizeModal() {
-    var imageSizeModal = document.getElementById('imageSizeModal');
-    imageSizeModal.style.display = 'block';
-}
