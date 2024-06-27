@@ -6,9 +6,9 @@ if (!defined('INCLUDED')) {
 }
 
 $servername = "localhost";
-$username = "root";
-$password = "";
-$database = "browlesque";
+$username = "u155023598_browlesque";
+$password = "Browlesque_cavite_123";
+$database = "u155023598_browlesque_db";
 
 $conn = new mysqli($servername, $username, $password, $database);
 
