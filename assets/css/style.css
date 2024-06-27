@@ -1050,6 +1050,19 @@ html, body {
   backdrop-filter: blur(3px); /* Adjust the blur radius as needed */
 }
 
+#imageTypeModal, #imageSizeModal{
+  display: none;
+  position: fixed;
+  z-index: 1000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(3px); /* Adjust the blur radius as needed */
+}
+
+
 .modal-content {
   background-color: #ffffff;
   position: absolute;
@@ -1631,8 +1644,8 @@ transform: translate(-50%, -50%);
 }
 
 .fc-event {
-  background-color: #313131 !important; /* Set background color to black */
-  color: white !important; /* Set text color to white */
+  background-color: #313131 !important;
+  color: white !important;
   border: none !important;
 }
 
@@ -1640,12 +1653,10 @@ transform: translate(-50%, -50%);
   pointer-events: none;
 }
 
-/* CSS for bold month and year */
 .fc-toolbar-title {
   font-weight: 800 !important;
 }
 
-/* CSS for disabled Wednesdays */
 .fc-day-grid .fc-wed {
   pointer-events: none;
   opacity: 0.5;
@@ -1656,7 +1667,7 @@ transform: translate(-50%, -50%);
   opacity: 0.5;
 }
 
-.fc-wednesday { /* CSS class to highlight unselectable Wednesdays */
+.fc-wednesday {
   background-color: #f0f0f0;
   cursor: not-allowed;
 }
@@ -1704,7 +1715,6 @@ transform: translate(-50%, -50%);
   font-size: 24px;
 }
 
-/* HTML: <div class="loader"></div> */
 .loader {
   width: fit-content;
   font-weight: bold;
@@ -1728,7 +1738,7 @@ transform: translate(-50%, -50%);
 
 @media (max-width: 768px) {
   .loader {
-    font-size: 18px; /* Further reduced font size for small screens */
+    font-size: 18px;
   }
 }
 
@@ -1819,18 +1829,18 @@ transform: translate(-50%, -50%);
 .password-toggle {
   position: absolute;
   top: 50%;
-  right: 2.3rem; /* Adjust as needed */
+  right: 2.3rem; 
   transform: translateY(-50%);
-  width: 4rem; /* Fixed width */
-  padding: 5.5px 8px; /* Adjust padding as needed */
-  background-color: #f0f0f0; /* Adjust background color as needed */
-  border: 1px solid #ccc; /* Adjust border as needed */
-  border-radius: 5px; /* Adjust border radius as needed */
+  width: 4rem;
+  padding: 5.5px 8px;
+  background-color: #f0f0f0; 
+  border: 1px solid #ccc; 
+  border-radius: 5px; 
   cursor: pointer;
 }
 
 .form-control-p {
-  width: calc(100% - 40px); /* Adjust width accounting for toggle button */
+  width: calc(100% - 40px);
 }
 
 @media screen and (max-width: 768px) {
@@ -1843,19 +1853,18 @@ transform: translate(-50%, -50%);
   }
 
   .password-toggle {
-    right: 1.8rem; /* Adjust position for small screens */
-    padding: 7px; /* Adjust padding for small screens */
-    font-size: 12px; /* Adjust font size for small screens */
+    right: 1.8rem; 
+    padding: 7px; 
+    font-size: 12px; 
   }
 }
 
-/* Media Query for Midsize Screens (e.g., tablets) */
+
 @media screen and (min-width: 1024) and (max-width: 1284px) {
   .password-toggle {
-    right: 1.5rem; /* Adjust position for midsize screens */
-    padding: 6px 8px; /* Adjust padding for midsize screens */
-    font-size: 14px; /* Adjust font size for midsize screens */
-  }
+    right: 1.5rem;
+    padding: 6px 8px; 
+    font-size: 14px;
 }
 
 /* Hide the default eye icon in Edge */
@@ -1863,4 +1872,12 @@ input[type="password"]::-ms-reveal,
 input[type="password"]::-webkit-contacts-auto-fill-button,
 input[type="password"]::-webkit-credentials-auto-fill-button {
     display: none !important;
+}
+
+}
+
+.fc-next-button.fc-state-disabled {
+  pointer-events: none; 
+  opacity: 0.6; 
+  cursor: default;
 }

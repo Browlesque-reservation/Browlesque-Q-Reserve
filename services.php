@@ -78,6 +78,26 @@ $current_page = basename($_SERVER['PHP_SELF']);
     </div>
 </div>
 
+<div id="imageTypeModal" class="modal">
+    <div class="modal-content custom-modal-content d-flex flex-column align-items-center">
+        <img src="./assets/images/icon/wrong-qr.svg" alt="Success Icon" width="70" height="70">
+        <h2 class="text-center custom-subtitle mt-2 mb-2">Please upload an image file in JPEG/JPG or PNG format.</h2>
+        <div class="d-flex justify mt-4">
+            <button type="button" class="btn btn-primary btn-primary-custom me-2 fs-5 text-center" onclick="$('#imageTypeModal').hide();">Back</button>
+        </div>
+    </div>
+</div>
+
+<div id="imageSizeModal" class="modal">
+    <div class="modal-content custom-modal-content d-flex flex-column align-items-center">
+        <img src="./assets/images/icon/wrong-qr.svg" alt="Success Icon" width="70" height="70">
+        <h2 class="text-center custom-subtitle mt-2 mb-2">File size exceeds 10 MB. Please upload a smaller file.</h2>
+        <div class="d-flex justify mt-4">
+            <button type="button" class="btn btn-primary btn-primary-custom me-2 fs-5 text-center" onclick="$('#imageSizeModal').hide();">Back</button>
+        </div>
+    </div>
+</div>
+
 <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
 <script src="./assets/js/modal.js"></script>
 <script src="./assets/js/uploadpicService.js"></script>
