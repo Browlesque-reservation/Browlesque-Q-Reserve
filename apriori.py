@@ -10,10 +10,10 @@ def main():
     try:
         # Database connection details
         config = {
-            'user': 'root',
-            'password': '',  # Leave it as an empty string if your password is empty
+            'user': 'u155023598_browlesque',
+            'password': 'Browlesque_cavite_123',  # Leave it as an empty string if your password is empty
             'host': 'localhost',
-            'database': 'browlesque'
+            'database': 'u155023598_browlesque_db'
         }
 
         # Establish a database connection using a context manager
