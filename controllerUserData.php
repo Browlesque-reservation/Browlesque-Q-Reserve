@@ -14,9 +14,9 @@ $errors = array();
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 
-require '/home/u155023598/domains/snow-elk-370295.hostingersite.com/public_html/PHPMailer/src/Exception.php';
-require '/home/u155023598/domains/snow-elk-370295.hostingersite.com/public_html/PHPMailer/src/PHPMailer.php';
-require '/home/u155023598/domains/snow-elk-370295.hostingersite.com/public_html/PHPMailer/src/SMTP.php';
+require '/home/u155023598/domains/snow-elk-370295.hostingersite.com/public_html/phpmailer/src/Exception.php';
+require '/home/u155023598/domains/snow-elk-370295.hostingersite.com/public_html/phpmailer/src/PHPMailer.php';
+require '/home/u155023598/domains/snow-elk-370295.hostingersite.com/public_html/phpmailer/src/SMTP.php';
 
     //if user click verification code submit button
     if(isset($_POST['check'])){
