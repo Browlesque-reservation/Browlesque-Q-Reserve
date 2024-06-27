@@ -4,9 +4,21 @@ function validateFile() {
     var fileInputLabel = document.getElementById('fileInputLabel');
     var filePath = fileInput.value;
     // Allow image and SVG file types
-    var allowedExtensions = /(\.jpg|\.jpeg|\.png|\.gif|\.webp)$/i;
+    var allowedExtensions = /(\.jpg|\.jpeg|\.png)$/i;
     if (!allowedExtensions.exec(filePath)) {
-        alert('Please upload an image file (jpg, jpeg, png, gif, webp only)');
+        showImageTypeModal();
+        fileInput.value = '';
+        fileDisplay.src = '';
+        fileDisplay.style.display = 'none';
+        fileInputLabel.innerText = 'Choose Image';
+        return false;
+    }
+
+    // Check file size (10 MB maximum)
+    var file = fileInput.files[0];
+    var maxSize = 10 * 1024 * 1024; // 10 MB in bytes
+    if (file.size > maxSize) {
+        showImageSizeModal();
         fileInput.value = '';
         fileDisplay.src = '';
         fileDisplay.style.display = 'none';
