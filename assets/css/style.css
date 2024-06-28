@@ -1038,6 +1038,10 @@ html, body {
   backdrop-filter: blur(3px); /* Adjust the blur radius as needed */
 }
 
+#qrScanModal, #event_entry_modal {
+  backdrop-filter: blur(3px);
+}
+
 #notRecognizedModal {
   display: none;
   position: fixed;

@@ -53,6 +53,16 @@ if(isset($_SESSION['admin_email'])) {
     </div>
 </div>
 
+<div id="atLeastModal" class="modal">
+    <div class="modal-content custom-modal-content d-flex flex-column align-items-center">
+        <img src="./assets/images/icon/wrong-qr.svg" alt="Success Icon" width="70" height="70">
+        <h2 class="text-center custom-subtitle mt-2 mb-2">No appointments for the selected date.</h2>
+        <div class="d-flex justify mt-4">
+            <button type="button" class="btn btn-primary btn-primary-custom me-2 fs-5 text-center" onclick="$('#atLeastModal').hide();">Back</button>
+        </div>
+    </div>
+</div>
+
 <!-- End popup dialog box -->
 
 <script src="./assets/js/sidebar.js"></script>
@@ -119,7 +129,10 @@ $(document).ready(function() {
     });
 });
 
-
+function showNoAppointmentModal() {
+    var atLeastModal = document.getElementById('atLeastModal');
+    atLeastModal.style.display = 'block';
+}
 
 function fetchAppointments(date) {
     $.ajax({
@@ -145,7 +158,7 @@ function fetchAppointments(date) {
                     $('#appointments_list').html(appointmentsHtml);
                     $('#event_entry_modal').modal('show');
                 } else {
-                    alert('No appointments for selected date.');
+                    showNoAppointmentModal();
                 }
             } else {
                 alert(response.msg);
@@ -153,7 +166,8 @@ function fetchAppointments(date) {
         },
         error: function(xhr, status) {
             console.error('AJAX error = ' + xhr.statusText);
-            alert('Failed to fetch appointments');
+            // alert('Failed to fetch appointments');
+            showNoAppointmentModal();
         }
     });
 }
