@@ -4,6 +4,7 @@ var gridApi;
 document.addEventListener("DOMContentLoaded", function () {
     var gridOptions = {
         columnDefs: [
+            { field: 'restore', headerName: 'Restore', checkboxSelection: true, headerCheckboxSelection: true, headerCheckboxSelectionFilteredOnly: true, headerClass: 'custom-header' },
             { field: 'archive_id', hide: true }, // Hidden column for archive_id
             { field: 'client_name', headerName: 'Customer Name', headerClass: 'custom-header' },
             { field: 'client_contactno', headerName: 'Contact Number', headerClass: 'custom-header' },
@@ -13,8 +14,7 @@ document.addEventListener("DOMContentLoaded", function () {
             { field: 'client_time', headerName: 'Time', headerClass: 'custom-header' },
             { field: 'no_of_companions', headerName: 'No. of Companions', headerClass: 'custom-header' },
             { field: 'client_notes', headerName: 'Notes', headerClass: 'custom-header' },
-            { field: 'status', headerName: 'Status', headerClass: 'custom-header' },
-            { field: 'restore', headerName: 'Restore', checkboxSelection: true, headerCheckboxSelection: true, headerCheckboxSelectionFilteredOnly: true, headerClass: 'custom-header' }
+            { field: 'status', headerName: 'Status', headerClass: 'custom-header' }
         ],
         rowSelection: 'multiple',
         quickFilterText: '', // Set quickFilterText to an empty string initially

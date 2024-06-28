@@ -101,6 +101,16 @@ if (isset($_SESSION['admin_email'])) {
     </div>
 </div>
 
+<div id="atLeastModal" class="modal">
+    <div class="modal-content custom-modal-content d-flex flex-column align-items-center">
+        <img src="./assets/images/icon/wrong-qr.svg" alt="Success Icon" width="70" height="70">
+        <h2 class="text-center custom-subtitle mt-2 mb-2">Please select at least one promo to delete.</h2>
+        <div class="d-flex justify mt-4">
+            <button type="button" class="btn btn-primary btn-primary-custom me-2 fs-5 text-center" onclick="$('#atLeastModal').hide();">Back</button>
+        </div>
+    </div>
+</div>
+
 <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
 <script src="./assets/js/modal.js"></script>
 <script src="./assets/js/sidebar.js"></script>
@@ -114,7 +124,7 @@ function deleteChecked() {
     });
     
     if(promoIds.length === 0) {
-        alert("Please select at least one promo to delete.");
+        showAtLeastModalP();
         return;
     }
 
@@ -173,6 +183,11 @@ $(document).on('change', '.toggle-promo-state', function() {
         }
     });
 });
+
+function showAtLeastModalP() {
+    var atLeastModal = document.getElementById('atLeastModal');
+    atLeastModal.style.display = 'block';
+}
 
 </script>
 

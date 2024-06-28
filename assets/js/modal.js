@@ -54,7 +54,7 @@ function showConfirmationModalDelete() {
     });
     
     if(serviceIds.length === 0) {
-        alert("Please select at least one service to delete.");
+        showAtLeastModalS();
         return;
     }
 
@@ -72,7 +72,7 @@ function showConfirmationModalDeleteP() {
     });
     
     if(serviceIds.length === 0) {
-        alert("Please select at least one promo to delete.");
+        showAtLeastModalS();
         return;
     }
 
@@ -118,4 +118,14 @@ function showQRDetailsModal() {
 function showNotRecogModal() {
     var notRecognizedModal = document.getElementById('notRecognizedModal');
     notRecognizedModal.style.display = 'block';
+}
+
+function showAtLeastModalS() {
+    var atLeastModal = document.getElementById('atLeastModal');
+    atLeastModal.style.display = 'block';
+}
+
+function showAtLeastModalP() {
+    var atLeastModal = document.getElementById('atLeastModal');
+    atLeastModal.style.display = 'block';
 }
