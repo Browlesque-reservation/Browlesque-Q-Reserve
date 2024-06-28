@@ -1,14 +1,20 @@
 <?php
 header('Content-Type: application/json');
 
-// Execute the Python script and capture both standard output and standard error
-$output = shell_exec('python apriori.py 2>&1');
+// Path to the Python script
+$pythonScriptPath = '/home/u155023598/domains/snow-elk-370295.hostingersite.com/public_html/apriori.py';
 
-// Check if the output is not empty
-if ($output === null) {
-    echo json_encode(["status" => "error", "message" => "Failed to execute Python script"]);
+// Execute the Python script and capture both standard output and standard error
+exec("python3 $pythonScriptPath 2>&1", $output, $returnVar);
+
+// Check if the execution was successful
+if ($returnVar !== 0) {
+    echo json_encode(["status" => "error", "message" => "Failed to execute Python script", "output" => $output]);
     exit;
 }
+
+// Combine the output lines into a single string
+$output = implode("\n", $output);
 
 // Trim the output to remove any leading or trailing whitespace
 $output = trim($output);
