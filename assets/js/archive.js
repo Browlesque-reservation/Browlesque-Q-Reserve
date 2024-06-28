@@ -4,7 +4,7 @@ var gridApi;
 document.addEventListener("DOMContentLoaded", function () {
     var gridOptions = {
         columnDefs: [
-            { field: 'restore', headerName: 'Restore', checkboxSelection: true, headerCheckboxSelection: true, headerCheckboxSelectionFilteredOnly: true, headerClass: 'custom-header' },
+            { field: 'restore', headerName: 'Restore', checkboxSelection: true, headerCheckboxSelection: true, headerCheckboxSelectionFilteredOnly: true, headerClass: 'custom-header', sortable: false },
             { field: 'archive_id', hide: true }, // Hidden column for archive_id
             { field: 'client_name', headerName: 'Customer Name', headerClass: 'custom-header' },
             { field: 'client_contactno', headerName: 'Contact Number', headerClass: 'custom-header' },

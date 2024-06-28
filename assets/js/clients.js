@@ -4,7 +4,7 @@ var gridApi;
 document.addEventListener("DOMContentLoaded", function () {
     var gridOptions = {
         columnDefs: [
-            { field: 'archive', headerName: 'Archive', checkboxSelection: true, headerCheckboxSelection: true, headerCheckboxSelectionFilteredOnly: true, headerClass: 'custom-header' },
+            { field: 'archive', headerName: 'Archive', checkboxSelection: true, headerCheckboxSelection: true, headerCheckboxSelectionFilteredOnly: true, headerClass: 'custom-header', sortable: false },
             { field: 'appointment_id', hide: true }, // Hidden column for appointment_id
             { field: 'client_name', headerName: 'Customer Name', headerClass: 'custom-header' },
             { field: 'client_contactno', headerName: 'Contact Number', headerClass: 'custom-header' },
@@ -21,6 +21,8 @@ document.addEventListener("DOMContentLoaded", function () {
         rowSelection: 'multiple',
         quickFilterText: '', // Set quickFilterText to an empty string initially
         singleClickEdit: true, // Allow single-click editing
+        // pagination: true, // Enable pagination
+        // paginationPageSize: 10, // Set the number of rows per page
         components: {
             // Define a multiline cell renderer
             multilineCellRenderer: function(params) {
