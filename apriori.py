@@ -12,7 +12,7 @@ def main():
         config = {
             'user': 'u155023598_browlesque',
             'password': 'Browlesque_cavite_123',  # Leave it as an empty string if your password is empty
-            'host': 'localhost',
+            'host': 'snow-elk-370295.hostingersite.com',
             'database': 'u155023598_browlesque_db'
         }
 
