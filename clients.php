@@ -103,6 +103,16 @@ if(isset($_SESSION['admin_email'])) {
     </div>
 </div>
 
+<div id="atLeastModal" class="modal">
+    <div class="modal-content custom-modal-content d-flex flex-column align-items-center">
+        <img src="./assets/images/icon/wrong-qr.svg" alt="Success Icon" width="70" height="70">
+        <h2 class="text-center custom-subtitle mt-2 mb-2">Please select at least one appointment to archive.</h2>
+        <div class="d-flex justify mt-4">
+            <button type="button" class="btn btn-primary btn-primary-custom me-2 fs-5 text-center" onclick="$('#atLeastModal').hide();">Back</button>
+        </div>
+    </div>
+</div>
+
 
 <script src="./assets/js/sidebar.js"></script>
 <script>var __basePath = './';</script>
@@ -152,11 +162,16 @@ function archiveChecked() {
     } else {
         console.warn('No appointments selected to archive.');
         // Handle case where no appointments were selected
-        alert('Please select appointments to archive.');
+        showAtLeastModalC();
     }
 
     // Hide the confirmation modal after processing
     $('#confirmationModal').hide();
+}
+
+function showAtLeastModalC() {
+    var atLeastModal = document.getElementById('atLeastModal');
+    atLeastModal.style.display = 'block';
 }
 
 function showConfirmationModalArchive() {
@@ -170,7 +185,7 @@ function showConfirmationModalArchive() {
     });
 
     if (archiveIds.length === 0) {
-        alert("Please select at least one appointment to archive.");
+        showAtLeastModalC();
         return;
     }
 
