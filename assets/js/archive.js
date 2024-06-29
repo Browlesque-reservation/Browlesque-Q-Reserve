@@ -1,5 +1,14 @@
-// Define gridApi as a global variable
 var gridApi;
+
+function getPageSize() {
+    if (window.innerWidth < 600) {
+        return 5;
+    } else if (window.innerWidth < 1024) {
+        return 7; 
+    } else {
+        return 10;
+    }
+}
 
 document.addEventListener("DOMContentLoaded", function () {
     var gridOptions = {
@@ -17,17 +26,15 @@ document.addEventListener("DOMContentLoaded", function () {
             { field: 'status', headerName: 'Status', headerClass: 'custom-header' }
         ],
         rowSelection: 'multiple',
-        quickFilterText: '', // Set quickFilterText to an empty string initially
-        singleClickEdit: true, // Allow single-click editing
+        quickFilterText: '',
+        singleClickEdit: true,
+        pagination: true,
+        paginationPageSize: 10, 
         components: {
-            // Define a multiline cell renderer
             multilineCellRenderer: function(params) {
                 if (params.value) {
-                    // Create a div element to contain the multiline text
                     var cellElement = document.createElement("div");
-                    // Add the multiline text to the div element
                     cellElement.innerText = params.value;
-                    // Add CSS styles to prevent wrapping
                     cellElement.style.whiteSpace = "pre-wrap";
                     cellElement.style.overflow = "auto";
                     return cellElement;
@@ -59,6 +66,10 @@ document.addEventListener("DOMContentLoaded", function () {
             });
         }
     };
+
+    window.addEventListener('resize', function() {
+        gridOptions.gridApi.paginationSetPageSize(getPageSize());
+    });
 
     var gridDiv = document.querySelector("#myGrid2");
     // Initialize the grid and assign the API to the global variable

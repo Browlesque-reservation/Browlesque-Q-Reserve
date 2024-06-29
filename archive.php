@@ -34,7 +34,7 @@ if(isset($_SESSION['admin_email'])) {
                             <img src="./assets/images/icon/restore.svg" class="archive-svg" alt="Restore Icon">
                         </button>
                     </div>
-                    <div id="myGrid2" style="width: 100%; height: 480px" class="ag-theme-quartz"></div>
+                    <div id="myGrid2" style="width: 100%; height: 600px" class="ag-theme-quartz"></div>
                 </div>
     </div>
 </div>

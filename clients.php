@@ -38,7 +38,7 @@ if(isset($_SESSION['admin_email'])) {
                             <img src="./assets/images/icon/qrscan.svg" class="qrscan-svg" alt="Scan Icon">
                         </button>
                     </div>
-                    <div id="myGrid1" style="width: 100%; height: 480px" class="ag-theme-quartz"></div>
+                    <div id="myGrid1" style="width: 100%; height: 600px" class="ag-theme-quartz"></div>
                 </div>
     </div>
 </div>
