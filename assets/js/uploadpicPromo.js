@@ -49,18 +49,9 @@ function validateFile() {
 function validateBeforeSubmit(event) {
     event.preventDefault();
     var fileInput = document.getElementById('promo_image');
-    var promoDetails = document.getElementById("promo_details").value.trim();
 
     if (!fileInput.files || fileInput.files.length === 0) {
-        alert("Please choose an image.");
-        return false;
-    }
-    if (promoDetails === "") {
-        alert("Promo Details cannot be empty.");
-        return false;
-    }
-    if (/^\s*$/.test(promoDetails)) {
-        alert("Service Description cannot be just spaces.");
+        showChooseImageModal();
         return false;
     }
 
@@ -75,5 +66,10 @@ function showImageTypeModal() {
 
 function showImageSizeModal() {
     var imageSizeModal = document.getElementById('imageSizeModal');
+    imageSizeModal.style.display = 'block';
+}
+
+function showChooseImageModal() {
+    var imageSizeModal = document.getElementById('chooseImageModal');
     imageSizeModal.style.display = 'block';
 }

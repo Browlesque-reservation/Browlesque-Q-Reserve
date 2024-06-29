@@ -54,8 +54,19 @@ require_once "controllerUserData.php"
 document.getElementById('email').addEventListener('input', function() {
     var emailInput = document.getElementById('email').value;
     var submitBtn = document.getElementById('submit-btn');
-    submitBtn.disabled = !emailInput.trim(); // Disable if input is empty or just whitespace
+    submitBtn.disabled = !emailInput.trim();
 });
+
+document.getElementById("email").addEventListener("keypress", function(event) {
+        var charCode = event.charCode || event.keyCode; // Use event.keyCode for older browsers
+        var inputValue = event.target.value;
+        
+        // Prevent entering spaces
+        if (charCode === 32) {
+            event.preventDefault();
+            return;
+        }
+    });
 </script>
 </body>
 </html>

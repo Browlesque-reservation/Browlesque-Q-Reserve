@@ -1054,7 +1054,7 @@ html, body {
   backdrop-filter: blur(3px); /* Adjust the blur radius as needed */
 }
 
-#imageTypeModal, #imageSizeModal, #atLeastModal{
+#imageTypeModal, #imageSizeModal, #atLeastModal, #chooseImageModal{
   display: none;
   position: fixed;
   z-index: 1000;

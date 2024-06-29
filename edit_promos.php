@@ -86,12 +86,42 @@ if(isset($_SESSION['admin_email'])) {
     </div>
 </div>
 
+<div id="chooseImageModal" class="modal">
+    <div class="modal-content custom-modal-content d-flex flex-column align-items-center">
+        <img src="./assets/images/icon/wrong-qr.svg" alt="Success Icon" width="70" height="70">
+        <h2 class="text-center custom-subtitle mt-2 mb-2">Please upload an image.</h2>
+        <div class="d-flex justify mt-4">
+            <button type="button" class="btn btn-primary btn-primary-custom me-2 fs-5 text-center" onclick="$('#chooseImageModal').hide();">Back</button>
+        </div>
+    </div>
+</div>
+
 <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
 <script src="./assets/js/modal.js"></script>
 <script src="./assets/js/sidebar.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 
 <script>
+function handleKeyPress(event) {
+    var charCode = event.charCode;
+    var inputValue = event.target.value;
+    
+    if (inputValue.length === 0 && charCode === 32) {
+        event.preventDefault();
+        return;
+    }
+}
+
+function handleBlur(event) {
+    event.target.value = event.target.value.trim();
+}
+
+var promoDetails = document.getElementById("promo_details");
+
+promoDetails.addEventListener("keypress", handleKeyPress);
+promoDetails.addEventListener("blur", handleBlur);
+
+
 function validateFile() {
     var fileInput = document.getElementById('promo_image');
     var fileDisplay = document.getElementById('image_preview');
@@ -100,14 +130,19 @@ function validateFile() {
 
     // Check if a file is selected
     if (!fileInput.files || fileInput.files.length === 0) {
-        resetFileInput();
-        return false;
+        // Check if an existing image is already displayed
+        if (fileDisplay.src && fileDisplay.src !== '' && !fileDisplay.src.startsWith('data:')) {
+            return true; // Existing image is present, validation passes
+        } else {
+            resetFileInput();
+            return false;
+        }
     }
 
     var file = fileInput.files[0];
 
     // Check file size (10 MB maximum)
-    var maxSize = 2 * 1024 * 1024;
+    var maxSize = 10 * 1024 * 1024;
     if (file.size > maxSize) {
         showImageSizeModal();
         resetFileInput();
@@ -141,58 +176,63 @@ function validateFile() {
 
     function resetFileInput() {
         fileInput.value = '';
-        fileDisplay.src = '';
-        fileDisplay.style.display = 'none';
-        fileInputLabel.innerText = 'Choose Image';
+        fileInputLabel.innerText = 'Replace Image';
     }
 }
 
-        // Add this function to display the existing image when the page loads
-        window.onload = function() {
-            displayExistingImage();
-        };
+// Add this function to display the existing image when the page loads
+window.onload = function() {
+    displayExistingImage();
+};
 
-        function displayExistingImage() {
-            var fileDisplay = document.getElementById('image_preview');
-            var promoId = <?php echo $promo_id; ?>;
-            
-            if (promoId) {
-                // If promo_id is available, set the source of the image to display the existing image
-                fileDisplay.src = 'image.php?promo_id=' + promoId;
-                fileDisplay.style.display = 'block';
-            }
-        }
+function displayExistingImage() {
+    var fileDisplay = document.getElementById('image_preview');
+    var fileInputLabel = document.getElementById('fileInputLabel');
+    var promoId = <?php echo $promo_id; ?>;
+    
+    if (promoId) {
+        // If promo_id is available, set the source of the image to display the existing image
+        fileDisplay.src = 'image.php?promo_id=' + promoId;
+        fileDisplay.style.display = 'block';
+        fileInputLabel.innerText = 'Replace Image'; // Update label for existing image
+    }
+}
 
-        // Event listener to trigger validation when a new file is selected
-        document.getElementById('promo_image').addEventListener('change', function() {
-            validateFile();
-        });
+// Event listener to trigger validation when a new file is selected
+document.getElementById('promo_image').addEventListener('change', function() {
+    validateFile();
+});
 
-        function validateBeforeSubmit(event) {
-            event.preventDefault();
-            var promoDetails = document.getElementById("promo_details").value.trim();
+function validateBeforeSubmit(event) {
+    event.preventDefault();
+    var promoDetails = document.getElementById("promo_details").value.trim();
+    var fileInput = document.getElementById('promo_image');
+    var fileDisplay = document.getElementById('image_preview');
 
-            if (promoDetails === "") {
-                alert("Promo Details cannot be empty.");
-                return false;
-            }
-            if (/^\s*$/.test(promoDetails)) {
-                alert("Promo Details cannot be just spaces.");
-                return false;
-            }
+    if ((!fileInput.files || fileInput.files.length === 0) && (!fileDisplay.src || fileDisplay.src === '' || fileDisplay.src.startsWith('data:'))) {
+        showChooseImageModal();
+        return false;
+    }
 
-            document.getElementById("promosForm").submit();
-            return true; // Allow form submission
-        }
-        function showImageTypeModal() {
-            var imageTypeModal = document.getElementById('imageTypeModal');
-            imageTypeModal.style.display = 'block';
-        }
+    document.getElementById("promosForm").submit();
+    return true;
+}
 
-        function showImageSizeModal() {
-            var imageSizeModal = document.getElementById('imageSizeModal');
-            imageSizeModal.style.display = 'block';
-        }
+function showImageTypeModal() {
+    var imageTypeModal = document.getElementById('imageTypeModal');
+    imageTypeModal.style.display = 'block';
+}
+
+function showImageSizeModal() {
+    var imageSizeModal = document.getElementById('imageSizeModal');
+    imageSizeModal.style.display = 'block';
+}
+
+function showChooseImageModal() {
+    var chooseImageModal = document.getElementById('chooseImageModal');
+    chooseImageModal.style.display = 'block';
+}
+
 </script>
 </body>
 </html>
