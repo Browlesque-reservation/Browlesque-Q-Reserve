@@ -47,30 +47,10 @@ function validateBeforeSubmit(event) {
     event.preventDefault();
     
     var fileInput = document.getElementById('service_image');
-    var serviceName = document.getElementById("service_name").value.trim();
-    var serviceDetails = document.getElementById("service_description").value.trim();
 
-    // Check if a file has been selected
     if (!fileInput.files || fileInput.files.length === 0) {
-        alert("Please choose an image.");
+        showChooseImageModal();
         return false;
-    }
-
-    if (serviceName === "") {
-        alert("Service Name cannot be empty.");
-        return false;
-    }
-    if (serviceDetails === "") {
-        alert("Service Details cannot be empty.");
-        return false;
-    }
-    if (/^\s*$/.test(serviceName)) {
-        alert("Service Name cannot be just spaces.");
-        return false;
-    }
-    if (/^\s*$/.test(serviceDetails)) {
-        alert("Service Details cannot be just spaces.");
-        return false; 
     }
 
     showConfirmationModal();
@@ -84,5 +64,10 @@ function showImageTypeModal() {
 
 function showImageSizeModal() {
     var imageSizeModal = document.getElementById('imageSizeModal');
+    imageSizeModal.style.display = 'block';
+}
+
+function showChooseImageModal() {
+    var imageSizeModal = document.getElementById('chooseImageModal');
     imageSizeModal.style.display = 'block';
 }

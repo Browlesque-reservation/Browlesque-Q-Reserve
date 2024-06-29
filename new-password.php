@@ -94,7 +94,32 @@ function togglePassword2Visibility() {
 }
 
 document.getElementById('admin_password').addEventListener('input', checkPasswords);
+
+document.getElementById("admin_password").addEventListener("keypress", function(event) {
+        var charCode = event.charCode || event.keyCode; // Use event.keyCode for older browsers
+        var inputValue = event.target.value;
+        
+        // Prevent entering spaces
+        if (charCode === 32) {
+            event.preventDefault();
+            return;
+        }
+    });
+
 document.getElementById('cpassword').addEventListener('input', checkPasswords);
+
+document.getElementById("cpassword").addEventListener("keypress", function(event) {
+        var charCode = event.charCode || event.keyCode; // Use event.keyCode for older browsers
+        var inputValue = event.target.value;
+        
+        // Prevent entering spaces
+        if (charCode === 32) {
+            event.preventDefault();
+            return;
+        }
+    });
+
+    
 
 function checkPasswords() {
     var password = document.getElementById('admin_password').value;
