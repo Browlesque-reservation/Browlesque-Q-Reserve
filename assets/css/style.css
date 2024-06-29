@@ -1885,3 +1885,28 @@ input[type="password"]::-webkit-credentials-auto-fill-button {
   opacity: 0.6; 
   cursor: default;
 }
+
+.ag-paging-page-size, .ag-icon-first, .ag-icon-last {
+  display: none !important;
+}
+
+.ellipsis-cell {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 150px;
+  cursor: pointer;
+}
+
+
+/* Responsive pagination buttons */
+.ag-paging-panel {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  padding: 0;
+}
+
+.ag-paging-panel .ag-paging-button {
+  margin: 5px;
+}
