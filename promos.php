@@ -96,11 +96,41 @@ $current_page = basename($_SERVER['PHP_SELF']);
     </div>
 </div>
 
+<div id="chooseImageModal" class="modal">
+    <div class="modal-content custom-modal-content d-flex flex-column align-items-center">
+        <img src="./assets/images/icon/wrong-qr.svg" alt="Success Icon" width="70" height="70">
+        <h2 class="text-center custom-subtitle mt-2 mb-2">Please upload an image.</h2>
+        <div class="d-flex justify mt-4">
+            <button type="button" class="btn btn-primary btn-primary-custom me-2 fs-5 text-center" onclick="$('#chooseImageModal').hide();">Back</button>
+        </div>
+    </div>
+</div>
+
 <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
 <script src="./assets/js/modal.js"></script>
 <script src="./assets/js/uploadpicPromo.js"></script>
 <script src="./assets/js/sidebar.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+<script> 
+function handleKeyPress(event) {
+    var charCode = event.charCode;
+    var inputValue = event.target.value;
+    
+    if (inputValue.length === 0 && charCode === 32) {
+        event.preventDefault();
+        return;
+    }
+}
+
+function handleBlur(event) {
+    event.target.value = event.target.value.trim();
+}
+
+var promoDetails = document.getElementById("promo_details");
+
+promoDetails.addEventListener("keypress", handleKeyPress);
+promoDetails.addEventListener("blur", handleBlur);
+</script>
 </body>
 </html>
 

@@ -89,139 +89,144 @@ if(isset($_SESSION['admin_email'])) {
 <!-- <script src="./assets/js/modal.js"></script> -->
 <script src="./assets/js/sidebar.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+
 <script>
+function handleKeyPress(event) {
+    var charCode = event.charCode;
+    var inputValue = event.target.value;
+    
+    if (inputValue.length === 0 && charCode === 32) {
+        event.preventDefault();
+        return;
+    }
+}
+
+function handleBlur(event) {
+    event.target.value = event.target.value.trim();
+}
+
+var serviceName = document.getElementById("service_name");
+var serviceDescription = document.getElementById("service_description");
+
+serviceName.addEventListener("keypress", handleKeyPress);
+serviceName.addEventListener("blur", handleBlur);
+serviceDescription.addEventListener("keypress", handleKeyPress);
+serviceDescription.addEventListener("blur", handleBlur);
+
+
+ function validateFile() {
+    var fileInput = document.getElementById('service_image');
+    var fileDisplay = document.getElementById('image_preview');
+    var fileInputLabel = document.getElementById('fileInputLabel');
+    var filePath = fileInput.value;
+
+    // Check if a file is selected
+    if (!fileInput.files || fileInput.files.length === 0) {
+        // Check if an existing image is already displayed
+        if (fileDisplay.src && fileDisplay.src !== '' && !fileDisplay.src.startsWith('data:')) {
+            return true; // Existing image is present, validation passes
+        } else {
+            resetFileInput();
+            return false;
+        }
+    }
+
+    var file = fileInput.files[0];
+
+    // Check file size (2 MB maximum)
+    var maxSize = 2 * 1024 * 1024;
+    if (file.size > maxSize) {
+        showImageSizeModal();
+        resetFileInput();
+        return false;
+    }
+
+    // Allow image file types
+    var allowedExtensions = /(\.jpg|\.jpeg|\.png)$/i;
+    if (!allowedExtensions.exec(filePath)) {
+        showImageTypeModal();
+        resetFileInput();
+        return false;
+    }
+
+    var reader = new FileReader();
+    reader.onload = function(e) {
+        fileDisplay.src = e.target.result;
+        fileDisplay.style.display = 'block';
+    }
+    reader.readAsDataURL(file);
+
+    // Update file input label
+    var fileName = filePath.split('\\').pop();
+    var truncatedFileName = fileName.length > 20 ? fileName.substring(0, 20) + '...' : fileName;
+    var replaceImageText = "Replace Image | ";
+    fileInputLabel.title = fileName; 
+    fileInputLabel.innerHTML = replaceImageText + truncatedFileName; 
+    fileInputLabel.style.width = 'auto';
+
+    return true;
+
+    function resetFileInput() {
+        fileInput.value = '';
+        fileInputLabel.innerText = 'Choose Image';
+    }
+}
+
 // Add this function to display the existing image when the page loads
 window.onload = function() {
     displayExistingImage();
 };
 
 function displayExistingImage() {
-    var fileInput = document.getElementById('service_image');
     var fileDisplay = document.getElementById('image_preview');
+    var fileInputLabel = document.getElementById('fileInputLabel');
     var serviceId = <?php echo $service_id; ?>;
     
     if (serviceId) {
         // If service_id is available, set the source of the image to display the existing image
         fileDisplay.src = 'image.php?service_id=' + serviceId;
         fileDisplay.style.display = 'block';
+        fileInputLabel.innerText = 'Replace Image'; // Update label for existing image
     }
 }
-</script>
 
-<script>
-        function validateFile() {
-            var fileInput = document.getElementById('service_image');
-            var fileDisplay = document.getElementById('image_preview');
-            var fileInputLabel = document.getElementById('fileInputLabel');
-            var filePath = fileInput.value;
+// Event listener to trigger validation when a new file is selected
+document.getElementById('service_image').addEventListener('change', function() {
+    validateFile();
+});
 
-            // Check if a file is selected
-            if (!fileInput.files || fileInput.files.length === 0) {
-                resetFileInput();
-                return false;
-            }
+function validateBeforeSubmit(event) {
+    event.preventDefault();
+    
+    var serviceName = document.getElementById("service_name").value.trim();
+    var serviceDetails = document.getElementById("service_description").value.trim();
+    var fileInput = document.getElementById('service_image');
+    var fileDisplay = document.getElementById('image_preview');
 
-            var file = fileInput.files[0];
+    if ((!fileInput.files || fileInput.files.length === 0) && (!fileDisplay.src || fileDisplay.src === '' || fileDisplay.src.startsWith('data:'))) {
+        showChooseImageModal();
+        return false;
+    }
 
-            // Check file size (2 MB maximum)
-            var maxSize = 2 * 1024 * 1024;
-            if (file.size > maxSize) {
-                showImageSizeModal();
-                resetFileInput();
-                return false;
-            }
+    document.getElementById("servicesForm").submit();
+    return true;
+}
 
-            // Allow image file types
-            var allowedExtensions = /(.jpg|.jpeg|.png)$/i;
-            if (!allowedExtensions.exec(filePath)) {
-                showImageTypeModal();
-                resetFileInput();
-                return false;
-            }
+function showImageTypeModal() {
+    var imageTypeModal = document.getElementById('imageTypeModal');
+    imageTypeModal.style.display = 'block';
+}
 
-            var reader = new FileReader();
-            reader.onload = function(e) {
-                fileDisplay.src = e.target.result;
-                fileDisplay.style.display = 'block';
-            }
-            reader.readAsDataURL(file);
+function showImageSizeModal() {
+    var imageSizeModal = document.getElementById('imageSizeModal');
+    imageSizeModal.style.display = 'block';
+}
 
-            // Update file input label
-            var fileName = filePath.split('\\').pop();
-            var truncatedFileName = fileName.length > 20 ? fileName.substring(0, 20) + '...' : fileName;
-            var replaceImageText = "Replace Image | ";
-            fileInputLabel.title = fileName; 
-            fileInputLabel.innerHTML = replaceImageText + truncatedFileName; 
-            fileInputLabel.style.width = 'auto';
+function showChooseImageModal() {
+    var chooseImageModal = document.getElementById('chooseImageModal');
+    chooseImageModal.style.display = 'block';
+}
 
-            return true;
-
-            function resetFileInput() {
-                fileInput.value = '';
-                fileDisplay.src = '';
-                fileDisplay.style.display = 'none';
-                fileInputLabel.innerText = 'Choose Image';
-            }
-        }
-
-        // Add this function to display the existing image when the page loads
-        window.onload = function() {
-            displayExistingImage();
-        };
-
-        function displayExistingImage() {
-            var fileInput = document.getElementById('service_image');
-            var fileDisplay = document.getElementById('image_preview');
-            var serviceId = <?php echo $service_id; ?>;
-            
-            if (serviceId) {
-                // If service_id is available, set the source of the image to display the existing image
-                fileDisplay.src = 'image.php?service_id=' + serviceId;
-                fileDisplay.style.display = 'block';
-            }
-        }
-
-        // Event listener to trigger validation when a new file is selected
-        document.getElementById('service_image').addEventListener('change', function() {
-            validateFile();
-        });
-
-        function validateBeforeSubmit(event) {
-            event.preventDefault();
-            
-            var serviceName = document.getElementById("service_name").value.trim();
-            var serviceDetails = document.getElementById("service_description").value.trim();
-
-            if (serviceName === "") {
-                alert("Service Name cannot be empty.");
-                return false;
-            }
-            if (serviceDetails === "") {
-                alert("Service Details cannot be empty.");
-                return false;
-            }
-            if (/^\s*$/.test(serviceName)) {
-                alert("Service Name cannot be just spaces.");
-                return false;
-            }
-            if (/^\s*$/.test(serviceDetails)) {
-                alert("Service Details cannot be just spaces.");
-                return false; 
-            }
-
-            document.getElementById("servicesForm").submit();
-            return true;
-        }
-
-        function showImageTypeModal() {
-            var imageTypeModal = document.getElementById('imageTypeModal');
-            imageTypeModal.style.display = 'block';
-        }
-
-        function showImageSizeModal() {
-            var imageSizeModal = document.getElementById('imageSizeModal');
-            imageSizeModal.style.display = 'block';
-        }
 </script>
 
 </body>

@@ -94,6 +94,36 @@ if($conn)
             passwordToggleBtn.textContent = "Show";
         }
     }
+
+function handleKeyPress(event) {
+    var charCode = event.charCode || event.keyCode; 
+    var inputValue = event.target.value;
+    
+    // Prevent entering spaces
+    if (charCode === 32) {
+        event.preventDefault();
+        return;
+    }
+
+    // Prevent whitespace as the first character
+    if (inputValue.length === 0 && charCode === 32) {
+        event.preventDefault();
+        return;
+    }
+}
+
+// Function to trim whitespace on blur
+function handleBlur(event) {
+    event.target.value = event.target.value.trim();
+}
+
+var adminEmail = document.getElementById("admin_email");
+var adminPassword = document.getElementById("admin_password");
+
+adminEmail.addEventListener("keypress", handleKeyPress);
+adminEmail.addEventListener("blur", handleBlur);
+adminPassword.addEventListener("keypress", handleKeyPress);
+adminPassword.addEventListener("blur", handleBlur);
 </script>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
