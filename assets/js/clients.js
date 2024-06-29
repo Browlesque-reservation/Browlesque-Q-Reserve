@@ -1,5 +1,14 @@
-// Define gridApi as a global variable
 var gridApi;
+
+function getPageSize() {
+    if (window.innerWidth < 600) {
+        return 5;
+    } else if (window.innerWidth < 1024) {
+        return 7; 
+    } else {
+        return 10;
+    }
+}
 
 document.addEventListener("DOMContentLoaded", function () {
     var gridOptions = {
@@ -10,7 +19,7 @@ document.addEventListener("DOMContentLoaded", function () {
             { field: 'client_contactno', headerName: 'Contact Number', headerClass: 'custom-header' },
             { field: 'services', headerName: 'Services', headerClass: 'custom-header', cellRenderer: 'multilineCellRenderer', autoHeight: 'true' },
             { field: 'promos', headerName: 'Promos', headerClass: 'custom-header', cellRenderer: 'multilineCellRenderer', autoHeight: 'true' },
-            { field: 'client_date', headerName: 'Date of Appointment', headerClass: 'custom-header' },
+            { field: 'client_date', headerName: 'Date of Appointment', headerClass: 'custom-header', sort: 'desc' },
             { field: 'client_time', headerName: 'Time', headerClass: 'custom-header' },
             { field: 'no_of_companions', headerName: 'No. of Companions', headerClass: 'custom-header' },
             { field: 'client_notes', headerName: 'Notes', headerClass: 'custom-header' },
@@ -19,32 +28,32 @@ document.addEventListener("DOMContentLoaded", function () {
             }, headerClass: 'custom-header' }
         ],
         rowSelection: 'multiple',
-        quickFilterText: '', // Set quickFilterText to an empty string initially
-        singleClickEdit: true, // Allow single-click editing
-        // pagination: true, // Enable pagination
-        // paginationPageSize: 10, // Set the number of rows per page
+        quickFilterText: '',
+        singleClickEdit: true,
+        pagination: true,
+        paginationPageSize: 10, 
         components: {
             // Define a multiline cell renderer
             multilineCellRenderer: function(params) {
                 if (params.value) {
-                    // Create a div element to contain the multiline text
                     var cellElement = document.createElement("div");
-                    // Add the multiline text to the div element
                     cellElement.innerText = params.value;
-                    // Add CSS styles to prevent wrapping
                     cellElement.style.whiteSpace = "pre-wrap";
                     cellElement.style.overflow = "auto";
+                    cellElement.style.paddingTop = "0"; 
+                    cellElement.style.paddingBottom = "0";
+                    cellElement.style.marginTop = "0";
+                    cellElement.style.marginBottom = "0"; 
                     return cellElement;
                 }
-            }
+            }            
         },
         onCellValueChanged: function(params) {
-            // When a cell value changes, send the updated data to the server
             var updatedData = {
                 appointment_id: params.data.appointment_id,
                 status: params.data.status
             };
-
+    
             // Send an AJAX request to update the database
             $.ajax({
                 url: "update_data_clients.php",
@@ -63,6 +72,10 @@ document.addEventListener("DOMContentLoaded", function () {
             });
         }
     };
+    
+    window.addEventListener('resize', function() {
+        gridOptions.gridApi.paginationSetPageSize(getPageSize());
+    });
 
     var gridDiv = document.querySelector("#myGrid1");
     // Initialize the grid and assign the API to the global variable
