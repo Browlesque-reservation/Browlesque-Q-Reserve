@@ -56,6 +56,7 @@ if(isset($_SESSION['admin_email'])) {
                         <label for="promo_details" class="label-checkbox"><span class="asterisk">*</span>Promo Details:</label>
                         <!-- Display existing promo details -->
                         <textarea type="text" class="form-control form-control-s tall-input" id="promo_details" name="promo_details" placeholder="Details..." maxlength="400" required><?php echo $promo['promo_details']; ?></textarea>
+                        <div id="charLimitMessage2" class="char-limit-message">Note: Maximum input of 400 characters only.</div>
                     </div>
                     <div class="fixed-buttons">
                         <button type="submit" name="up_promo_submit" class="btn btn-primary btn-primary-custom text-center">Submit</button>
@@ -120,6 +121,18 @@ var promoDetails = document.getElementById("promo_details");
 
 promoDetails.addEventListener("keypress", handleKeyPress);
 promoDetails.addEventListener("blur", handleBlur);
+
+const textarea = document.getElementById('promo_details');
+    const charLimitMessage = document.getElementById('charLimitMessage2');
+
+    textarea.addEventListener('input', function () {
+      if (textarea.value.length >= 400) {
+        charLimitMessage.style.display = 'block';
+      } else {
+        charLimitMessage.style.display = 'none';
+      }
+    });
+
 
 
 function validateFile() {

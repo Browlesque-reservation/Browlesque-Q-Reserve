@@ -44,6 +44,7 @@ $current_page = basename($_SERVER['PHP_SELF']);
                 <div class="form-group">
                     <label for="service_description" class="label-checkbox"><span class="asterisk">*</span>Details:</label>
                     <textarea type="text" class="form-control form-control-s tall-input" id="service_description" name="service_description" placeholder="Details..." required  minlength="3" maxlength="400"></textarea>
+                    <div id="charLimitMessage" class="char-limit-messag mb-2">Note: Maximum input of 400 characters only.</div>
                 </div>
                 <div class="fixed-buttons">
                     <button type="submit" name="user_submit" class="btn btn-primary btn-primary-custom text-center">Submit</button>
@@ -135,6 +136,16 @@ serviceName.addEventListener("keypress", handleKeyPress);
 serviceName.addEventListener("blur", handleBlur);
 serviceDescription.addEventListener("keypress", handleKeyPress);
 serviceDescription.addEventListener("blur", handleBlur);
+
+    const charLimitMessage = document.getElementById('charLimitMessage');
+
+    serviceDescription.addEventListener('input', function () {
+      if (serviceDescription.value.length >= 400) {
+        charLimitMessage.style.display = 'block';
+      } else {
+        charLimitMessage.style.display = 'none';
+      }
+    });
 </script>
 
 </body>

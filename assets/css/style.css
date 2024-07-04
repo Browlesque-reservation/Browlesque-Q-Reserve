@@ -1957,8 +1957,41 @@ input[type="password"]::-webkit-credentials-auto-fill-button {
   margin-bottom: 10px;
   padding-right: 10px;
 }
+
+#charLimitMessage{
+  display: none;
+  padding-left: 4rem;
+    position: absolute;
+    bottom: 10%;
+    left: 26%;
+    color: #888;
+    font-size: 14px;
+}
+
+#charLimitMessage2{
+  display: none;
+  padding-left: 4rem;
+    position: absolute;
+    bottom: 11%;
+    left: 26%;
+    color: #888;
+    font-size: 14px;
+}
+
 @media screen and (max-width: 768px) {
   .empty-state img {
     max-width: 120px;
   }
+  
+  #charLimitMessage{
+    font-size: 10px;
+    left: 10%;
+  }
+
+  #charLimitMessage2{
+    font-size: 10px;
+    bottom: 12%;
+    left: 10%;
+  }
+
 }
