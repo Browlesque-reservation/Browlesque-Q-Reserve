@@ -30,7 +30,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $appointmentId = $conn->real_escape_string($appointmentId);
 
             // Query to retrieve appointment details from database
-            $sql = "SELECT cd.*, ca.service_id, ca.promo_id, ca.client_date, ca.start_time, ca.end_time
+            $sql = "SELECT cd.*, ca.service_id, ca.promo_id, ca.client_date, ca.start_time, ca.end_time, ca.status
                     FROM client_details cd
                     JOIN client_appointment ca ON cd.appointment_id = ca.appointment_id
                     WHERE cd.appointment_id = '$appointmentId'";
@@ -102,7 +102,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     'promo_details' => implode(', ', $promoDetails),
                     'start_time' => $formattedStartTime,
                     'end_time' => $formattedEndTime,
-                    'client_notes' => $clientNotes // Placeholder for additional notes if any
+                    'client_notes' => $clientNotes,
+                    'status' => $row['status']
                 ];
             } else {
                 // If no data found for given appointment ID

@@ -113,6 +113,46 @@ if(isset($_SESSION['admin_email'])) {
     </div>
 </div>
 
+<div id="datePassedModal" class="modal">
+    <div class="modal-content custom-modal-content d-flex flex-column align-items-center">
+        <img src="./assets/images/icon/wrong-qr.svg" alt="Success Icon" width="70" height="70">
+        <h2 class="text-center custom-subtitle mt-2 mb-2">The appointment date has already passed.</h2>
+        <div class="d-flex justify mt-4">
+            <button type="button" class="btn btn-primary btn-primary-custom me-2 fs-5 text-center" onclick="$('#datePassedModal').hide();">Back</button>
+        </div>
+    </div>
+</div>
+
+<div id="statusCancelledModal" class="modal">
+    <div class="modal-content custom-modal-content d-flex flex-column align-items-center">
+        <img src="./assets/images/icon/wrong-qr.svg" alt="Success Icon" width="70" height="70">
+        <h2 class="text-center custom-subtitle mt-2 mb-2">The appointment was already cancelled.</h2>
+        <div class="d-flex justify mt-4">
+            <button type="button" class="btn btn-primary btn-primary-custom me-2 fs-5 text-center" onclick="$('#statusCancelledModal').hide();">Back</button>
+        </div>
+    </div>
+</div>
+
+<div id="statusConfirmedModal" class="modal">
+    <div class="modal-content custom-modal-content d-flex flex-column align-items-center">
+        <img src="./assets/images/icon/wrong-qr.svg" alt="Success Icon" width="70" height="70">
+        <h2 class="text-center custom-subtitle mt-2 mb-2">The appointment was already confirmed.</h2>
+        <div class="d-flex justify mt-4">
+            <button type="button" class="btn btn-primary btn-primary-custom me-2 fs-5 text-center" onclick="$('#statusConfirmedModal').hide();">Back</button>
+        </div>
+    </div>
+</div>
+
+<div id="statusCompleteModal" class="modal">
+    <div class="modal-content custom-modal-content d-flex flex-column align-items-center">
+        <img src="./assets/images/icon/wrong-qr.svg" alt="Success Icon" width="70" height="70">
+        <h2 class="text-center custom-subtitle mt-2 mb-2">The appointment was already completed.</h2>
+        <div class="d-flex justify mt-4">
+            <button type="button" class="btn btn-primary btn-primary-custom me-2 fs-5 text-center" onclick="$('#statusCompleteModal').hide();">Back</button>
+        </div>
+    </div>
+</div>
+
 
 <script src="./assets/js/sidebar.js"></script>
 <script>var __basePath = './';</script>
@@ -236,28 +276,46 @@ $(document).ready(function() {
                 dataType: 'json',
                 success: function(response) {
                     if (response.success) {
-                        // Store the appointment_id in a hidden field
-                        $('#qrScannedBody').data('appointmentId', response.appointment_id);
-                        $('#qrScannedBody').data('clientName', response.client_name);
-                        $('#qrScannedBody').data('clientDate', response.client_date);
-                        $('#qrScannedBody').data('startTime', response.start_time);
-                        $('#qrScannedBody').data('endTime', response.end_time);
-                        // Populate qrScannedBody with retrieved data
-                        $('#qrScannedBody').html(`
-                            <div style="padding: 1rem; padding-bottom: 0; margin-left: 1rem; margin-right: 1rem;">
-                                <p style="margin-top: 1rem; margin-bottom: 0.5rem;"><strong>Client Name:</strong> ${response.client_name}</p>
-                                <p style="margin-bottom: 0.5rem;"><strong>Contact Number:</strong> ${response.client_contactno}</p>
-                                <p style="margin-bottom: 0.5rem;"><strong>Service/s Availed:</strong> ${response.service_names}</p>
-                                <p style="margin-bottom: 0.5rem;"><strong>Promo/s Availed:</strong> ${response.promo_details}</p>
-                                <p style="margin-bottom: 0.5rem;"><strong>No. of Companions:</strong> ${response.no_of_companions}</p>
-                                <p style="margin-bottom: 0.5rem;"><strong>Notes:</strong> ${response.client_notes}</p>
-                                <p style="margin-bottom: 0.5rem;"><strong>Date:</strong> ${response.client_date}</p>
-                                <p style="margin-bottom: 0;"><strong>Time:</strong> ${response.start_time} - ${response.end_time}</p>
-                            </div>
-                        `);
+                        // Check if the date has already passed
+                        const currentDate = new Date();
+                        const clientDateParts = response.client_date.split('-');
+                        const clientDate = new Date(clientDateParts[0], clientDateParts[1] - 1, clientDateParts[2]);
+                        const status = response.status;
 
-                        // Show qrScannedDetailsModal correctly
-                        showQRDetailsModal();
+                        if (clientDate < currentDate) {
+                            showDatePassedModal();
+                        }
+                        else if (status === 'Confirmed') {
+                            showStatusConfirmedModal();
+                        } else if (status === 'Completed') {
+                            showStatusCompleteModal();
+                        } else if (status === 'Cancelled') {
+                            showStatusCancelledModal();
+                        }
+                        else {
+                            // Store the appointment_id in a hidden field
+                            $('#qrScannedBody').data('appointmentId', response.appointment_id);
+                            $('#qrScannedBody').data('clientName', response.client_name);
+                            $('#qrScannedBody').data('clientDate', response.client_date);
+                            $('#qrScannedBody').data('startTime', response.start_time);
+                            $('#qrScannedBody').data('endTime', response.end_time);
+                            // Populate qrScannedBody with retrieved data
+                            $('#qrScannedBody').html(`
+                                <div style="padding: 1rem; padding-bottom: 0; margin-left: 1rem; margin-right: 1rem;">
+                                    <p style="margin-top: 1rem; margin-bottom: 0.5rem;"><strong>Client Name:</strong> ${response.client_name}</p>
+                                    <p style="margin-bottom: 0.5rem;"><strong>Contact Number:</strong> ${response.client_contactno}</p>
+                                    <p style="margin-bottom: 0.5rem;"><strong>Service/s Availed:</strong> ${response.service_names}</p>
+                                    <p style="margin-bottom: 0.5rem;"><strong>Promo/s Availed:</strong> ${response.promo_details}</p>
+                                    <p style="margin-bottom: 0.5rem;"><strong>No. of Companions:</strong> ${response.no_of_companions}</p>
+                                    <p style="margin-bottom: 0.5rem;"><strong>Notes:</strong> ${response.client_notes}</p>
+                                    <p style="margin-bottom: 0.5rem;"><strong>Date:</strong> ${response.client_date}</p>
+                                    <p style="margin-bottom: 0;"><strong>Time:</strong> ${response.start_time} - ${response.end_time}</p>
+                                </div>
+                            `);
+
+                            // Show qrScannedDetailsModal correctly
+                            showQRDetailsModal();
+                        }
                     } else {
                         // alert('Error: ' + response.message);
                         showNotRecogModal();
@@ -278,6 +336,7 @@ $(document).ready(function() {
             }
         }
     }
+
 });
 
 function statusUpdate() {

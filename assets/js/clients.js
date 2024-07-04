@@ -24,7 +24,7 @@ document.addEventListener("DOMContentLoaded", function () {
             { field: 'no_of_companions', headerName: 'No. of Companions', headerClass: 'custom-header' },
             { field: 'client_notes', headerName: 'Notes', headerClass: 'custom-header' },
             { field: 'status', headerName: 'Status', editable: true, cellEditor: 'agSelectCellEditor', cellEditorParams: {
-                values: ['Pending', 'Confirmed', 'Complete', 'Cancelled']
+                values: ['Pending', 'Confirmed', 'Completed', 'Cancelled']
             }, headerClass: 'custom-header' }
         ],
         rowSelection: 'multiple',

@@ -129,3 +129,23 @@ function showAtLeastModalP() {
     var atLeastModal = document.getElementById('atLeastModal');
     atLeastModal.style.display = 'block';
 }
+
+function showDatePassedModal() {
+    var datePassedModal = document.getElementById('datePassedModal');
+    datePassedModal.style.display = 'block';
+}
+
+function showStatusCancelledModal() {
+    var statusCancelledModal = document.getElementById('statusCancelledModal');
+    statusCancelledModal.style.display = 'block';
+}
+
+function showStatusConfirmedModal() {
+    var statusConfirmedModal = document.getElementById('statusConfirmedModal');
+    statusConfirmedModal.style.display = 'block';
+}
+
+function showStatusCompleteModal() {
+    var statusCompleteModal = document.getElementById('statusCompleteModal');
+    statusCompleteModal.style.display = 'block';
+}
