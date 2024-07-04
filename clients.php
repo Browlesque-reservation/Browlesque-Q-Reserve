@@ -39,6 +39,10 @@ if(isset($_SESSION['admin_email'])) {
                         </button>
                     </div>
                     <div id="myGrid1" style="width: 100%; height: 600px" class="ag-theme-quartz"></div>
+                    <div id="emptyState" class="empty-state">
+                        <img src="./assets/images/pictures/no-data.svg" alt="No results found">
+                        <p>No results found</p>
+                    </div>
                 </div>
     </div>
 </div>

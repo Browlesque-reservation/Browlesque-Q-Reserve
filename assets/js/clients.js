@@ -10,6 +10,15 @@ function getPageSize() {
     }
 }
 
+function toggleEmptyState(showEmptyState) {
+    var emptyStateElement = document.getElementById('emptyState');
+    if (showEmptyState) {
+        emptyStateElement.style.display = 'flex';
+    } else {
+        emptyStateElement.style.display = 'none';
+    }
+}
+
 document.addEventListener("DOMContentLoaded", function () {
     var gridOptions = {
         columnDefs: [
@@ -101,6 +110,22 @@ document.addEventListener("DOMContentLoaded", function () {
     function performSearch(searchValue) {
         // Trigger the search functionality on the ag-Grid
         gridApi.setQuickFilter(searchValue);
+    }
+
+    // Event listener for search input changes
+    searchInput.addEventListener("input", function () {
+        var searchText = searchInput.value.toLowerCase();
+        gridApi.setQuickFilter(searchText);
+        var noResults = gridApi.getDisplayedRowCount() === 0;
+        toggleEmptyState(noResults);
+    });
+
+    // Initial check for search parameter in URL
+    var urlParams = new URLSearchParams(window.location.search);
+    var searchValue = urlParams.get('search');
+    if (searchValue) {
+        $('#searchInput').val(searchValue);
+        performSearch(searchValue); // Call the search function with the searchValue
     }
 
     $.ajax({

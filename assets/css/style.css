@@ -791,6 +791,13 @@ html, body {
   #searchInput {
     width: calc(100% - 3rem); /* Adjust width for smaller screens */
   }
+
+  .container-flex-chart {
+    padding: 1rem;
+    padding-top: 1rem;
+    height: 580px;
+    width: 100%;
+  }
 }
 
 #searchInput::placeholder{
@@ -1909,4 +1916,49 @@ input[type="password"]::-webkit-credentials-auto-fill-button {
 
 .ag-paging-panel .ag-paging-button {
   margin: 5px;
+}
+
+/* Example custom CSS for toast */
+.toast {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  background-color: #313131;
+  color: #fff;
+  border-radius: 5px;
+  padding: 10px;
+  z-index: 1000;
+}
+
+.toast-header {
+  background-color: #555;
+  color: #fff;
+  border-bottom: none;
+}
+
+.toast-body {
+  padding: 15px;
+}
+
+.empty-state {
+  display: none;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 20px;
+  position: absolute;
+  top: 60%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.empty-state img {
+  max-width: 250px;
+  margin-bottom: 10px;
+  padding-right: 10px;
+}
+@media screen and (max-width: 768px) {
+  .empty-state img {
+    max-width: 120px;
+  }
 }

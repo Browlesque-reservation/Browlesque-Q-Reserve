@@ -4,7 +4,7 @@ require_once('connect.php');
 require_once('stopback.php');
 
 if (isset($_SESSION['admin_email'])) {
-    // Query to fetch promo from the database
+    // Query to fetch promos from the database
     $query = "SELECT promo_id, promo_details, promo_image, promo_state FROM promo";
     $result = mysqli_query($conn, $query);
 
@@ -38,7 +38,7 @@ if (isset($_SESSION['admin_email'])) {
         <div class="container-fluid container-md-custom-s">
             <div class="service-container">
                 <?php
-                // Check if there are any [promos]
+                // Check if there are any promos
                 if (mysqli_num_rows($result) > 0) {
                     // Loop through each promo
                     while ($row = mysqli_fetch_assoc($result)) {
@@ -59,7 +59,7 @@ if (isset($_SESSION['admin_email'])) {
                                 </div>
                             </div>
                             <a href="edit_promos.php?promo_id=<?php echo $promo_id; ?>">
-                                <img src='image.php?promo_id=<?php echo $promo_id; ?>' alt='Service Image'>
+                                <img src='image.php?promo_id=<?php echo $promo_id; ?>' alt='Promo Image'>
                             </a>
                             <p class="mb-4 mt-2"><?php echo $promo_details; ?></p>
                             <label for="delete_checkbox_<?php echo $promo_id; ?>">Delete</label>
@@ -111,12 +111,35 @@ if (isset($_SESSION['admin_email'])) {
     </div>
 </div>
 
+<div class="toast" id="myToastActivated" role="alert" aria-live="assertive" aria-atomic="true">
+    <div class="toast-header">
+        <strong class="mr-auto">Notification</strong>
+    </div>
+    <div class="toast-body">
+        Great news! The promo has been successfully <strong>ACTIVATED</strong> and is now available to our customers.
+    </div>
+</div>
+
+<div class="toast" id="myToastDeactivated" role="alert" aria-live="assertive" aria-atomic="true">
+    <div class="toast-header">
+        <strong class="mr-auto">Notification</strong>
+    </div>
+    <div class="toast-body">
+        The promo has been <strong>DEACTIVATED</strong> and is now unavailable to our customers.
+    </div>
+</div>
+
 <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
 <script src="./assets/js/modal.js"></script>
 <script src="./assets/js/sidebar.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
         
 <script>
+var toastElementActivated = document.getElementById('myToastActivated');
+var toastElementDeactivated = document.getElementById('myToastDeactivated');
+var myToastActivated = new bootstrap.Toast(toastElementActivated);
+var myToastDeactivated = new bootstrap.Toast(toastElementDeactivated);
+
 function deleteChecked() {
     var checkboxes = document.querySelectorAll('.delete-checkbox:checked');
     var promoIds = Array.from(checkboxes).map(function(checkbox) {
@@ -174,6 +197,12 @@ $(document).on('change', '.toggle-promo-state', function() {
             if (response === "success") {
                 // Update the label text
                 $('label[for="state_switch_' + promoId + '"]').text(newState.charAt(0).toUpperCase() + newState.slice(1));
+                    // Show appropriate toast based on state
+                    if (newState === 'Activated') {
+                    myToastActivated.show();
+                } else {
+                    myToastDeactivated.show();
+                }
             } else {
                 alert("Error updating promo state.");
             }
