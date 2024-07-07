@@ -14,54 +14,69 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $conn = mysqli_connect($servername, $username, $password, $database);
         }
 
-        // Escape user inputs for security
         $promo_details = mysqli_real_escape_string($conn, $_POST['promo_details']);
-
-        // Retrieve promo_id from the hidden input field
         $promo_id = $_POST['promo_id'];
 
         // Check if a file is uploaded
         if(isset($_FILES['promo_image']) && $_FILES['promo_image']['error'] === UPLOAD_ERR_OK) {
-            // Get the image data
-            $image_data = file_get_contents($_FILES['promo_image']['tmp_name']);
+            // Define upload directory
+            $upload_dir = 'uploads/';
 
-            // Update query with promo image
-            $query = "UPDATE promo SET promo_details = ?, promo_image = ? WHERE promo_id = ?";
-            
-            // Prepare statement
-            $stmt = mysqli_prepare($conn, $query);
-            if ($stmt) {
-                // Bind parameters
-                mysqli_stmt_bind_param($stmt, 'ssi', $promo_details, $image_data, $promo_id);
+            // Generate unique filename
+            $file_name = uniqid() . '_' . basename($_FILES['promo_image']['name']);
+            $file_path = $upload_dir . $file_name;
 
-                // Execute the statement
-                if (mysqli_stmt_execute($stmt)) {
-                    // Close statement
-                    mysqli_stmt_close($stmt);
-                    // Redirect to display_promos.php after successful update
-                    header("Location: display_promos.php");
-                    exit;
+            // Move uploaded file to specified directory
+            if(move_uploaded_file($_FILES['promo_image']['tmp_name'], $file_path)) {
+                // Convert image to WebP format
+                $promo_type = 'image/webp';
+                $webp_file_path = $upload_dir . pathinfo($file_name, PATHINFO_FILENAME) . '.webp';
+                if (convertToWebP($file_path, $webp_file_path)) {
+                    // Update query with service path and type
+                    $query = "UPDATE promo SET promo_details = ?, promo_path = ?, promo_type = ? WHERE promo_id = ?";
+                    
+                    // Prepare statement
+                    $stmt = mysqli_prepare($conn, $query);
+                    if ($stmt) {
+                        // Bind parameters
+                        mysqli_stmt_bind_param($stmt, 'sssi', $promo_details, $webp_file_path, $promo_type, $promo_id);
+
+                        // Execute the statement
+                        if (mysqli_stmt_execute($stmt)) {
+                            // Close statement
+                            mysqli_stmt_close($stmt);
+                            // Redirect to display_promos.php after successful update
+                            header("Location: display_promos.php");
+                            exit;
+                        } else {
+                            // Handle error
+                            echo "Error: Unable to execute statement. Error: " . mysqli_error($conn);
+                            echo "<script>console.error('Error: Unable to execute statement. Error: " . mysqli_error($conn) . "');</script>";
+                        }
+
+                        // Close statement
+                        mysqli_stmt_close($stmt);
+                    } else {
+                        // Handle error
+                        echo "Error: Unable to prepare statement.";
+                    }
                 } else {
-                    // Handle error
-                    echo "Error: Unable to execute statement. Error: " . mysqli_error($conn);
-                    echo "<script>console.error('Error: Unable to execute statement. Error: " . mysqli_error($conn) . "');</script>";
+                    // Handle WebP conversion error
+                    echo "Error converting image to WebP.";
                 }
-
-                // Close statement
-                mysqli_stmt_close($stmt);
             } else {
-                // Handle error
-                echo "Error: Unable to prepare statement.";
+                // Handle file upload error
+                echo "Error uploading file.";
             }
         } else {
-            // Update query without promo image
-            $query = "UPDATE promo SET promo_details = ? WHERE promo_id = ?";
+            // Update query without service image
+            $query = "UPDATE promo SET promo_details = ?, promo_path = ?, promo_type = ? WHERE promo_id = ?";
             
             // Prepare statement
             $stmt = mysqli_prepare($conn, $query);
             if ($stmt) {
                 // Bind parameters
-                mysqli_stmt_bind_param($stmt, 'si', $promo_details, $promo_id);
+                mysqli_stmt_bind_param($stmt, 'sssi', $promo_details, $promo_path, $promo_type, $promo_id);
 
                 // Execute the statement
                 if (mysqli_stmt_execute($stmt)) {
@@ -95,5 +110,27 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // If the form is not submitted, redirect to the form page
     header("Location: edit_promos.php");
     exit;
+}
+
+// Function to convert image to WebP format
+function convertToWebP($source, $destination) {
+    $info = getimagesize($source);
+    $mime = $info['mime'];
+
+    if ($mime == 'image/jpeg') {
+        $image = imagecreatefromjpeg($source);
+    } elseif ($mime == 'image/png') {
+        $image = imagecreatefrompng($source);
+    } else {
+        return false; // Unsupported file type
+    }
+
+    // Save as WebP
+    $result = imagewebp($image, $destination, 80);
+
+    // Free up memory
+    imagedestroy($image);
+
+    return $result;
 }
 ?>

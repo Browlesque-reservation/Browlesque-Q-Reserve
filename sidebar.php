@@ -20,10 +20,6 @@ $current_page = basename($_SERVER['PHP_SELF']);
         <div class="sidebar">
             <header><img src="./assets/images/icon/Browlesque.svg" class="logo-browlesque-client-2" alt="Browlesque Logo"></header>
             <h4 class="management mt-3 ms-4">Management</h4>
-            <a href="dashboard.php" <?php if ($current_page == 'dashboard.php') echo 'class="active-link"'; ?>>
-                <img src="./assets/images/icon/Dashboard-Icon.svg" alt="Dashboard">
-                <span class="sb-label">Dashboard</span>
-            </a>
             <a href="clients.php" <?php if ($current_page == 'clients.php') echo 'class="active-link"'; ?>>
                 <img src="./assets/images/icon/Clients-Icon.svg" alt="Clients">
                 <span class="sb-label">Clients</span>
@@ -31,6 +27,10 @@ $current_page = basename($_SERVER['PHP_SELF']);
             <a href="calendar.php" <?php if ($current_page == 'calendar.php') echo 'class="active-link"'; ?>>
                 <img src="./assets/images/icon/Calendar-Icon.svg" alt="Calendar">
                 <span class="sb-label">Calendar</span>
+            </a>
+            <a href="dashboard.php" <?php if ($current_page == 'dashboard.php') echo 'class="active-link"'; ?>>
+                <img src="./assets/images/icon/Dashboard-Icon.svg" alt="Dashboard">
+                <span class="sb-label">Dashboard</span>
             </a>
             <h4 class="content-desk mt-3 ms-4">Content Desk</h4>
             <a href="display_services.php" <?php if (in_array($current_page, ['display_services.php', 'services.php', 'edit_services.php'])) echo 'class="active-link"'; ?>>

@@ -45,59 +45,71 @@ require 'PHPMailer/src/SMTP.php';
         }
     }
 
-    //if user click continue button in forgot password form
-    if(isset($_POST['check-email'])){
-        $admin_email = mysqli_real_escape_string($conn, $_POST['admin_email']);
-        $check_email = "SELECT * FROM admin_login WHERE admin_email='$admin_email'";
-        $run_sql = mysqli_query($conn, $check_email);
-        if(mysqli_num_rows($run_sql) > 0){
-            $code = rand(999999, 111111);
-            $insert_code = "UPDATE admin_login SET code = $code WHERE admin_email = '$admin_email'";
-            $run_query =  mysqli_query($conn, $insert_code);
-            if($run_query){
-                $subject = "Password Reset Code";
-                $message = "Your password reset code is $code";
-    
-                // Create a new PHPMailer instance
-                $mail = new PHPMailer(true);
-    
-                try {
-                    // SMTP configuration
-                    $mail->isSMTP();
-                    $mail->Host = 'smtp.gmail.com';
-                    $mail->SMTPAuth = true;
-                    $mail->Username = 'genricredondo01@gmail.com'; // Your Gmail address
-                    $mail->Password = 'ecnf mdvf plks zeyl'; // Your Gmail password
-                    $mail->SMTPSecure = 'tls';
-                    $mail->Port = 587;
-    
-                    // Sender and recipient
-                    $mail->setFrom('genricredondo01@gmail.com', 'Genric Redondo');
-                    $mail->addAddress($admin_email);
-    
-                    // Email content
-                    $mail->isHTML(true);
-                    $mail->Subject = $subject;
-                    $mail->Body = $message;
-    
-                    // Send email
-                    $mail->send();
-    
-                    $info = "We've sent a password reset otp to your email - $admin_email";
-                    $_SESSION['info'] = $info;
-                    $_SESSION['admin_email'] = $admin_email;
-                    header('location: reset-code.php');
-                    exit();
-                } catch (Exception $e) {
-                    $errors['otp-error'] = "Failed while sending code! Error: {$mail->ErrorInfo}";
-                }
-            }else{
-                $errors['db-error'] = "Something went wrong!";
+// if user clicks continue button in forgot password form
+if (isset($_POST['check-email'])) {
+    $admin_email = mysqli_real_escape_string($conn, $_POST['admin_email']);
+    $check_email = "SELECT * FROM admin_login WHERE admin_email='$admin_email'";
+    $run_sql = mysqli_query($conn, $check_email);
+
+    if (mysqli_num_rows($run_sql) > 0) {
+        $row = mysqli_fetch_assoc($run_sql);
+        $admin_name = $row['admin_name']; // Adjust this to the actual column name for the first name in your database
+
+        $code = rand(999999, 111111);
+        $insert_code = "UPDATE admin_login SET code = $code WHERE admin_email = '$admin_email'";
+        $run_query = mysqli_query($conn, $insert_code);
+
+        if ($run_query) {
+            $subject = "Password Reset Code";
+            $message = "
+                Hi $admin_name, <br><br>
+                We received a request to reset your Browlesque account password. Your reset password code is <strong>$code</strong>.<br><br>
+                Enter this code on our password reset page to set a new password. If you didn't request a reset, please ignore this email.<br><br>
+                Best regards,<br>
+                The Browlesque Team
+            ";
+
+            // Create a new PHPMailer instance
+            $mail = new PHPMailer(true);
+
+            try {
+                // SMTP configuration
+                $mail->isSMTP();
+                $mail->Host = 'smtp.gmail.com';
+                $mail->SMTPAuth = true;
+                $mail->Username = 'browlesquebacoorbranch@gmail.com'; // Your Gmail address
+                $mail->Password = 'ohrk idmk sulk wdlq'; // Your Gmail app password
+                $mail->SMTPSecure = 'tls';
+                $mail->Port = 587;
+
+                // Sender and recipient
+                $mail->setFrom('browlesquebacoorbranch@gmail.com', 'Browlesque Cavite');
+                $mail->addAddress($admin_email);
+
+                // Email content
+                $mail->isHTML(true);
+                $mail->Subject = $subject;
+                $mail->Body = $message;
+
+                // Send email
+                $mail->send();
+
+                $info = "We've sent a password reset OTP to your email - $admin_email";
+                $_SESSION['info'] = $info;
+                $_SESSION['admin_email'] = $admin_email;
+                header('location: reset-code.php');
+                exit();
+            } catch (Exception $e) {
+                $errors['otp-error'] = "Failed while sending code! Error: {$mail->ErrorInfo}";
             }
-        }else{
-            $errors['admin_email'] = "This email address does not exist!";
+        } else {
+            $errors['db-error'] = "Something went wrong!";
         }
+    } else {
+        $errors['admin_email'] = "This email address does not exist!";
     }
+}
+
     
 
     //if user click check reset otp button
@@ -110,7 +122,7 @@ require 'PHPMailer/src/SMTP.php';
             $fetch_data = mysqli_fetch_assoc($code_res);
             $admin_email = $fetch_data['admin_email'];
             $_SESSION['email'] = $admin_email;
-            $info = "Please create a new password that has at least 6 characters and contain at least one letter and one number.";
+            $info = "Please create a new password with the following requirements:<ul><li>At least 6 characters</li><li>Contains at least one uppercase letter</li><li>Contains at least one lowercase letter</li><li>Contains at least one number</li><li>Contains at least one special character</li></ul>";
             $_SESSION['info'] = $info;
             header('location: new-password.php');
             exit();

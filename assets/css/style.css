@@ -594,7 +594,7 @@ html, body {
 
   table {
     border-collapse: collapse;
-    width: 100%;
+    width: 95%;
   }
   th, td {
     border: 1px solid black;
@@ -767,7 +767,7 @@ html, body {
   justify-content: center;
 }
 
-#searchInput {
+#searchInput, #searchInput2 {
   width: calc(100% - 4rem); /* Adjust the width dynamically */
   max-width: 400px; /* Set a maximum width to prevent it from becoming too wide */
   height: 40px;
@@ -788,7 +788,7 @@ html, body {
 }
 
 @media only screen and (max-width: 768px) {
-  #searchInput {
+  #searchInput, #searchInput2 {
     width: calc(100% - 3rem); /* Adjust width for smaller screens */
   }
 
@@ -806,6 +806,18 @@ html, body {
 
 #searchInput:focus,
 #searchInput:hover {
+  outline: none;
+  border-color: rgba(0, 48, 73, 0.4);
+  background-color: #fff;
+  box-shadow: 0 0 0 4px rgb(0 48 73 / 10%);
+}
+
+#searchInput2::placeholder{
+  color: #9e9ea7;
+}
+
+#searchInput2:focus,
+#searchInput2:hover {
   outline: none;
   border-color: rgba(0, 48, 73, 0.4);
   background-color: #fff;
@@ -1940,7 +1952,31 @@ input[type="password"]::-webkit-credentials-auto-fill-button {
   padding: 15px;
 }
 
-.empty-state {
+.empty-state{
+  display: none;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 20px;
+  position: absolute;
+  top: 35%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.empty-state2{
+  display: none;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 20px;
+  position: absolute;
+  top: 80%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.empty-state3{
   display: none;
   justify-content: center;
   align-items: center;
@@ -1953,6 +1989,19 @@ input[type="password"]::-webkit-credentials-auto-fill-button {
 }
 
 .empty-state img {
+  max-width: 250px;
+  margin-bottom: 10px;
+  padding-right: 10px;
+}
+
+.empty-state2 img {
+  max-width: 250px;
+  margin-bottom: 10px;
+  padding-right: 10px;
+}
+
+
+.empty-state3 img {
   max-width: 250px;
   margin-bottom: 10px;
   padding-right: 10px;
@@ -1994,4 +2043,17 @@ input[type="password"]::-webkit-credentials-auto-fill-button {
     left: 10%;
   }
 
+}
+
+#tableTitle { 
+  font-weight: bold;
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+#titleLine {
+  width: 50%;
+  margin: auto;
+  margin-bottom: 20px;
+  border-bottom: 1px solid #ccc;
 }

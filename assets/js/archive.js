@@ -11,7 +11,7 @@ function getPageSize() {
 }
 
 function toggleEmptyState(showEmptyState) {
-    var emptyStateElement = document.getElementById('emptyState');
+    var emptyStateElement = document.getElementById('emptyState3');
     if (showEmptyState) {
         emptyStateElement.style.display = 'flex';
     } else {
@@ -22,23 +22,24 @@ function toggleEmptyState(showEmptyState) {
 document.addEventListener("DOMContentLoaded", function () {
     var gridOptions = {
         columnDefs: [
-            { field: 'restore', headerName: 'Restore', checkboxSelection: true, headerCheckboxSelection: true, headerCheckboxSelectionFilteredOnly: true, headerClass: 'custom-header', sortable: false },
+            { field: 'restore', headerName: 'Restore', checkboxSelection: true, headerCheckboxSelection: true, headerCheckboxSelectionFilteredOnly: true, headerClass: 'custom-header', sortable: false, width: 120 },
             { field: 'archive_id', hide: true }, // Hidden column for archive_id
             { field: 'client_name', headerName: 'Customer Name', headerClass: 'custom-header' },
             { field: 'client_contactno', headerName: 'Contact Number', headerClass: 'custom-header' },
-            { field: 'services', headerName: 'Services', headerClass: 'custom-header', cellRenderer: 'multilineCellRenderer', autoHeight: 'true' },
-            { field: 'promos', headerName: 'Promos', headerClass: 'custom-header', cellRenderer: 'multilineCellRenderer', autoHeight: 'true' },
-            { field: 'client_date', headerName: 'Date of Appointment', headerClass: 'custom-header' },
+            // { field: 'services', headerName: 'Services', headerClass: 'custom-header', cellRenderer: 'multilineCellRenderer', autoHeight: 'true' },
+            // { field: 'promos', headerName: 'Promos', headerClass: 'custom-header', cellRenderer: 'multilineCellRenderer', autoHeight: 'true' },
+            { field: 'client_date', headerName: 'Date of Appointment', headerClass: 'custom-header', sort: 'desc' },
             { field: 'client_time', headerName: 'Time', headerClass: 'custom-header' },
-            { field: 'no_of_companions', headerName: 'No. of Companions', headerClass: 'custom-header' },
-            { field: 'client_notes', headerName: 'Notes', headerClass: 'custom-header' },
+            // { field: 'client_notes', headerName: 'Notes', headerClass: 'custom-header' },
             { field: 'status', headerName: 'Status', headerClass: 'custom-header' }
         ],
         rowSelection: 'multiple',
         quickFilterText: '',
         singleClickEdit: true,
         pagination: true,
-        paginationPageSize: 10, 
+        paginationPageSize: 10,
+        suppressMovableColumns: true,
+        suppressRowClickSelection: true,
         components: {
             multilineCellRenderer: function(params) {
                 if (params.value) {

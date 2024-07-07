@@ -96,30 +96,28 @@ function togglePassword2Visibility() {
 document.getElementById('admin_password').addEventListener('input', checkPasswords);
 
 document.getElementById("admin_password").addEventListener("keypress", function(event) {
-        var charCode = event.charCode || event.keyCode; // Use event.keyCode for older browsers
-        var inputValue = event.target.value;
-        
-        // Prevent entering spaces
-        if (charCode === 32) {
-            event.preventDefault();
-            return;
-        }
-    });
+    var charCode = event.charCode || event.keyCode; // Use event.keyCode for older browsers
+    var inputValue = event.target.value;
+
+    // Prevent entering spaces
+    if (charCode === 32) {
+        event.preventDefault();
+        return;
+    }
+});
 
 document.getElementById('cpassword').addEventListener('input', checkPasswords);
 
 document.getElementById("cpassword").addEventListener("keypress", function(event) {
-        var charCode = event.charCode || event.keyCode; // Use event.keyCode for older browsers
-        var inputValue = event.target.value;
-        
-        // Prevent entering spaces
-        if (charCode === 32) {
-            event.preventDefault();
-            return;
-        }
-    });
+    var charCode = event.charCode || event.keyCode; // Use event.keyCode for older browsers
+    var inputValue = event.target.value;
 
-    
+    // Prevent entering spaces
+    if (charCode === 32) {
+        event.preventDefault();
+        return;
+    }
+});
 
 function checkPasswords() {
     var password = document.getElementById('admin_password').value;
@@ -127,10 +125,12 @@ function checkPasswords() {
     var indicator = document.getElementById('password-match-indicator');
     var submitBtn = document.getElementById('submit-btn');
     
-    var hasLetter = /[a-zA-Z]/.test(password);
+    var hasUppercase = /[A-Z]/.test(password);
+    var hasLowercase = /[a-z]/.test(password);
     var hasNumber = /\d/.test(password);
+    var hasSpecialChar = /[!@#$%^&*(),.?":{}|<>_]/.test(password);
 
-    if (password.length >= 6 && hasLetter && hasNumber) {
+    if (password.length >= 6 && hasUppercase && hasLowercase && hasNumber && hasSpecialChar) {
         if (password === confirmPassword) {
             indicator.textContent = "Passwords match!";
             indicator.style.color = "green";
@@ -143,12 +143,18 @@ function checkPasswords() {
             indicator.textContent = "";
             submitBtn.disabled = true;
         }
-    } else if (password.length < 6) {
-        indicator.textContent = "Password must be at least 6 characters.";
-        indicator.style.color = "red";
-        submitBtn.disabled = true;
-    } else if (!hasLetter || !hasNumber) {
-        indicator.textContent = "Password must contain at least one letter and one number.";
+    } else {
+        if (password.length < 6) {
+            indicator.textContent = "Password must be at least 6 characters.";
+        } else if (!hasUppercase) {
+            indicator.textContent = "Password must contain at least one uppercase letter.";
+        } else if (!hasLowercase) {
+            indicator.textContent = "Password must contain at least one lowercase letter.";
+        } else if (!hasNumber) {
+            indicator.textContent = "Password must contain at least one number.";
+        } else if (!hasSpecialChar) {
+            indicator.textContent = "Password must contain at least one special character.";
+        }
         indicator.style.color = "red";
         submitBtn.disabled = true;
     }

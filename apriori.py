@@ -19,7 +19,7 @@ def main():
         # Establish a database connection using a context manager
         with mysql.connector.connect(**config) as connection:
             # Query to fetch the transaction data
-            query = "SELECT appointment_id, service_id FROM client_appointment"
+            query = "SELECT appointment_id, service_id FROM client_appointment WHERE status = 'Confirmed'"
             # Load the data into a DataFrame
             data = pd.read_sql(query, connection)
 

@@ -9,14 +9,25 @@ if(isset($_SESSION['admin_email'])) {
     // Fetch promo details based on the promo_id in the URL
     if(isset($_GET['promo_id'])) {
         $promo_id = $_GET['promo_id'];
-        $query = "SELECT promo_id, promo_details, promo_image, admin_id FROM promo WHERE promo_id = $promo_id";
+        $query = "SELECT promo_id, promo_details, promo_path, promo_type, admin_id FROM promo WHERE promo_id = $promo_id";
         $result = mysqli_query($conn, $query);
-        $promo = mysqli_fetch_assoc($result);
+
+        if ($result && mysqli_num_rows($result) > 0) {
+            $promo = mysqli_fetch_assoc($result);
+            // Assuming service_path contains the image path in your database
+            $promo_image_path = $promo['promo_path'];
+        } else {
+            header("Location: display_services.php");
+            exit();
+        }
     } else {
-        // Redirect if promo_id is not provided in the URL
-        header("Location: display_promos.php");
+        header("Location: display_services.php");
         exit();
     }
+} else {
+    header("Location: index.php");
+    die();
+}
 ?>
 
 <!DOCTYPE html>
@@ -41,21 +52,25 @@ if(isset($_SESSION['admin_email'])) {
             <div class="container-fluid container-md-custom-s">
                 <form id="promosForm" method="POST" action="update_promo.php" enctype="multipart/form-data" onsubmit="validateBeforeSubmit(event)">                
                     <!-- Hidden input field to store admin_id -->
-                    <input type="hidden" id="admin_id" name="admin_id" value="<?php echo "$admin_id"; ?>">
-                    <input type="hidden" id="promo_id" name="promo_id" value="<?php echo "$promo_id"; ?>">
+                    <input type="hidden" id="admin_id" name="admin_id" value="<?php echo htmlspecialchars($admin_id); ?>">
+                    <input type="hidden" id="promo_id" name="promo_id" value="<?php echo htmlspecialchars($promo_id); ?>">
                     <div class="form-group">
                         <label for="promo_image" class="label-checkbox"><span class="asterisk">*</span>Upload Picture:</label>
                         <div class="image-input-container">
                             <input type="file" class="form-control form-control-s img-upload" id="promo_image" name="promo_image" onchange="validateFile()">
                             <label for="promo_image" id="fileInputLabel" class="form-control-s btn btn-primary btn-primary-custom image-btn">Choose Image</label>
-                            <!-- Display existing promo image -->
-                            <img id="image_preview" src='image.php?promo_id=<?php echo $promo_id; ?>' alt="Promo Image">
+                            <a href="edit_services.php?promo_id=<?php echo htmlspecialchars($promo_id); ?>">
+                                <img id="image_preview"
+                                    src='image.php?promo_id=<?php echo htmlspecialchars($promo_id); ?>'
+                                    alt='Service Image'>
+                            </a>
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="promo_details" class="label-checkbox"><span class="asterisk">*</span>Promo Details:</label>
                         <!-- Display existing promo details -->
-                        <textarea type="text" class="form-control form-control-s tall-input" id="promo_details" name="promo_details" placeholder="Details..." maxlength="400" required><?php echo $promo['promo_details']; ?></textarea>
+                        <textarea type="text" class="form-control form-control-s tall-input" id="promo_details" name="promo_details" placeholder="Details..." 
+                            maxlength="400" required><?php echo htmlspecialchars($promo['promo_details']) ?></textarea>
                         <div id="charLimitMessage2" class="char-limit-message">Note: Maximum input of 400 characters only.</div>
                     </div>
                     <div class="fixed-buttons">
@@ -199,17 +214,21 @@ window.onload = function() {
 };
 
 function displayExistingImage() {
-    var fileDisplay = document.getElementById('image_preview');
-    var fileInputLabel = document.getElementById('fileInputLabel');
-    var promoId = <?php echo $promo_id; ?>;
-    
-    if (promoId) {
-        // If promo_id is available, set the source of the image to display the existing image
-        fileDisplay.src = 'image.php?promo_id=' + promoId;
-        fileDisplay.style.display = 'block';
-        fileInputLabel.innerText = 'Replace Image'; // Update label for existing image
+        var fileDisplay = document.getElementById('image_preview');
+        var fileInputLabel = document.getElementById('fileInputLabel');
+        var promoId = <?php echo isset($promo_id) ? $promo_id : 'null'; ?>;
+        var promoImagePath = '<?php echo isset($promo_image_path) ? $promo_image_path : ''; ?>';
+
+        if (promoId && promoImagePath) {
+            fileDisplay.src = promoImagePath;
+            fileDisplay.style.display = 'block';
+            fileInputLabel.innerText = 'Replace Image';
+        } else {
+            fileDisplay.style.display = 'none';
+            fileInputLabel.innerText = 'Upload Image';
+        }
     }
-}
+
 
 // Event listener to trigger validation when a new file is selected
 document.getElementById('promo_image').addEventListener('change', function() {
@@ -249,10 +268,3 @@ function showChooseImageModal() {
 </script>
 </body>
 </html>
-
-<?php
-} else {
-    header("Location: index.php");
-    die();
-}
-?>

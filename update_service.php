@@ -17,52 +17,68 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         // Escape user inputs for security
         $service_name = mysqli_real_escape_string($conn, $_POST['service_name']);
         $service_description = mysqli_real_escape_string($conn, $_POST['service_description']);
-
-        // Retrieve service_id from the hidden input field
         $service_id = $_POST['service_id'];
 
         // Check if a file is uploaded
         if(isset($_FILES['service_image']) && $_FILES['service_image']['error'] === UPLOAD_ERR_OK) {
-            // Get the image data
-            $image_data = file_get_contents($_FILES['service_image']['tmp_name']);
+            // Define upload directory
+            $upload_dir = 'uploads/';
 
-            // Update query with service image
-            $query = "UPDATE services SET service_name = ?, service_description = ?, service_image = ? WHERE service_id = ?";
-            
-            // Prepare statement
-            $stmt = mysqli_prepare($conn, $query);
-            if ($stmt) {
-                // Bind parameters
-                mysqli_stmt_bind_param($stmt, 'sssi', $service_name, $service_description, $image_data, $service_id);
+            // Generate unique filename
+            $file_name = uniqid() . '_' . basename($_FILES['service_image']['name']);
+            $file_path = $upload_dir . $file_name;
 
-                // Execute the statement
-                if (mysqli_stmt_execute($stmt)) {
-                    // Close statement
-                    mysqli_stmt_close($stmt);
-                    // Redirect to display_services.php after successful update
-                    header("Location: display_services.php");
-                    exit;
+            // Move uploaded file to specified directory
+            if(move_uploaded_file($_FILES['service_image']['tmp_name'], $file_path)) {
+                // Convert image to WebP format
+                $service_type = 'image/webp';
+                $webp_file_path = $upload_dir . pathinfo($file_name, PATHINFO_FILENAME) . '.webp';
+                if (convertToWebP($file_path, $webp_file_path)) {
+                    // Update query with service path and type
+                    $query = "UPDATE services SET service_name = ?, service_description = ?, service_path = ?, service_type = ? WHERE service_id = ?";
+                    
+                    // Prepare statement
+                    $stmt = mysqli_prepare($conn, $query);
+                    if ($stmt) {
+                        // Bind parameters
+                        mysqli_stmt_bind_param($stmt, 'ssssi', $service_name, $service_description, $webp_file_path, $service_type, $service_id);
+
+                        // Execute the statement
+                        if (mysqli_stmt_execute($stmt)) {
+                            // Close statement
+                            mysqli_stmt_close($stmt);
+                            // Redirect to display_services.php after successful update
+                            header("Location: display_services.php");
+                            exit;
+                        } else {
+                            // Handle error
+                            echo "Error: Unable to execute statement. Error: " . mysqli_error($conn);
+                            echo "<script>console.error('Error: Unable to execute statement. Error: " . mysqli_error($conn) . "');</script>";
+                        }
+
+                        // Close statement
+                        mysqli_stmt_close($stmt);
+                    } else {
+                        // Handle error
+                        echo "Error: Unable to prepare statement.";
+                    }
                 } else {
-                    // Handle error
-                    echo "Error: Unable to execute statement. Error: " . mysqli_error($conn);
-                    echo "<script>console.error('Error: Unable to execute statement. Error: " . mysqli_error($conn) . "');</script>";
+                    // Handle WebP conversion error
+                    echo "Error converting image to WebP.";
                 }
-
-                // Close statement
-                mysqli_stmt_close($stmt);
             } else {
-                // Handle error
-                echo "Error: Unable to prepare statement.";
+                // Handle file upload error
+                echo "Error uploading file.";
             }
         } else {
             // Update query without service image
-            $query = "UPDATE services SET service_name = ?, service_description = ? WHERE service_id = ?";
+            $query = "UPDATE services SET service_name = ?, service_description = ?, service_path = ?, service_type = ? WHERE service_id = ?";
             
             // Prepare statement
             $stmt = mysqli_prepare($conn, $query);
             if ($stmt) {
                 // Bind parameters
-                mysqli_stmt_bind_param($stmt, 'ssi', $service_name, $service_description, $service_id);
+                mysqli_stmt_bind_param($stmt, 'ssssi', $service_name, $service_description, $service_path, $service_type, $service_id);
 
                 // Execute the statement
                 if (mysqli_stmt_execute($stmt)) {
@@ -96,5 +112,27 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // If the form is not submitted, redirect to the form page
     header("Location: edit_services.php");
     exit;
+}
+
+// Function to convert image to WebP format
+function convertToWebP($source, $destination) {
+    $info = getimagesize($source);
+    $mime = $info['mime'];
+
+    if ($mime == 'image/jpeg') {
+        $image = imagecreatefromjpeg($source);
+    } elseif ($mime == 'image/png') {
+        $image = imagecreatefrompng($source);
+    } else {
+        return false; // Unsupported file type
+    }
+
+    // Save as WebP
+    $result = imagewebp($image, $destination, 80);
+
+    // Free up memory
+    imagedestroy($image);
+
+    return $result;
 }
 ?>

@@ -27,6 +27,8 @@ if(isset($_SESSION['admin_email'])) {
     <div class="content-container content">
         <h1 class="page-header">List of Clients</h1>
                 <div class="container-md" id="table">
+                    <h3 id="tableTitle">Accepted Client Appointments</h3>
+                    <div id="titleLine"></div>
                     <div class="sas-table">
                         <div class="search-container">
                             <input type="text" id="searchInput" class="mb-2" placeholder="Search..." onkeyup="onSearchInputChange()">
@@ -38,11 +40,24 @@ if(isset($_SESSION['admin_email'])) {
                             <img src="./assets/images/icon/qrscan.svg" class="qrscan-svg" alt="Scan Icon">
                         </button>
                     </div>
-                    <div id="myGrid1" style="width: 100%; height: 600px" class="ag-theme-quartz"></div>
+                    <div id="myGrid1" style="width: 100%; height: 520px" class="ag-theme-quartz"></div>
                     <div id="emptyState" class="empty-state">
                         <img src="./assets/images/pictures/no-data.svg" alt="No results found">
                         <p>No results found</p>
                     </div>
+                    
+                </div>
+                <div class="container-md" id="table">
+                    <h3 id="tableTitle">Confirmed Client Appointments</h3>
+                    <div id="titleLine"></div>
+                    <div class="search-container">
+                        <input type="text" id="searchInput2" class="mb-2" placeholder="Search..." onkeyup="onSearchInputChange()">
+                     </div>
+                        <div id="myGrid2" style="width: 100%; height: 520px" class="ag-theme-quartz"></div>
+                        <div id="emptyState2" class="empty-state2">
+                            <img src="./assets/images/pictures/no-data.svg" alt="No results found">
+                            <p>No results found</p>
+                        </div>
                 </div>
     </div>
 </div>
@@ -161,7 +176,8 @@ if(isset($_SESSION['admin_email'])) {
 <script src="./assets/js/sidebar.js"></script>
 <script>var __basePath = './';</script>
 <script src="https://cdn.jsdelivr.net/npm/ag-grid-community@31.0.1/dist/ag-grid-community.min.js"></script>
-<script src="./assets/js/clients.js"></script>
+<script src="./assets/js/clients_pending.js"></script>
+<script src="./assets/js/clients_confirmed.js"></script>
 <script src="./assets/js/modal.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 <!-- <script src="./assets/js/preloader.js"></script> -->

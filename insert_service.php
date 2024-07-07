@@ -4,7 +4,7 @@ session_start(); // Start session if not already started
 // Check if the form is submitted
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Check if the user is logged in
-    if(isset($_SESSION['admin_email'])) {
+    if (isset($_SESSION['admin_email'])) {
         // Include your database connection file
         define('INCLUDED', true);
         require_once('connect.php');
@@ -22,40 +22,68 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $admin_id = $_POST['admin_id'];
 
         // Check if a file is uploaded
-        if(isset($_FILES['service_image']) && $_FILES['service_image']['error'] === UPLOAD_ERR_OK) {
+        if (isset($_FILES['service_image']) && $_FILES['service_image']['error'] === UPLOAD_ERR_OK) {
             // Get the image data
-            $image_data = file_get_contents($_FILES['service_image']['tmp_name']);
+            $image = $_FILES['service_image'];
+            $imageType = mime_content_type($image['tmp_name']);
+            $allowedTypes = ['image/jpeg', 'image/png'];
 
-            // Insert query with BLOB data
-            $query = "INSERT INTO services (admin_id, service_name, service_description, service_image) VALUES (?, ?, ?, ?)";
-            
-            // Prepare statement
-            $stmt = mysqli_prepare($conn, $query);
-            if ($stmt) {
-                // Bind parameters
-                mysqli_stmt_bind_param($stmt, 'isss', $admin_id, $service_name, $service_description, $image_data);
+            if (in_array($imageType, $allowedTypes)) {
+                $imagePath = $image['tmp_name'];
+                $webpPath = 'uploads/' . uniqid() . '.webp';
 
-                // Execute the statement
-                if (mysqli_stmt_execute($stmt)) {
-                    // Close statement
-                    mysqli_stmt_close($stmt);
-                    // Show success modal using JavaScript
-                    // echo '<script>
-                    //         // Show success modal
-                    //         showSuccessModal();
-                    //       </script>';
-                    exit;
-                } else {
-                    // Handle error
-                    echo "Error: Unable to execute statement. Error: " . mysqli_error($conn);
-                    echo "<script>console.error('Error: Unable to execute statement. Error: " . mysqli_error($conn) . "');</script>";
+                if (!file_exists('uploads')) {
+                    mkdir('uploads', 0777, true);
                 }
 
-                // Close statement
-                mysqli_stmt_close($stmt);
+                if ($imageType == 'image/jpeg') {
+                    $imageResource = imagecreatefromjpeg($imagePath);
+                } elseif ($imageType == 'image/png') {
+                    $imageResource = imagecreatefrompng($imagePath);
+                }
+
+                if ($imageResource && imagewebp($imageResource, $webpPath)) {
+                    $service_path = $webpPath;
+                    $service_type = 'image/webp';
+
+                    // Insert query with image path and type
+                    $query = "INSERT INTO services (admin_id, service_name, service_description, service_path, service_type) VALUES (?, ?, ?, ?, ?)";
+
+                    // Prepare statement
+                    $stmt = mysqli_prepare($conn, $query);
+                    if ($stmt) {
+                        // Bind parameters
+                        mysqli_stmt_bind_param($stmt, 'issss', $admin_id, $service_name, $service_description, $service_path, $service_type);
+
+                        // Execute the statement
+                        if (mysqli_stmt_execute($stmt)) {
+                            // Close statement
+                            mysqli_stmt_close($stmt);
+                            // // Show success modal using JavaScript
+                            // echo '<script>
+                            //         // Show success modal
+                            //         showSuccessModal();
+                            //       </script>';
+                            exit;
+                        } else {
+                            // Handle error
+                            echo "Error: Unable to execute statement. Error: " . mysqli_error($conn);
+                            echo "<script>console.error('Error: Unable to execute statement. Error: " . mysqli_error($conn) . "');</script>";
+                        }
+
+                        // Close statement
+                        mysqli_stmt_close($stmt);
+                    } else {
+                        // Handle error
+                        echo "Error: Unable to prepare statement.";
+                    }
+
+                    imagedestroy($imageResource);
+                } else {
+                    echo "Failed to convert image to WebP.";
+                }
             } else {
-                // Handle error
-                echo "Error: Unable to prepare statement.";
+                echo "Invalid file type. Please upload a JPEG or PNG image.";
             }
         } else {
             // Handle error if no file is uploaded

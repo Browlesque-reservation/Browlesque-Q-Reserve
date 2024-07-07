@@ -5,7 +5,7 @@ require_once('stopback.php');
 
 if (isset($_SESSION['admin_email'])) {
     // Query to fetch services from the database
-    $query = "SELECT service_id, service_name, service_description, service_image, service_state FROM services";
+    $query = "SELECT service_id, service_name, service_description, service_path, service_type, service_state FROM services";
     $result = mysqli_query($conn, $query);
 
     ?>
@@ -45,7 +45,8 @@ if (isset($_SESSION['admin_email'])) {
                         $service_id = $row['service_id'];
                         $service_name = $row['service_name'];
                         $service_description = $row['service_description'];
-                        $service_image = $row['service_image'];
+                        $service_path = $row['service_path'];
+                        $service_type = $row['service_type'];
                         $service_state = $row['service_state'];
                         ?>
                         <div class="service-card">
@@ -60,7 +61,7 @@ if (isset($_SESSION['admin_email'])) {
                                 </div>
                             </div>
                             <a href="edit_services.php?service_id=<?php echo $service_id; ?>">
-                                <img src='image.php?service_id=<?php echo $service_id; ?>' alt='Service Image'>
+                                <img src="<?php echo $service_path; ?>" alt="Service Image">
                             </a>
                             <h2 class="bolded"><?php echo $service_name; ?></h2>
                             <p class="mb-4"><?php echo $service_description; ?></p>

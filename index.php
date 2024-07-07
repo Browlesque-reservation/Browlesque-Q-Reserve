@@ -25,7 +25,7 @@ if($conn)
                 $_SESSION['admin_email'] = $admin_email;
                 $_SESSION['is_admin'] = $user['is_admin'];
                 
-                header("location: dashboard.php");
+                header("location: clients.php");
             } else {
                 $_SESSION['error'] = "Email or Password are incorrect.";
                 header("Location: index.php"); // Redirect back to the login page
