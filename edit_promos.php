@@ -9,7 +9,7 @@ if(isset($_SESSION['admin_email'])) {
     // Fetch promo details based on the promo_id in the URL
     if(isset($_GET['promo_id'])) {
         $promo_id = $_GET['promo_id'];
-        $query = "SELECT promo_id, promo_details, promo_path, promo_type, admin_id FROM promo WHERE promo_id = $promo_id";
+        $query = "SELECT promo_id, promo_details, promo_price, promo_path, promo_type, admin_id FROM promo WHERE promo_id = $promo_id";
         $result = mysqli_query($conn, $query);
 
         if ($result && mysqli_num_rows($result) > 0) {
@@ -17,11 +17,11 @@ if(isset($_SESSION['admin_email'])) {
             // Assuming service_path contains the image path in your database
             $promo_image_path = $promo['promo_path'];
         } else {
-            header("Location: display_services.php");
+            header("Location: display_promos.php");
             exit();
         }
     } else {
-        header("Location: display_services.php");
+        header("Location: display_promos.php");
         exit();
     }
 } else {
@@ -59,12 +59,18 @@ if(isset($_SESSION['admin_email'])) {
                         <div class="image-input-container">
                             <input type="file" class="form-control form-control-s img-upload" id="promo_image" name="promo_image" onchange="validateFile()">
                             <label for="promo_image" id="fileInputLabel" class="form-control-s btn btn-primary btn-primary-custom image-btn">Choose Image</label>
-                            <a href="edit_services.php?promo_id=<?php echo htmlspecialchars($promo_id); ?>">
+                            <a href="edit_promos.php?promo_id=<?php echo htmlspecialchars($promo_id); ?>">
                                 <img id="image_preview"
                                     src='image.php?promo_id=<?php echo htmlspecialchars($promo_id); ?>'
-                                    alt='Service Image'>
+                                    alt='Promo Image'>
                             </a>
                         </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="promo_price" class="label-checkbox"><span class="asterisk">*</span>Rromo Price:</label>
+                        <input type="number" class="form-control form-control-s" id="promo_price" name="promo_price" 
+                            placeholder="Promo Price" value="<?php echo htmlspecialchars($promo['promo_price']); ?>" 
+                            required min="0" step="0.01">
                     </div>
                     <div class="form-group">
                         <label for="promo_details" class="label-checkbox"><span class="asterisk">*</span>Promo Details:</label>

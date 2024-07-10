@@ -8,7 +8,7 @@ if (isset($_SESSION['admin_email'])) {
 
     if (isset($_GET['service_id'])) {
         $service_id = $_GET['service_id'];
-        $query = "SELECT service_id, service_name, service_description, service_path, service_type, service_state FROM services WHERE service_id = $service_id";
+        $query = "SELECT service_id, service_name, service_price, service_description, service_path, service_type, service_state FROM services WHERE service_id = $service_id";
         $result = mysqli_query($conn, $query);
 
         if ($result && mysqli_num_rows($result) > 0) {
@@ -79,6 +79,12 @@ if (isset($_SESSION['admin_email'])) {
                         <input type="text" class="form-control form-control-s" id="service_name" name="service_name"
                             placeholder="Service Name"
                             value="<?php echo htmlspecialchars($service['service_name']); ?>" maxlength="50" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="service_price" class="label-checkbox"><span class="asterisk">*</span>Service Price:</label>
+                        <input type="number" class="form-control form-control-s" id="service_price" name="service_price" 
+                            placeholder="Service Price" value="<?php echo htmlspecialchars($service['service_price']); ?>" 
+                            required min="0" step="0.01">
                     </div>
                     <div class="form-group">
                         <label for="service_description" class="label-checkbox"><span

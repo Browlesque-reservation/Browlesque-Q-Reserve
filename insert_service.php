@@ -16,6 +16,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         // Escape user inputs for security
         $service_name = mysqli_real_escape_string($conn, $_POST['service_name']);
+        $service_price = mysqli_real_escape_string($conn, $_POST['service_price']);
         $service_description = mysqli_real_escape_string($conn, $_POST['service_description']);
 
         // Retrieve admin_id from the hidden input field
@@ -47,13 +48,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     $service_type = 'image/webp';
 
                     // Insert query with image path and type
-                    $query = "INSERT INTO services (admin_id, service_name, service_description, service_path, service_type) VALUES (?, ?, ?, ?, ?)";
+                    $query = "INSERT INTO services (admin_id, service_name, service_price, service_description, service_path, service_type) VALUES (?, ?, ?, ?, ?, ?)";
 
                     // Prepare statement
                     $stmt = mysqli_prepare($conn, $query);
                     if ($stmt) {
                         // Bind parameters
-                        mysqli_stmt_bind_param($stmt, 'issss', $admin_id, $service_name, $service_description, $service_path, $service_type);
+                        mysqli_stmt_bind_param($stmt, 'isisss', $admin_id, $service_name, $service_price, $service_description, $service_path, $service_type);
 
                         // Execute the statement
                         if (mysqli_stmt_execute($stmt)) {

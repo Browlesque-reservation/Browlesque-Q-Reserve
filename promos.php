@@ -41,6 +41,10 @@ $current_page = basename($_SERVER['PHP_SELF']);
         </div>
     </div>
     <div class="form-group">
+        <label for="promo_price" class="label-checkbox"><span class="asterisk">*</span>Promo Price:</label>
+        <input type="number" class="form-control form-control-s" id="promo_price" name="promo_price" placeholder="Promo Price" required min="0" step="0.01">
+    </div> 
+    <div class="form-group">
         <label for="promo_details" class="label-checkbox"><span class="asterisk">*</span>Promo Details:</label>
         <textarea type="text" class="form-control form-control-s tall-input" id="promo_details" name="promo_details" placeholder="Details..." minlength="3" maxlength="400" required></textarea>
         <div id="charLimitMessage2" class="char-limit-message mb-3">Note: Maximum input of 400 characters only.</div>
@@ -142,6 +146,12 @@ const textarea = document.getElementById('promo_details');
         charLimitMessage.style.display = 'none';
       }
     });
+
+document.querySelector('input[name="promo_price"]').addEventListener('keydown', function(e) {
+    if (e.key === 'e' || e.key === 'E' || e.key === '-' || e.key === '+') {
+        e.preventDefault();
+    }
+});
 </script>
 </body>
 </html>

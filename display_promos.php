@@ -5,7 +5,7 @@ require_once('stopback.php');
 
 if (isset($_SESSION['admin_email'])) {
     // Query to fetch promos from the database
-    $query = "SELECT promo_id, promo_details, promo_path, promo_type, promo_state FROM promo";
+    $query = "SELECT promo_id, promo_details, promo_price, promo_path, promo_type, promo_state FROM promo";
     $result = mysqli_query($conn, $query);
 
     ?>
@@ -44,6 +44,7 @@ if (isset($_SESSION['admin_email'])) {
                     while ($row = mysqli_fetch_assoc($result)) {
                         $promo_id = $row['promo_id'];
                         $promo_details = $row['promo_details'];
+                        $promo_price = $row['promo_price'];
                         $promo_path = $row['promo_path'];
                         $promo_type = $row['promo_type'];
                         $promo_state = $row['promo_state'];
@@ -62,6 +63,7 @@ if (isset($_SESSION['admin_email'])) {
                             <a href="edit_promos.php?promo_id=<?php echo $promo_id; ?>">
                                 <img src='<?php echo $promo_path; ?>' alt='Promo Image'>
                             </a>
+                            <p class="mb-2"><?php echo '₱',  $promo_price; ?></p>
                             <p class="mb-4 mt-2"><?php echo $promo_details; ?></p>
                             <label for="delete_checkbox_<?php echo $promo_id; ?>">Delete</label>
                             <input type="checkbox" id="delete_checkbox_<?php echo $promo_id; ?>"

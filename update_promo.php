@@ -4,7 +4,7 @@ session_start(); // Start session if not already started
 // Check if the form is submitted
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Check if the user is logged in
-    if(isset($_SESSION['admin_email'])) {
+    if (isset($_SESSION['admin_email'])) {
         // Include your database connection file
         define('INCLUDED', true);
         require_once('connect.php');
@@ -14,11 +14,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $conn = mysqli_connect($servername, $username, $password, $database);
         }
 
+        // Escape user inputs for security
+        $promo_price = mysqli_real_escape_string($conn, $_POST['promo_price']);
         $promo_details = mysqli_real_escape_string($conn, $_POST['promo_details']);
         $promo_id = $_POST['promo_id'];
 
         // Check if a file is uploaded
-        if(isset($_FILES['promo_image']) && $_FILES['promo_image']['error'] === UPLOAD_ERR_OK) {
+        if (isset($_FILES['promo_image']) && $_FILES['promo_image']['error'] === UPLOAD_ERR_OK) {
             // Define upload directory
             $upload_dir = 'uploads/';
 
@@ -26,20 +28,37 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $file_name = uniqid() . '_' . basename($_FILES['promo_image']['name']);
             $file_path = $upload_dir . $file_name;
 
+            // Get the current service image path
+            $current_image_query = "SELECT promo_path FROM promo WHERE promo_id = ?";
+            $stmt = mysqli_prepare($conn, $current_image_query);
+            mysqli_stmt_bind_param($stmt, 'i', $promo_id);
+            mysqli_stmt_execute($stmt);
+            mysqli_stmt_bind_result($stmt, $current_image_path);
+            mysqli_stmt_fetch($stmt);
+            mysqli_stmt_close($stmt);
+
             // Move uploaded file to specified directory
-            if(move_uploaded_file($_FILES['promo_image']['tmp_name'], $file_path)) {
+            if (move_uploaded_file($_FILES['promo_image']['tmp_name'], $file_path)) {
                 // Convert image to WebP format
                 $promo_type = 'image/webp';
                 $webp_file_path = $upload_dir . pathinfo($file_name, PATHINFO_FILENAME) . '.webp';
                 if (convertToWebP($file_path, $webp_file_path)) {
+                    // Delete the original uploaded file
+                    unlink($file_path);
+
+                    // Delete the old image if it exists
+                    if (file_exists($current_image_path)) {
+                        unlink($current_image_path);
+                    }
+
                     // Update query with service path and type
-                    $query = "UPDATE promo SET promo_details = ?, promo_path = ?, promo_type = ? WHERE promo_id = ?";
-                    
+                    $query = "UPDATE promo SET promo_price = ?, promo_details = ?, promo_path = ?, promo_type = ? WHERE promo_id = ?";
+
                     // Prepare statement
                     $stmt = mysqli_prepare($conn, $query);
                     if ($stmt) {
                         // Bind parameters
-                        mysqli_stmt_bind_param($stmt, 'sssi', $promo_details, $webp_file_path, $promo_type, $promo_id);
+                        mysqli_stmt_bind_param($stmt, 'isssi', $promo_price, $promo_details, $webp_file_path, $promo_type, $promo_id);
 
                         // Execute the statement
                         if (mysqli_stmt_execute($stmt)) {
@@ -70,13 +89,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             }
         } else {
             // Update query without service image
-            $query = "UPDATE promo SET promo_details = ?, promo_path = ?, promo_type = ? WHERE promo_id = ?";
-            
+            $query = "UPDATE promo SET promo_price = ?, promo_details = ? WHERE promo_id = ?";
+
             // Prepare statement
             $stmt = mysqli_prepare($conn, $query);
             if ($stmt) {
                 // Bind parameters
-                mysqli_stmt_bind_param($stmt, 'sssi', $promo_details, $promo_path, $promo_type, $promo_id);
+                mysqli_stmt_bind_param($stmt, 'isi', $promo_price, $promo_details, $promo_id);
 
                 // Execute the statement
                 if (mysqli_stmt_execute($stmt)) {

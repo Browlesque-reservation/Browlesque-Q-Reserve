@@ -13,7 +13,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             mysqli_close($conn);
             $conn = mysqli_connect($servername, $username, $password, $database);
         }
-
+        $promo_price = mysqli_real_escape_string($conn, $_POST['promo_price']);
         $promo_details = mysqli_real_escape_string($conn, $_POST['promo_details']);
 
         // Retrieve admin_id from the hidden input field
@@ -45,13 +45,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     $promo_type = 'image/webp';
 
                     // Insert query with image path and type
-                    $query = "INSERT INTO promo (admin_id, promo_details, promo_path, promo_type) VALUES (?, ?, ?, ?)";
+                    $query = "INSERT INTO promo (admin_id, promo_details, promo_price, promo_path, promo_type) VALUES (?, ?, ?, ?, ?)";
 
                     // Prepare statement
                     $stmt = mysqli_prepare($conn, $query);
                     if ($stmt) {
                         // Bind parameters
-                        mysqli_stmt_bind_param($stmt, 'isss', $admin_id, $promo_details, $promo_path, $promo_type);
+                        mysqli_stmt_bind_param($stmt, 'isss', $admin_id, $promo_details, $promo_price, $promo_path, $promo_type);
 
                         // Execute the statement
                         if (mysqli_stmt_execute($stmt)) {
@@ -97,7 +97,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 } else {
     // If the form is not submitted, redirect to the form page
-    header("Location: services.php");
+    header("Location: promos.php");
     exit;
 }
 ?>

@@ -42,6 +42,10 @@ $current_page = basename($_SERVER['PHP_SELF']);
                     <input type="text" class="form-control form-control-s" id="service_name" name="service_name" placeholder="Service Name" required minlength="3" maxlength="50">
                 </div>
                 <div class="form-group">
+                    <label for="service_price" class="label-checkbox"><span class="asterisk">*</span>Service Price:</label>
+                    <input type="number" class="form-control form-control-s" id="service_price" name="service_price" placeholder="Service Price" required min="0" step="0.01">
+                </div>
+                <div class="form-group">
                     <label for="service_description" class="label-checkbox"><span class="asterisk">*</span>Details:</label>
                     <textarea type="text" class="form-control form-control-s tall-input" id="service_description" name="service_description" placeholder="Details..." required  minlength="3" maxlength="400"></textarea>
                     <div id="charLimitMessage" class="char-limit-messag mb-2">Note: Maximum input of 400 characters only.</div>
@@ -146,6 +150,13 @@ serviceDescription.addEventListener("blur", handleBlur);
         charLimitMessage.style.display = 'none';
       }
     });
+
+
+document.querySelector('input[name="service_price"]').addEventListener('keydown', function(e) {
+    if (e.key === 'e' || e.key === 'E' || e.key === '-' || e.key === '+') {
+        e.preventDefault();
+    }
+});
 </script>
 
 </body>

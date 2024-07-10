@@ -5,7 +5,7 @@ require_once('stopback.php');
 
 if (isset($_SESSION['admin_email'])) {
     // Query to fetch services from the database
-    $query = "SELECT service_id, service_name, service_description, service_path, service_type, service_state FROM services";
+    $query = "SELECT service_id, service_name, service_price, service_description, service_path, service_type, service_state FROM services";
     $result = mysqli_query($conn, $query);
 
     ?>
@@ -44,6 +44,7 @@ if (isset($_SESSION['admin_email'])) {
                     while ($row = mysqli_fetch_assoc($result)) {
                         $service_id = $row['service_id'];
                         $service_name = $row['service_name'];
+                        $service_price = $row['service_price'];
                         $service_description = $row['service_description'];
                         $service_path = $row['service_path'];
                         $service_type = $row['service_type'];
@@ -64,6 +65,7 @@ if (isset($_SESSION['admin_email'])) {
                                 <img src="<?php echo $service_path; ?>" alt="Service Image">
                             </a>
                             <h2 class="bolded"><?php echo $service_name; ?></h2>
+                            <p class="mb-2"><?php echo '₱',  $service_price; ?></p>
                             <p class="mb-4"><?php echo $service_description; ?></p>
                             <label for="delete_checkbox_<?php echo $service_id; ?>">Delete</label>
                             <input type="checkbox" id="delete_checkbox_<?php echo $service_id; ?>"
