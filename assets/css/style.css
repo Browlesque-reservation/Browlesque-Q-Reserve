@@ -767,7 +767,7 @@ html, body {
   justify-content: center;
 }
 
-#searchInput, #searchInput2 {
+#searchInput, #searchInput2, #searchInput3 {
   width: calc(100% - 4rem); /* Adjust the width dynamically */
   max-width: 400px; /* Set a maximum width to prevent it from becoming too wide */
   height: 40px;
@@ -788,7 +788,7 @@ html, body {
 }
 
 @media only screen and (max-width: 768px) {
-  #searchInput, #searchInput2 {
+  #searchInput, #searchInput2, #searchInput3 {
     width: calc(100% - 3rem); /* Adjust width for smaller screens */
   }
 
@@ -818,6 +818,18 @@ html, body {
 
 #searchInput2:focus,
 #searchInput2:hover {
+  outline: none;
+  border-color: rgba(0, 48, 73, 0.4);
+  background-color: #fff;
+  box-shadow: 0 0 0 4px rgb(0 48 73 / 10%);
+}
+
+#searchInput3::placeholder{
+  color: #9e9ea7;
+}
+
+#searchInput3:focus,
+#searchInput3:hover {
   outline: none;
   border-color: rgba(0, 48, 73, 0.4);
   background-color: #fff;
@@ -1045,7 +1057,7 @@ html, body {
   backdrop-filter: blur(3px); /* Adjust the blur radius as needed */
 }
 
-#qrScannedDetailsModal {
+#qrScannedDetailsModal, #clientDetailsModal, #acceptSuccessModal{
   display: none;
   position: fixed;
   z-index: 1000;
@@ -1930,6 +1942,14 @@ input[type="password"]::-webkit-credentials-auto-fill-button {
   margin: 5px;
 }
 
+.password-container input {
+  padding-right: 4.3rem; /* Adjust the value as needed */
+}
+
+  ::-ms-reveal {
+      display: none !important;
+  }
+
 /* Example custom CSS for toast */
 .toast {
   position: fixed;
@@ -1959,7 +1979,7 @@ input[type="password"]::-webkit-credentials-auto-fill-button {
   text-align: center;
   padding: 20px;
   position: absolute;
-  top: 35%;
+  top: 80%;
   left: 50%;
   transform: translate(-50%, -50%);
 }
@@ -1971,7 +1991,7 @@ input[type="password"]::-webkit-credentials-auto-fill-button {
   text-align: center;
   padding: 20px;
   position: absolute;
-  top: 80%;
+  top: 85%;
   left: 50%;
   transform: translate(-50%, -50%);
 }
@@ -1984,6 +2004,18 @@ input[type="password"]::-webkit-credentials-auto-fill-button {
   padding: 20px;
   position: absolute;
   top: 60%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.empty-state4{
+  display: none;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 20px;
+  position: absolute;
+  top: 24%;
   left: 50%;
   transform: translate(-50%, -50%);
 }
@@ -2002,6 +2034,13 @@ input[type="password"]::-webkit-credentials-auto-fill-button {
 
 
 .empty-state3 img {
+  max-width: 250px;
+  margin-bottom: 10px;
+  padding-right: 10px;
+}
+
+
+.empty-state4 img {
   max-width: 250px;
   margin-bottom: 10px;
   padding-right: 10px;
@@ -2056,4 +2095,61 @@ input[type="password"]::-webkit-credentials-auto-fill-button {
   margin: auto;
   margin-bottom: 20px;
   border-bottom: 1px solid #ccc;
+}
+
+.view-modal-body{
+  padding-left: 2rem;
+  padding-right: 2rem;
+}
+
+.view-modal-body p{
+  font-size: 16px;
+}
+
+.modal-content-wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.client-details {
+  flex: 1;
+  margin-right: 20px;
+}
+
+.client-image-wrapper {
+  flex-shrink: 0;
+  max-width: 300px;
+}
+
+.client-image {
+  max-width: 100%;
+  height: auto;
+  margin-top: 1.5rem;
+  border-radius: 10px;
+  margin: 0 auto;
+}
+
+/* Media query for smaller screens */
+@media (max-width: 678px) {
+  .modal-content-wrapper {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .client-details {
+    margin-right: 0;
+    margin-bottom: 20px;
+    text-align: center;
+  }
+
+  .client-image-wrapper {
+    max-width: 100%;
+  }
+
+  .client-image {
+    margin: 0;
+    max-height: 250px;
+    width: auto;
+  }
 }

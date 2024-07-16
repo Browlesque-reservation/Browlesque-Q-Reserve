@@ -48,13 +48,13 @@ if($admin_email == false){
             ?>
             <div class="form-group-f">
                 <div class="password-container">
-                    <input class="form-control mb-4" type="password" id="admin_password" name="admin_password" placeholder="Create new password" required>
+                    <input class="form-control mb-4" type="password" id="admin_password" name="admin_password" placeholder="Create new password" maxlength="254" required>
                     <button type="button" class="password-toggle" id="password-toggle-btn" onclick="togglePasswordVisibility()">Show</button>
                 </div>
             </div>
             <div class="form-group-f">
                 <div class="password-container">
-                    <input class="form-control" type="password" id="cpassword" name="cpassword" placeholder="Confirm your password" required>
+                    <input class="form-control" type="password" id="cpassword" name="cpassword" placeholder="Confirm your password" maxlength="254" required>
                     <button type="button" class="password-toggle" id="password-toggle-btn1" onclick="togglePassword2Visibility()">Show</button>
                 </div>
             </div>

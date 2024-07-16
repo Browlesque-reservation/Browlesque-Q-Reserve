@@ -66,12 +66,12 @@ if($conn)
         <form method="post" action="index.php">
             <div class="mb-3">
                 <label for="admin_email" class="form-label">Email address</label>
-                <input type="email" class="form-control form-control-p" id="admin_email" name="admin_email" aria-describedby="emailHelp" placeholder="e.g., browlesque@gmail.com" required>
+                <input type="email" class="form-control form-control-p" id="admin_email" name="admin_email" aria-describedby="emailHelp" placeholder="e.g., browlesque@gmail.com" maxlength="254" required>
             </div>
             <div class="mb-3">
                 <label for="admin_password" class="form-label">Password</label>
                 <div class="password-container">
-                    <input type="password" class="form-control form-control-p" id="admin_password" name="admin_password" placeholder="Enter your password" required>
+                    <input type="password" class="form-control form-control-p" id="admin_password" name="admin_password" placeholder="Enter your password" maxlength="254" required>
                     <button type="button" class="password-toggle" id="password-toggle-btn" onclick="togglePasswordVisibility()">Show</button>
                 </div>
             </div>

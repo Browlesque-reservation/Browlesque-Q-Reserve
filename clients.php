@@ -19,6 +19,12 @@ if(isset($_SESSION['admin_email'])) {
     <link href='https://unpkg.com/boxicons@2.1.1/css/boxicons.min.css' rel='stylesheet'>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700&display=swap" rel="stylesheet">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>var __basePath = './';</script>
+    <script src="https://cdn.jsdelivr.net/npm/ag-grid-community@31.0.1/dist/ag-grid-community.min.js"></script>
+    <script src="./assets/js/clients_pending.js"></script>
+    <script src="./assets/js/clients_confirmed.js"></script>
+    <script src="./assets/js/clients_forverify.js"></script>
+    <script src="./assets/js/modal.js"></script>
 </head>
 <body>
 <div class="d-flex">
@@ -27,35 +33,52 @@ if(isset($_SESSION['admin_email'])) {
     <div class="content-container content">
         <h1 class="page-header">List of Clients</h1>
                 <div class="container-md" id="table">
+                    <h3 id="tableTitle">Appointment Request</h3>
+                    <div id="titleLine"></div>
+                    <div class="sas-table">
+                        <div class="search-container">
+                            <input type="text" id="searchInput3" class="mb-2" placeholder="Search..." onkeyup="onSearchInputChange()">
+                        </div>
+                    </div>
+                    <center><div id="myGrid3" style="width: 89.5%; height: 520px" class="ag-theme-quartz"></div></center>
+                    <div id="emptyState4" class="empty-state4">
+                        <img src="./assets/images/pictures/no-data.svg" alt="No results found for appointment requests.">
+                        <p>No results found</p>
+                    </div>
+                </div>
+
+                <div class="container-md" id="table">
                     <h3 id="tableTitle">Accepted Client Appointments</h3>
                     <div id="titleLine"></div>
                     <div class="sas-table">
                         <div class="search-container">
                             <input type="text" id="searchInput" class="mb-2" placeholder="Search..." onkeyup="onSearchInputChange()">
                         </div>
-                        <button class="archive-btn mb-2 me-3" onclick="showConfirmationModalArchive()">
-                            <img src="./assets/images/icon/archive.svg" class="archive-svg" alt="Archive Icon">
-                        </button>
                         <button class="archive-btn mb-2 me-1" id="openModalBtn">
                             <img src="./assets/images/icon/qrscan.svg" class="qrscan-svg" alt="Scan Icon">
                         </button>
                     </div>
-                    <div id="myGrid1" style="width: 100%; height: 520px" class="ag-theme-quartz"></div>
+                    <center><div id="myGrid1" style="width: 89.5%; height: 520px" class="ag-theme-quartz"></div></center>
                     <div id="emptyState" class="empty-state">
-                        <img src="./assets/images/pictures/no-data.svg" alt="No results found">
+                        <img src="./assets/images/pictures/no-data.svg" alt="No results found for accepted client appointments.">
                         <p>No results found</p>
                     </div>
-                    
                 </div>
+
                 <div class="container-md" id="table">
                     <h3 id="tableTitle">Confirmed Client Appointments</h3>
                     <div id="titleLine"></div>
-                    <div class="search-container">
-                        <input type="text" id="searchInput2" class="mb-2" placeholder="Search..." onkeyup="onSearchInputChange()">
-                     </div>
+                    <div class="sas-table">
+                        <div class="search-container">
+                            <input type="text" id="searchInput2" class="mb-2" placeholder="Search..." onkeyup="onSearchInputChange()">
+                        </div>
+                        <button class="archive-btn mb-2 me-3" onclick="showConfirmationModalArchive()">
+                            <img src="./assets/images/icon/archive.svg" class="archive-svg" alt="Archive Icon">
+                        </button>
+                    </div>
                         <div id="myGrid2" style="width: 100%; height: 520px" class="ag-theme-quartz"></div>
                         <div id="emptyState2" class="empty-state2">
-                            <img src="./assets/images/pictures/no-data.svg" alt="No results found">
+                            <img src="./assets/images/pictures/no-data.svg" alt="No results found for confirmed client appointments.">
                             <p>No results found</p>
                         </div>
                 </div>
@@ -109,6 +132,31 @@ if(isset($_SESSION['admin_email'])) {
                     <button type="button" id="confirmScanButton" class="btn btn-primary btn-primary-custom me-2 fs-5 text-center" onclick="statusUpdate()">Confirm</button>
                     <button type="button" id="cancelButton" class="btn btn-primary-custom cancel-btn me-2 fs-5 text-center" onclick="$('#qrScannedDetailsModal').hide();">Cancel</button>
                 </div>
+    </div>
+</div>
+
+<div id="clientDetailsModal" class="modal">
+    <div class="modal-content custom-modal-content d-flex flex-column align-items-center">
+        <button type="button" class="close_date" id="close_modal_button" onclick="$('#clientDetailsModal').hide();">&times;</button>
+        <!-- <img src="./assets/images/icon/confirm-archive.svg" class="mt-3" alt="Success Icon" width="70" height="70"> -->
+        <h2 class="text-center mt-3 mb-0">Client Appointment Request Details</h2>
+            <div class="view-modal-body" id="viewScannedBody"></div>
+                <div class="d-flex justify-content-end">
+                    <button type="button" id="confirmScanButton" class="btn btn-primary btn-primary-custom me-2 fs-5 text-center" onclick="acceptAppointment()">Accept</button>
+                    <button type="button" id="cancelButton" class="btn btn-primary-custom cancel-btn me-2 fs-5 text-center" onclick="rejectAppointment()">Reject</button>
+                </div>
+    </div>
+</div>
+
+<div id="acceptSuccessModal" class="modal">
+    <div class="modal-content custom-modal-content d-flex flex-column align-items-center">
+        <!-- Replace the inline SVG with an <img> tag referencing your SVG file -->
+        <img src="./assets/images/icon/successful-icon.svg" alt="Success Icon" width="70" height="70">
+        <!-- End of replaced SVG -->
+        <h2 class="text-center custom-subtitle mt-2 mb-2">The appointment has been successfully accepted and an email has been sent to the client.</h2>
+        <div class="d-flex justify mt-4">
+            <button type="button" class="btn btn-primary btn-primary-custom me-2 fs-5 text-center" onclick="hideAcceptModal(); window.location.href = 'clients.php';">Back</button>
+        </div>
     </div>
 </div>
 
@@ -174,11 +222,6 @@ if(isset($_SESSION['admin_email'])) {
 
 
 <script src="./assets/js/sidebar.js"></script>
-<script>var __basePath = './';</script>
-<script src="https://cdn.jsdelivr.net/npm/ag-grid-community@31.0.1/dist/ag-grid-community.min.js"></script>
-<script src="./assets/js/clients_pending.js"></script>
-<script src="./assets/js/clients_confirmed.js"></script>
-<script src="./assets/js/modal.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 <!-- <script src="./assets/js/preloader.js"></script> -->
 <script>

@@ -22,7 +22,6 @@ function toggleEmptyState(showEmptyState) {
 document.addEventListener("DOMContentLoaded", function () {
     var gridOptions = {
         columnDefs: [
-            { field: 'archive', headerName: 'Archive', checkboxSelection: true, headerCheckboxSelection: true, headerCheckboxSelectionFilteredOnly: true, headerClass: 'custom-header', sortable: false,    width: 120 },
             { field: 'appointment_id', hide: true }, // Hidden column for appointment_id
             { field: 'client_name', headerName: 'Customer Name', headerClass: 'custom-header' },
             { field: 'client_contactno', headerName: 'Contact Number', headerClass: 'custom-header' },
@@ -68,8 +67,8 @@ document.addEventListener("DOMContentLoaded", function () {
                 dropdownIcon.classList.add('ag-icon', 'ag-icon-small-down');
                 dropdownIcon.style.position = 'absolute';
                 dropdownIcon.style.right = '0';
-                dropdownIcon.style.left = '160px';
-                dropdownIcon.style.top = '0';
+                dropdownIcon.style.left = '110px';
+                dropdownIcon.style.top = '5px';
                 dropdownIcon.style.bottom = '0';
                 dropdownIcon.style.margin = 'auto';
 
