@@ -1057,7 +1057,7 @@ html, body {
   backdrop-filter: blur(3px); /* Adjust the blur radius as needed */
 }
 
-#qrScannedDetailsModal, #clientDetailsModal, #acceptSuccessModal{
+#qrScannedDetailsModal, #clientDetailsModal, #acceptSuccessModal, #rejectionModal, #rejectSuccessModal{
   display: none;
   position: fixed;
   z-index: 1000;

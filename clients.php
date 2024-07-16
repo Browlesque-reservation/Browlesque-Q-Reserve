@@ -72,7 +72,7 @@ if(isset($_SESSION['admin_email'])) {
                         <div class="search-container">
                             <input type="text" id="searchInput2" class="mb-2" placeholder="Search..." onkeyup="onSearchInputChange()">
                         </div>
-                        <button class="archive-btn mb-2 me-3" onclick="showConfirmationModalArchive()">
+                        <button class="archive-btn mb-2" onclick="showConfirmationModalArchive()">
                             <img src="./assets/images/icon/archive.svg" class="archive-svg" alt="Archive Icon">
                         </button>
                     </div>
@@ -143,7 +143,7 @@ if(isset($_SESSION['admin_email'])) {
             <div class="view-modal-body" id="viewScannedBody"></div>
                 <div class="d-flex justify-content-end">
                     <button type="button" id="confirmScanButton" class="btn btn-primary btn-primary-custom me-2 fs-5 text-center" onclick="acceptAppointment()">Accept</button>
-                    <button type="button" id="cancelButton" class="btn btn-primary-custom cancel-btn me-2 fs-5 text-center" onclick="rejectAppointment()">Reject</button>
+                    <button type="button" id="cancelButton" class="btn btn-primary-custom cancel-btn me-2 fs-5 text-center" onclick="showRejectionModal()">Reject</button>
                 </div>
     </div>
 </div>
@@ -156,6 +156,35 @@ if(isset($_SESSION['admin_email'])) {
         <h2 class="text-center custom-subtitle mt-2 mb-2">The appointment has been successfully accepted and an email has been sent to the client.</h2>
         <div class="d-flex justify mt-4">
             <button type="button" class="btn btn-primary btn-primary-custom me-2 fs-5 text-center" onclick="hideAcceptModal(); window.location.href = 'clients.php';">Back</button>
+        </div>
+    </div>
+</div>
+
+<div id="rejectionModal" class="modal">
+    <div class="modal-content custom-modal-content d-flex flex-column align-items-center">
+        <button type="button" class="close_date" id="close_modal_button" onclick="$('#rejectionModal').hide();">&times;</button>
+        <!-- <img src="./assets/images/icon/confirm-archive.svg" class="mt-3" alt="Success Icon" width="70" height="70"> -->
+        <h2 class="text-center mt-3 mb-0">Enter Rejection Details</h2>
+            <div class="modal-body" id="modalBody">
+                <form id="rejectionForm" onsubmit="confirmRejection(); return false;">
+                    <input type="hidden" id="appointmentId">
+                    <input type="hidden" id="clientEmail">
+                    <input type="hidden" id="clientName">
+                    <textarea id="rejectionDetails" class="form-control form-control-s tall-input" rows="4" placeholder="Enter rejection details" maxlength="400" required></textarea>
+                    <button type="submit" class="btn btn-primary btn-primary-custom me-2 fs-5 text-center">Confirm Rejection</button>
+                </form>
+            </div>
+    </div>
+</div>
+
+<div id="rejectSuccessModal" class="modal">
+    <div class="modal-content custom-modal-content d-flex flex-column align-items-center">
+        <!-- Replace the inline SVG with an <img> tag referencing your SVG file -->
+        <img src="./assets/images/icon/successful-icon.svg" alt="Success Icon" width="70" height="70">
+        <!-- End of replaced SVG -->
+        <h2 class="text-center custom-subtitle mt-2 mb-2">The appointment has been rejected and an email has been sent to the client.</h2>
+        <div class="d-flex justify mt-4">
+            <button type="button" class="btn btn-primary btn-primary-custom me-2 fs-5 text-center" onclick="hideRejectSuccessModal(); window.location.href = 'clients.php';">Back</button>
         </div>
     </div>
 </div>

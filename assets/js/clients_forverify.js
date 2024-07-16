@@ -320,3 +320,80 @@ function hideAcceptModal() {
     var SuccessModal = document.getElementById('acceptSuccessModal');
     SuccessModal.style.display = 'none';
 }
+
+function showRejectionModal() {
+    if (!currentClientData) {
+        alert('Client data is not available.');
+        return;
+    }
+
+    var appointmentId = currentClientData.appointment_id;
+    var clientEmail = currentClientData.client_email;
+    var clientName = currentClientData.client_name;
+
+    $('#appointmentId').val(appointmentId);
+    $('#clientEmail').val(clientEmail);
+    $('#clientName').val(clientName);
+    $('#clientDetailsModal').hide();
+    $('#rejectionModal').show();
+}
+
+function confirmRejection() {
+    var rejectionDetails = document.getElementById('rejectionDetails').value;
+    var appointmentId = $('#appointmentId').val();
+    var clientEmail = $('#clientEmail').val();
+    var clientName = $('#clientName').val();
+
+    console.log('Data being sent to send_rejection_email.php:');
+    console.log('Appointment ID:', appointmentId);
+    console.log('Rejection Details:', rejectionDetails);
+    console.log('Client Email:', clientEmail);
+    console.log('Client Name:', clientName);
+
+    $.ajax({
+        url: 'send_rejection_email.php',
+        type: 'POST',
+        data: {
+            appointmentId: appointmentId,
+            rejectionDetails: rejectionDetails,
+            clientEmail: clientEmail,
+            clientName: clientName
+        },
+        dataType: 'json', // Ensure expecting JSON response
+        success: function(response) {
+            console.log('AJAX request successful:', response);
+            // Handle success response
+            if (response.success) {
+                // Hide rejection modal
+                hideRejectModal();
+                // Show success modal
+                showRejectionSuccessModal();
+            } else {
+                alert('Error: ' + response.message);
+            }
+        },
+        error: function(xhr, status, error) {
+            console.error('AJAX request error:', status, error);
+            // Handle error response
+            alert('Error sending rejection email and updating the database. Please try again.');
+        }
+    });
+}
+
+
+function hideRejectModal() {
+    // Hide the modal
+    var RejectModal = document.getElementById('rejectionModal');
+    RejectModal.style.display = 'none';
+}
+
+function showRejectionSuccessModal() {
+    var RejectModal = document.getElementById('rejectSuccessModal');
+    RejectModal.style.display = 'block';
+}
+
+function hideRejectSuccessModal() {
+    // Hide the modal
+    var RejectModal = document.getElementById('rejectSuccessModal');
+    RejectModal.style.display = 'none';
+}
