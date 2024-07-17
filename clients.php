@@ -148,6 +148,15 @@ if(isset($_SESSION['admin_email'])) {
     </div>
 </div>
 
+<div id="viewClientDetailsModal" class="modal">
+    <div class="modal-content custom-modal-content d-flex flex-column align-items-center">
+        <button type="button" class="close_date" id="close_modal_button" onclick="$('#viewClientDetailsModal').hide();">&times;</button>
+        <!-- <img src="./assets/images/icon/confirm-archive.svg" class="mt-3" alt="Success Icon" width="70" height="70"> -->
+        <h2 class="text-center mt-3 mb-0">Client Appointment Details</h2>
+            <div class="view-modal-body" id="viewScannedBody"></div>
+    </div>
+</div>
+
 <div id="acceptSuccessModal" class="modal">
     <div class="modal-content custom-modal-content d-flex flex-column align-items-center">
         <!-- Replace the inline SVG with an <img> tag referencing your SVG file -->

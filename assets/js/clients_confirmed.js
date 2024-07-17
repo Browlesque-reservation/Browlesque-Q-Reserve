@@ -24,13 +24,10 @@ document.addEventListener("DOMContentLoaded", function () {
         columnDefs: [
             { field: 'archive', headerName: 'Archive', checkboxSelection: true, headerCheckboxSelection: true, headerCheckboxSelectionFilteredOnly: true, headerClass: 'custom-header', sortable: false, width: 120 },
             { field: 'appointment_id', hide: true }, // Hidden column for appointment_id
-            { field: 'client_name', headerName: 'Customer Name', headerClass: 'custom-header' },
+            { field: 'client_name', headerName: 'Customer Name', headerClass: 'custom-header', cellRenderer: 'clientNameRenderer' },
             { field: 'client_contactno', headerName: 'Contact Number', headerClass: 'custom-header' },
-            // { field: 'services', headerName: 'Services', headerClass: 'custom-header', cellRenderer: 'multilineCellRenderer', autoHeight: 'true' },
-            // { field: 'promos', headerName: 'Promos', headerClass: 'custom-header', cellRenderer: 'multilineCellRenderer', autoHeight: 'true' },
             { field: 'client_date', headerName: 'Date of Appointment', headerClass: 'custom-header', sort: 'desc' },
             { field: 'client_time', headerName: 'Time', headerClass: 'custom-header' },
-            // { field: 'client_notes', headerName: 'Notes', headerClass: 'custom-header' },
             { field: 'status', headerName: 'Status', headerClass: 'custom-header', cellRenderer: 'statusCellRenderer', sortable: false }
         ],
         rowSelection: 'multiple',
@@ -41,6 +38,16 @@ document.addEventListener("DOMContentLoaded", function () {
         suppressMovableColumns: true,
         suppressRowClickSelection: true,
         components: {
+            clientNameRenderer: function(params) {
+                var link = document.createElement('a');
+                link.href = '#';
+                link.innerText = params.value;
+                link.addEventListener('click', function(event) {
+                    event.preventDefault();
+                    showViewClientDetailsModal(params.data);
+                });
+                return link;
+            },
             multilineCellRenderer: function(params) {
                 if (params.value) {
                     var cellElement = document.createElement("div");

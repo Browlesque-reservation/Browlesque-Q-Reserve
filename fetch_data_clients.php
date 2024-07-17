@@ -4,7 +4,7 @@ define('INCLUDED', true);
 require_once('connect.php');
 
 // Modified query to include the status filter
-$query = "SELECT a.appointment_id, a.*, d.client_name, d.client_contactno, d.client_notes 
+$query = "SELECT a.appointment_id, a.*, d.client_name, d.client_email, d.client_contactno, d.client_notes 
           FROM client_appointment AS a 
           INNER JOIN client_details AS d ON a.appointment_id = d.appointment_id
           WHERE a.status = 'Pending'";

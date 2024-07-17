@@ -25,11 +25,8 @@ document.addEventListener("DOMContentLoaded", function () {
             { field: 'appointment_id', hide: true }, // Hidden column for appointment_id
             { field: 'client_name', headerName: 'Customer Name', headerClass: 'custom-header', cellRenderer: 'clientNameRenderer' },
             { field: 'client_contactno', headerName: 'Contact Number', headerClass: 'custom-header' },
-            // { field: 'services', headerName: 'Services', headerClass: 'custom-header', cellRenderer: 'multilineCellRenderer', autoHeight: 'true' },
-            // { field: 'promos', headerName: 'Promos', headerClass: 'custom-header', cellRenderer: 'multilineCellRenderer', autoHeight: 'true' },
             { field: 'client_date', headerName: 'Date of Appointment', headerClass: 'custom-header', sort: 'desc' },
             { field: 'client_time', headerName: 'Time', headerClass: 'custom-header' },
-            // { field: 'client_notes', headerName: 'Notes', headerClass: 'custom-header' },
             { field: 'status', headerName: 'Status', headerClass: 'custom-header', cellRenderer: 'statusCellRenderer', sortable: false }
         ],
         rowSelection: 'multiple',
@@ -238,12 +235,14 @@ function showClientDetailsModal(clientData) {
     var modalBody = modal.querySelector('.view-modal-body');
 
     var fullImagePath = `../Browlesque-Q-Reserve-Client-1/${clientData.image_path}`;
-
-    // Create the image HTML element if image_path is available
-    var imageHtml = '';
-    if (clientData.image_path) {
-        imageHtml = `<img src="${fullImagePath}" alt="Client Image" class="client-image"/>`;
+    
+    // Check if clientData.image_path exists and is not empty
+    if (!clientData.image_path) {
+        fullImagePath = './assets/images/pictures/gcashplaceholder.svg'; // Replace with your default image path
     }
+
+    // Create the image HTML element
+    var imageHtml = `<img src="${fullImagePath}" alt="Client Image" class="client-image"/>`;
 
     // Conditionally include services and promos only if they have values
     var servicesHtml = clientData.services ? `<p><strong>Services:</strong> ${clientData.services}</p>` : '';
@@ -257,9 +256,9 @@ function showClientDetailsModal(clientData) {
                 <p class="mt-4"><strong>Name:</strong> ${clientData.client_name}</p>
                 <p><strong>Email:</strong> ${clientData.client_email}</p>
                 <p><strong>Contact Number:</strong> ${clientData.client_contactno}</p>
-                <p><strong>Date of Appointment:</strong> ${clientData.client_date}</p>
                 ${servicesHtml}
                 ${promosHtml}
+                <p><strong>Date of Appointment:</strong> ${clientData.client_date}</p>
                 <p><strong>Time:</strong> ${clientData.client_time}</p>
                 ${notesHtml}
                 <p><strong>Status:</strong> ${clientData.status}</p>

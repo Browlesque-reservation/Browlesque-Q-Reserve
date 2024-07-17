@@ -24,14 +24,11 @@ document.addEventListener("DOMContentLoaded", function () {
         columnDefs: [
             { field: 'restore', headerName: 'Restore', checkboxSelection: true, headerCheckboxSelection: true, headerCheckboxSelectionFilteredOnly: true, headerClass: 'custom-header', sortable: false, width: 120 },
             { field: 'archive_id', hide: true }, // Hidden column for archive_id
-            { field: 'client_name', headerName: 'Customer Name', headerClass: 'custom-header' },
+            { field: 'client_name', headerName: 'Customer Name', headerClass: 'custom-header', cellRenderer: 'clientNameRenderer' },
             { field: 'client_contactno', headerName: 'Contact Number', headerClass: 'custom-header' },
-            // { field: 'services', headerName: 'Services', headerClass: 'custom-header', cellRenderer: 'multilineCellRenderer', autoHeight: 'true' },
-            // { field: 'promos', headerName: 'Promos', headerClass: 'custom-header', cellRenderer: 'multilineCellRenderer', autoHeight: 'true' },
             { field: 'client_date', headerName: 'Date of Appointment', headerClass: 'custom-header', sort: 'desc' },
             { field: 'client_time', headerName: 'Time', headerClass: 'custom-header' },
-            // { field: 'client_notes', headerName: 'Notes', headerClass: 'custom-header' },
-            { field: 'status', headerName: 'Status', headerClass: 'custom-header' }
+            { field: 'status', headerName: 'Status', cellRenderer: 'statusCellRenderer', headerClass: 'custom-header' }
         ],
         rowSelection: 'multiple',
         quickFilterText: '',
@@ -41,6 +38,16 @@ document.addEventListener("DOMContentLoaded", function () {
         suppressMovableColumns: true,
         suppressRowClickSelection: true,
         components: {
+            clientNameRenderer: function(params) {
+                var link = document.createElement('a');
+                link.href = '#';
+                link.innerText = params.value;
+                link.addEventListener('click', function(event) {
+                    event.preventDefault();
+                    showViewClientDetailsModal(params.data);
+                });
+                return link;
+            },
             multilineCellRenderer: function(params) {
                 if (params.value) {
                     var cellElement = document.createElement("div");
@@ -49,31 +56,25 @@ document.addEventListener("DOMContentLoaded", function () {
                     cellElement.style.overflow = "auto";
                     return cellElement;
                 }
+            },
+            statusCellRenderer: function(params) {
+                var span = document.createElement('span');
+                span.innerText = params.value;
+                span.style.position = 'relative';
+                span.style.padding = '5px 10px';
+                span.style.borderRadius = '5px';
+                span.style.color = 'white';
+        
+                // Apply background color based on status
+                var statusColors = {
+                    'Rejected': '#D2B121',
+                    'Confirmed': '#4F9A4F',
+                    'Cancelled': '#C55151'
+                };
+                span.style.backgroundColor = statusColors[params.value] || 'transparent';
+        
+                return span;
             }
-        },
-        onCellValueChanged: function(params) {
-            // When a cell value changes, send the updated data to the server
-            var updatedData = {
-                archive_id: params.data.archive_id,
-                status: params.data.status
-            };
-
-            // Send an AJAX request to update the database
-            $.ajax({
-                url: "update_data_clients.php",
-                method: "POST",
-                data: updatedData,
-                success: function (response) {
-                    console.log("Data updated successfully");
-                    // If the update was successful, update the data in the grid
-                    var rowData = gridOptions.api.getRowNode(params.node.id).data;
-                    rowData.status = params.data.status;
-                    gridOptions.api.applyTransaction({ update: [rowData] });
-                },
-                error: function (error) {
-                    console.error("Error updating data:", error);
-                }
-            });
         }
     };
 
@@ -239,3 +240,49 @@ function showConfirmationModalRestore() {
 
 // Event listener to show the confirmation modal when the confirm button is clicked
 document.getElementById('confirmButtonrestore').addEventListener('click', showConfirmationModalRestore);
+
+var currentClientData = null;
+
+function showViewClientDetailsModal(clientData) {
+    currentClientData = clientData; // Store client data globally
+    var modal = document.getElementById('viewClientDetailsModal');
+    var modalBody = modal.querySelector('.view-modal-body');
+
+    var fullImagePath = `../Browlesque-Q-Reserve-Client-1/${clientData.image_path}`;
+    
+    // Check if clientData.image_path exists and is not empty
+    if (!clientData.image_path) {
+        fullImagePath = './assets/images/pictures/gcashplaceholder.svg'; // Replace with your default image path
+    }
+
+    // Create the image HTML element
+    var imageHtml = `<img src="${fullImagePath}" alt="Client Image" class="client-image"/>`;
+
+    // Conditionally include services and promos only if they have values
+    var servicesHtml = clientData.services ? `<p><strong>Services:</strong> ${clientData.services}</p>` : '';
+    var promosHtml = clientData.promos ? `<p><strong>Promos:</strong> ${clientData.promos}</p>` : '';
+    var notesHtml = clientData.client_notes ? `<p><strong>Notes:</strong> ${clientData.client_notes}</p>` : '';
+
+    // Populate modal with client data
+    modalBody.innerHTML = `
+        <div class="modal-content-wrapper">
+            <div class="client-details">
+                <p class="mt-4"><strong>Name:</strong> ${clientData.client_name}</p>
+                <p><strong>Email:</strong> ${clientData.client_email}</p>
+                <p><strong>Contact Number:</strong> ${clientData.client_contactno}</p>
+                ${servicesHtml}
+                ${promosHtml}
+                <p><strong>Date of Appointment:</strong> ${clientData.client_date}</p>
+                <p><strong>Time:</strong> ${clientData.client_time}</p>
+                ${notesHtml}
+                <p><strong>Status:</strong> ${clientData.status}</p>
+            </div>
+            <div class="client-image-wrapper">
+                <p class="mt-4"><strong>GCASH payment proof:</strong></p>
+                ${imageHtml}
+            </div>
+        </div>
+    `;
+
+    modal.style.display = 'block';
+}
