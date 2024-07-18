@@ -37,6 +37,9 @@ document.addEventListener("DOMContentLoaded", function () {
         paginationPageSize: 10,
         suppressMovableColumns: true,
         suppressRowClickSelection: true,
+        isRowSelectable: function(node) {
+            return !(node.data.status === 'Cancelled' || node.data.status === 'Rejected');
+        },
         components: {
             clientNameRenderer: function(params) {
                 var link = document.createElement('a');
@@ -67,7 +70,7 @@ document.addEventListener("DOMContentLoaded", function () {
         
                 // Apply background color based on status
                 var statusColors = {
-                    'Rejected': '#D2B121',
+                    'Rejected': '#794f9a',
                     'Confirmed': '#4F9A4F',
                     'Cancelled': '#C55151'
                 };
@@ -262,6 +265,7 @@ function showViewClientDetailsModal(clientData) {
     var servicesHtml = clientData.services ? `<p><strong>Services:</strong> ${clientData.services}</p>` : '';
     var promosHtml = clientData.promos ? `<p><strong>Promos:</strong> ${clientData.promos}</p>` : '';
     var notesHtml = clientData.client_notes ? `<p><strong>Notes:</strong> ${clientData.client_notes}</p>` : '';
+    var rejectionHtml = clientData.rejection_detail ? `<p><strong>Rejection Detail:</strong> ${clientData.rejection_detail}</p>` : '';
 
     // Populate modal with client data
     modalBody.innerHTML = `
@@ -275,6 +279,7 @@ function showViewClientDetailsModal(clientData) {
                 <p><strong>Date of Appointment:</strong> ${clientData.client_date}</p>
                 <p><strong>Time:</strong> ${clientData.client_time}</p>
                 ${notesHtml}
+                ${rejectionHtml}
                 <p><strong>Status:</strong> ${clientData.status}</p>
             </div>
             <div class="client-image-wrapper">

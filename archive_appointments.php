@@ -32,9 +32,9 @@ if (isset($_SESSION['admin_email'])) {
 
                 if ($row1 && $row2) {
                     // Insert into archive_appointments table
-                    $insertQuery = "INSERT INTO archive_appointments (client_id, client_name, client_contactno, no_of_companions, client_notes, appointment_id, service_id, promo_id, client_date, start_time, end_time, terms_conditions, status) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+                    $insertQuery = "INSERT INTO archive_appointments (client_id, client_name, client_email, client_contactno, rejection_detail, appointment_id, service_id, promo_id, client_date, start_time, end_time, terms_conditions, image_path, image_type, status) VALUES ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
                     $stmtInsert = mysqli_prepare($conn, $insertQuery);
-                    mysqli_stmt_bind_param($stmtInsert, "issisisssssss", $row1['client_id'], $row1['client_name'], $row1['client_contactno'], $row1['no_of_companions'], $row1['client_notes'], $row2['appointment_id'], $row2['service_id'], $row2['promo_id'], $row2['client_date'], $row2['start_time'], $row2['end_time'], $row2['terms_conditions'], $row2['status']);
+                    mysqli_stmt_bind_param($stmtInsert, "issssisssssssss", $row1['client_id'], $row1['client_name'], $row1['client_email'], $row1['client_contactno'], $row1['rejection_detail'], $row2['appointment_id'], $row2['service_id'], $row2['promo_id'], $row2['client_date'], $row2['start_time'], $row2['end_time'], $row2['terms_conditions'], $row2['image_path'], $row2['image_type'], $row2['status']);
                     $insertResult = mysqli_stmt_execute($stmtInsert);
 
                     if (!$insertResult) {

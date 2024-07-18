@@ -30,7 +30,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $appointmentId = $conn->real_escape_string($appointmentId);
 
             // Query to retrieve appointment details from database
-            $sql = "SELECT cd.*, ca.service_id, ca.promo_id, ca.client_date, ca.start_time, ca.end_time, ca.status
+            $sql = "SELECT cd.*, ca.service_id, ca.promo_id, ca.client_date, ca.start_time, ca.end_time, ca.status, ca.image_path
                     FROM client_details cd
                     JOIN client_appointment ca ON cd.appointment_id = ca.appointment_id
                     WHERE cd.appointment_id = '$appointmentId'";
@@ -59,11 +59,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     }
                 }
 
-                // If service names are empty, add "No service availed"
-                if (empty($serviceNames)) {
-                    $serviceNames[] = "No service availed";
-                }
-
                 // Fetch promo details for each promo ID
                 if (!empty($promoIds)) {
                     $promoIdsStr = implode("','", array_map([$conn, 'real_escape_string'], $promoIds));
@@ -74,18 +69,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     }
                 }
 
-                // If promo details are empty, add "No promo availed"
-                if (empty($promoDetails)) {
-                    $promoDetails[] = "No promo availed";
-                }
-
                 $startTime = new DateTime($row['start_time']);
                 $formattedStartTime = $startTime->format('g:i A');
 
                 $endTime = new DateTime($row['end_time']);
                 $formattedEndTime = $endTime->format('g:i A');
-
-                $clientNotes = !empty($row['client_notes']) ? $row['client_notes'] : 'No notes';
 
                 // Prepare response
                 $response = [
@@ -93,8 +81,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     'message' => 'QR data processed successfully.',
                     'appointment_id' => $row['appointment_id'],
                     'client_name' => $row['client_name'],
+                    'client_email' => $row['client_email'],
                     'client_contactno' => $row['client_contactno'],
-                    'no_of_companions' => $row['no_of_companions'],
                     'client_date' => $row['client_date'],
                     'service_id' => $row['service_id'],
                     'service_names' => implode(', ', $serviceNames),
@@ -102,8 +90,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     'promo_details' => implode(', ', $promoDetails),
                     'start_time' => $formattedStartTime,
                     'end_time' => $formattedEndTime,
-                    'client_notes' => $clientNotes,
-                    'status' => $row['status']
+                    'client_notes' => $row['client_notes'],
+                    'status' => $row['status'],
+                    'image_path' => $row['image_path'],
                 ];
             } else {
                 // If no data found for given appointment ID
