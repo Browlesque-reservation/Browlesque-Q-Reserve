@@ -32,6 +32,7 @@ if(isset($_SESSION['admin_email'])) {
                         </div>
                         <button class="archive-btn mb-2" onclick="showConfirmationModalRestore()">
                             <img src="./assets/images/icon/restore.svg" class="archive-svg" alt="Restore Icon">
+                            <div>Restore</div>
                         </button>
                     </div>
                     <div id="myGrid2" style="width: 100%; height: 520px" class="ag-theme-quartz"></div>

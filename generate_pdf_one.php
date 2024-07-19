@@ -61,8 +61,9 @@ $currentDateTime = date('F j, Y, \a\t h:i A');
 // Construct HTML with dynamic date and time
 $html1 = '<h3 style="margin-bottom: 0;">Service Association Report</h3>';
 $html1 .= '<h5 style="margin-top: 0;"><span style="font-weight:normal;">It identifies the most popular service combinations, that can help the business understand customer preferences and optimize service offerings.</span></h5>';
+$html1 .= '<h5 style="margin-top: 0;"><span style="font-weight:normal;"><strong>Conviction</strong> simply refers to the likelihood that if Service A is availed, Service B will be availed too. The higher it is from 1, the greater its chances. </span></h5>';
 $html1 .= '<h5><span style="font-weight:normal;">Report generated on ' . $currentDateTime . '.</span></h5>';
-$html1 .= '<table border="1" cellpadding="5"><tr><th><strong>Rank</strong></th><th><strong>Top Pick</strong></th><th><strong>Top Pick Combination</strong></th></tr>';
+$html1 .= '<table border="1" cellpadding="5"><tr><th><strong>Rank</strong></th><th><strong>Conviction</strong></th><th><strong>Top Pick</strong></th><th><strong>Top Pick Combination</strong></th></tr>';
 
 // Initialize rank counter
 $rank = 1;
@@ -71,12 +72,13 @@ $rank = 1;
 while ($row = $result->fetch_assoc()) {
     $html1 .= '<tr>';
     $html1 .= '<td>' . $rank . '</td>'; // Display rank
+    $html1 .= '<td>' . htmlspecialchars($row['conviction']) . '</td>';
     $html1 .= '<td>' . htmlspecialchars($row['antecedents']) . '</td>';
     $html1 .= '<td>' . htmlspecialchars($row['consequents']) . '</td>';
-    // $html1 .= '<td>' . htmlspecialchars($row['conviction']) . '</td>';
     $html1 .= '</tr>';
     $rank++;
 }
+
 
 $html1 .= '</table>';
 

@@ -122,6 +122,13 @@ $current_page = basename($_SERVER['PHP_SELF']);
 function handleKeyPress(event) {
     var charCode = event.charCode;
     var inputValue = event.target.value;
+
+    if (inputValue.slice(-1) === ' ' && charCode === 32) {
+        event.preventDefault();
+        return;
+    }
+
+    event.target.value = inputValue.replace(/\s{2,}/g, ' ');
     
     if (inputValue.length === 0 && charCode === 32) {
         event.preventDefault();

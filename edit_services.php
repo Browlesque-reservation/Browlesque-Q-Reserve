@@ -146,6 +146,13 @@ if (isset($_SESSION['admin_email'])) {
             event.preventDefault();
             return;
         }
+
+        event.target.value = inputValue.replace(/\s{2,}/g, ' ');
+        
+        if (inputValue.slice(-1) === ' ' && charCode === 32) {
+            event.preventDefault();
+            return;
+        }
     }
 
     function handleBlur(event) {

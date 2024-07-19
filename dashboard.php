@@ -3,9 +3,49 @@ define('INCLUDED', true);
 require_once('connect.php');
 require_once('stopback.php');
 require_once('./vendors/tcpdf/tcpdf.php');
+
 if (!isset($_SESSION['admin_email'])) {
     header("Location: index.php");
     die();
+}
+$admin_upload_path = '../Browlesque-Q-Reserve/';
+
+$query2 = "
+SELECT ar.antecedents, ar.consequents, s1.service_path AS antecedent_image, s2.service_path AS consequent_image
+FROM association_rules ar
+LEFT JOIN services s1 ON ar.antecedents = s1.service_name
+LEFT JOIN services s2 ON ar.consequents = s2.service_name
+ORDER BY ar.conviction DESC
+LIMIT 1";
+
+$result2 = $conn->query($query2);
+
+if ($result2->num_rows > 0) {
+    // Fetch the row
+    $row2 = $result2->fetch_assoc();
+    $antecedents = $row2['antecedents'];
+    $consequents = $row2['consequents'];
+    
+    $antecedent_image_path = $admin_upload_path . $row2['antecedent_image'];
+    $consequent_image_path = $admin_upload_path . $row2['consequent_image'];
+
+    if (file_exists($antecedent_image_path)) {
+        $antecedent_image = base64_encode(file_get_contents($antecedent_image_path));
+    } else {
+        $antecedent_image = base64_encode(file_get_contents('./Assets/images/pictures/microblading2.jpg')); // Default image
+    }
+
+    if (file_exists($consequent_image_path)) {
+        $consequent_image = base64_encode(file_get_contents($consequent_image_path));
+    } else {
+        $consequent_image = base64_encode(file_get_contents('./Assets/images/pictures/microblading2.jpg')); // Default image
+    }
+
+    $message = "Our <b>" . htmlspecialchars($antecedents) . "</b> and <b>" . htmlspecialchars($consequents) . "</b> Service is likely to be availed together by most of our clients!";
+} else {
+    $antecedent_image = base64_encode(file_get_contents('./Assets/images/pictures/microblading2.jpg')); // Default image
+    $consequent_image = base64_encode(file_get_contents('./Assets/images/pictures/microblading2.jpg')); // Default image
+    $message = "We currently do not have any association rules to display. Please check back later for exciting services!";
 }
 ?>
 <!DOCTYPE html>
@@ -38,11 +78,35 @@ if (!isset($_SESSION['admin_email'])) {
     <div class="content-container content">
         <h1 class="page-header-db">DASHBOARD</h1>
         <div class="container-md container-flex-chart">
-            <h4 class="chart-name">Service Association Chart</h4>
-            <div id="chartdiv" style="width: 100%; height: 420px;"></div>
+            <section class="gallery" id="gallery">
+                <h2 class="section_title">People's Choice</h2>
+                    <div class="section_container">
+                        <div class="gallery_container">
+                        <div class="gallery_items">
+                            <img src="data:image/jpeg;base64,<?php echo $antecedent_image; ?>" alt="Gallery Image" />
+                        </div>
+                        <div class="gallery_items">
+                            <img src="data:image/jpeg;base64,<?php echo $consequent_image; ?>" alt="Gallery Image" />
+                        </div>
+                        <p class="text-center"> 
+                            <?php echo $message; ?>
+                        </p>
+                        </div>
+                    </div>
+            </section>
             <div class="pdf-container"> 
                 <form action="generate_pdf_one.php" method="post">
                     <button class="pdf-btn" type="submit">Download PDF Report</button>
+                </form>
+            </div>
+        </div>
+
+        <div class="container-md container-flex-chart" style="display: none;">
+            <h4 class="chart-name"  style="display: none;" >Service Association Chart</h4>
+            <div id="chartdiv" style="width: 100%; height: 420px; display: none;"></div>
+            <div class="pdf-container" style="display: none;"> 
+                <form action="generate_pdf_one.php" method="post">
+                    <button class="pdf-btn"  style="display: none;" type="submit">Download PDF Report</button>
                 </form>
             </div>
         </div>
